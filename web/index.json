@@ -1,0 +1,20 @@
+{
+ "logos": [
+  "assets/logos/logo-01.jpg",
+  "assets/logos/logo-02.jpg",
+  "assets/logos/logo-03.jpg",
+  "assets/logos/logo-04.jpg",
+  "assets/logos/logo-05.jpg",
+  "assets/logos/logo-06.jpg",
+  "assets/logos/logo-07.jpg",
+  "assets/logos/logo-08.jpg",
+  "assets/logos/logo-09.jpg",
+  "assets/logos/logo-10.jpg",
+  "assets/logos/logo-11.jpg"
+ ],
+ "backgrounds": [
+  "assets/backgrounds/bg-1-lanterns.jpg",
+  "assets/backgrounds/bg-2-neon.jpg",
+  "assets/backgrounds/bg-3-blossom.jpg"
+ ]
+}

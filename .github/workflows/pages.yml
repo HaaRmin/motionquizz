@@ -1,0 +1,44 @@
+name: Publish the quiz page
+
+# Puts the quiz video page (index.html) on GitHub Pages after every push to main.
+# Only the files the page needs are published: no Python scripts, no TTS tools, no docs.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: List the logos and backgrounds for the page
+        run: python3 tools/site_index.py
+
+      - name: Collect the page's files
+        run: |
+          mkdir -p _site/assets
+          cp -r index.html web template.html config.json data audio _site/
+          cp -r assets/logos assets/backgrounds _site/assets/
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

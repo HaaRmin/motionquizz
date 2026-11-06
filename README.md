@@ -5,7 +5,8 @@ Determinisztikus, LLM nélküli generátor a két kvízformátumhoz, HSK 3.0 szi
 - **kepes**: angol szó → írásjegyek gyakorlórácsban → 3 mp visszaszámlálás → pinyin felfedés
 - **szoveges**: „How do you say “…” in Chinese?” → 3 válasz → 5 mp visszaszámlálás → zöld helyes válasz
 
-Kimenet: önálló HTML (lejátszó, csúszka, hang) és opcionálisan MP4 (1080×1920, 30 fps, hanggal).
+Kimenet: TikTokra szánt MP4 (1080×1920, 30 fps, hanggal), a weboldalon a böngészőben készítve
+(lásd lent), vagy helyben a `quiz_gen.py`-jal (HTML, és Playwrighttal MP4).
 
 ## Telepítés (macOS)
 
@@ -98,28 +99,31 @@ cd tts
 A kulcs és a beállítás: `tts/GOOGLE-KEY-GUIDE.md`. A kulcs (`tts/google-tts-key.json`) soha nem
 kerül gitbe. Ingyenes keret: Chirp3-HD hangra havi 1 millió karakter; a teljes HSK 1–2 kb. 41 000.
 
-## Automatikus futtatás: GitHub Actions
+## Weboldal: kvíz készítése, előnézet, letöltés (GitHub Pages)
 
-A `.github/workflows/hsk-quiz.yml` minden nap elkészít egy képes és egy szöveges kvízt, mindkettőt külön
-e-mailben elküldi, 7 napig a futás mellékleteként is megőrzi, és visszacommitolja a `history.json`-t.
-Claude-ot nem használ.
+A videók egy weboldalon készülnek: `index.html` és a `web/` mappa. Minden a böngészőben fut, szerver és
+e-mail nincs.
 
-1. Tedd a mappát egy **külön, privát** GitHub repóba és pushold a `main` ágra.
-2. **Settings → Secrets and variables → Actions → Secrets:**
-   - mindig: `MAIL_TO` (több cím vesszővel) és `MAIL_FROM`
-   - plusz az egyik küldési mód:
-     - **Gmail:** `SMTP_HOST=smtp.gmail.com`, `SMTP_PORT=587`, `SMTP_USER` = a Gmail-cím,
-       `SMTP_PASSWORD` = alkalmazásjelszó (kétlépcsős azonosítás kell hozzá). `MAIL_FROM` = ugyanaz a cím.
-     - **Céges Microsoft 365:** `SMTP_HOST=smtp.office365.com`, `SMTP_PORT=587`, felhasználó és jelszó.
-       Csak akkor megy, ha az IT engedélyezi a postafióknak az SMTP AUTH-ot, és a fiókon nincs MFA-kényszer
-       e protokollra; érdemes egy külön szolgáltatási postafiók.
-     - **Resend (levélküldő API):** `RESEND_API_KEY`; a `MAIL_FROM` domainjét a Resendben hitelesíteni kell.
-3. Opcionális **Variables:** `QUIZ_LEVEL` = `1`, `2` vagy `1,2` (alapértelmezés: `1`).
-4. **Settings → Actions → General → Workflow permissions:** „Read and write permissions”.
-5. **Actions → HSK quiz video → Run workflow** egy próbafuttatáshoz (típus, szint, küldés választható).
+1. Válaszd ki a típust (képes / szöveges), a HSK-szintet és a **kvíz sorszámát**, majd **Make quiz**.
+   Ugyanaz a sorszám mindig ugyanazt a kvízt adja; a szavakat a `quiz_gen.py`-jal azonos módon választja
+   (a korábbi sorszámok szavait kihagyja, és ha a lista elfogyott, új kört kezd). A háttér és a logó a
+   sorszámból adódik, vagy kézzel választható.
+2. Az előnézetben Play gombbal meghallgatható, a **TikTok guides** gomb a TikTok gombjait és feliratát mutatja.
+3. **Export MP4**: a böngésző elkészíti a videót (1080×1920, 30 fps, hanggal; egy szöveges kvíz kb. fél perc),
+   és letölti (`kepes_hsk1_001.mp4` stb.). Utána a sorszám ebben a böngészőben eggyel továbblép.
+4. A „TikTok caption” mezőben kész leírás van a kvíz szavaival; **Copy caption** a vágólapra teszi.
 
-Az időpont UTC-ben van (`cron` sor a workflow elején). Egy futás (két videó) kb. 10–12 perc.
-Ha ugyanaz a szó ismétlődne, ellenőrizd, hogy a „Save history” lépés pusholt-e: a `main` ágra írás
-kell hozzá (`permissions: contents: write`), védett ágnál engedélyezd a GitHub Actions botnak.
+Az MP4 készítéséhez **Chrome vagy Edge kell számítógépen** (WebCodecs H.264 + AAC). Más böngészőben az
+előnézet működik, a letöltés nem. A betűk a gép saját kínai betűi (macOS: Kaiti / PingFang), ezért más
+gépen kissé másképp nézhetnek ki.
 
-Próba levélküldés nélkül, helyben: `python send_mail.py --dry-run` (az `out/latest.eml`-be írja).
+**Közzététel:** a `.github/workflows/pages.yml` minden `main`-re pusholáskor kiteszi az oldalt a GitHub
+Pagesre (csak az oldalhoz kellő fájlokat: `index.html`, `web/`, `template.html`, `config.json`, `data/`,
+`audio/`, `assets/logos/`, `assets/backgrounds/`). Egyszeri beállítás: **Settings → Pages → Source:
+GitHub Actions**. Az oldal címe: `https://haarmin.github.io/motionquizz/`. A Pages oldal mindig nyilvános.
+
+Új logó vagy háttér: tedd a mappába és pushold; a workflow frissíti a `web/index.json` listát.
+Helyben: `python3 tools/site_index.py`, majd `python3 -m http.server` a mappában, és
+`http://localhost:8000/`.
+
+A `quiz_gen.py` parancssori eszköz (HTML és Playwrighttal MP4) továbbra is használható helyben.

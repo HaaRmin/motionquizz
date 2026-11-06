@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HSK quiz video</title>
+<style>
+:root { --bg:#140103; --panel:#22060a; --line:#3d1117; --text:#f6e7e9; --muted:#c9a9ad; --accent:#D95050; --ok:#32B15D; --error:#ff8a8a }
+* { box-sizing:border-box }
+[hidden] { display:none !important }
+html, body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif }
+header { padding:20px 24px 4px; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap }
+h1 { margin:0; font-size:24px }
+header p { margin:0; color:var(--muted) }
+main { display:grid; grid-template-columns:minmax(300px, 440px) auto; gap:24px; padding:16px 24px 32px; align-items:start }
+@media (max-width: 860px) { main { grid-template-columns:1fr; padding:12px 16px 24px } }
+section { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px }
+section + section { margin-top:16px }
+h2 { margin:0 0 12px; font-size:16px; color:var(--muted); font-weight:600 }
+label { display:block; margin:0 0 12px; font-size:14px; color:var(--muted) }
+select, input[type=number], textarea { display:block; width:100%; margin-top:4px; padding:9px 10px; border-radius:9px; border:1px solid var(--line); background:#140205; color:var(--text); font:inherit }
+.row { display:grid; grid-template-columns:1fr 1fr; gap:12px }
+button, a.button { display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:10px 16px; border-radius:10px; border:0; background:var(--accent); color:#fff; font:600 15px system-ui, sans-serif; cursor:pointer; text-decoration:none }
+button.secondary { background:#3b0a0d }
+a.button { background:var(--ok); margin-top:12px; width:100% }
+button:disabled { opacity:.45; cursor:not-allowed }
+button:focus-visible, a.button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible { outline:2px solid var(--ok); outline-offset:2px }
+.actions { display:flex; gap:10px; flex-wrap:wrap }
+progress { width:100%; height:8px; margin-top:12px; accent-color:var(--ok) }
+#status { min-height:1.5em; margin:10px 0 0; font-size:14px; color:var(--muted) }
+#status[data-kind=ok] { color:#9fe0b4 } #status[data-kind=error] { color:var(--error) }
+#browser { margin:0 0 12px; padding:10px 12px; border-radius:10px; background:#3a2a05; color:#ffe2a3; font-size:14px }
+ol#words { margin:0; padding-left:22px }
+ol#words li { margin-bottom:6px }
+.han { font-size:20px; font-weight:700 } .pin { color:#ffd59a } .en { color:var(--muted) }
+ol#words small { display:block; color:var(--muted); font-size:12px }
+#picked { font-size:13px; color:var(--muted); margin:8px 0 0 }
+textarea { min-height:96px; resize:vertical; font-size:14px }
+.preview { position:sticky; top:16px; display:flex; flex-direction:column; align-items:center; gap:8px }
+iframe { width:405px; height:784px; max-width:100%; border:1px solid var(--line); border-radius:14px; background:#000 }
+@media (max-width: 860px) { .preview { position:static } iframe { width:100%; height:auto; aspect-ratio:405/784 } }
+.hint { font-size:13px; color:var(--muted); text-align:center; max-width:405px; margin:0 }
+</style>
+</head>
+<body>
+<header>
+  <h1>HSK quiz video</h1>
+  <p>Make a quiz, preview it, download the MP4 for TikTok.</p>
+</header>
+<main>
+  <div>
+    <section aria-labelledby="h-quiz">
+      <h2 id="h-quiz">Quiz</h2>
+      <p id="browser" hidden>This browser cannot make the video file. The preview works; for the MP4 use Chrome or Edge on a computer.</p>
+      <div class="row">
+        <label>Type
+          <select id="kind"><option value="kepes">Picture quiz (képes)</option><option value="szoveges">Text quiz (szöveges)</option></select>
+        </label>
+        <label>HSK level
+          <select id="level"><option value="1">HSK 1</option><option value="2">HSK 2</option><option value="1,2">HSK 1 + 2</option></select>
+        </label>
+      </div>
+      <label>Quiz number
+        <input id="number" type="number" min="1" step="1" value="1" inputmode="numeric">
+      </label>
+      <div class="row">
+        <label>Background
+          <select id="bg"><option value="auto">Chosen by the number</option><option value="lanterns">Drawn lanterns</option></select>
+        </label>
+        <label>Logo
+          <select id="logo"><option value="auto">Chosen by the number</option></select>
+        </label>
+      </div>
+      <div class="actions">
+        <button id="make" type="button" disabled>Make quiz</button>
+        <button id="export" type="button" class="secondary" disabled>Export MP4</button>
+      </div>
+      <progress id="bar" max="1" value="0"></progress>
+      <p id="status" role="status" aria-live="polite"></p>
+      <a id="download" class="button" hidden>Download</a>
+    </section>
+    <section aria-labelledby="h-words">
+      <h2 id="h-words">Words in this quiz</h2>
+      <ol id="words"></ol>
+      <p id="picked"></p>
+    </section>
+    <section aria-labelledby="h-caption">
+      <h2 id="h-caption">TikTok caption</h2>
+      <textarea id="caption" aria-label="TikTok caption"></textarea>
+      <div class="actions" style="margin-top:10px"><button id="copy" type="button" class="secondary">Copy caption</button></div>
+    </section>
+  </div>
+  <div class="preview">
+    <iframe id="frame" title="Quiz preview"></iframe>
+    <p class="hint">The same quiz number always gives the same quiz. After an export the number moves on by one in this browser. The preview's “TikTok guides” button shows where TikTok draws its buttons and caption.</p>
+  </div>
+</main>
+<script type="module" src="web/app.js"></script>
+</body>
+</html>

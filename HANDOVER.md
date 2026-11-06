@@ -1,5 +1,10 @@
 # Átadás: HSK kvíz-videó generátor
 
+> **Frissítés (2026-11-06):** az e-mailes, napi GitHub Actions-futás helyett a videók egy GitHub Pages
+> weboldalon készülnek: kvíz kiválasztása, előnézet, MP4-letöltés a böngészőben. A `send_mail.py` és a napi
+> workflow törölve; a mostani működés a `README.md`-ben. Az alábbi szöveg az eredeti átadás, változatlanul.
+
+
 Ez a dokumentum a `hsk-quiz.zip` mellé készült, egy kódoló ügynöknek. A feladat: a projektet GitHubra tenni,
 élesíteni a napi GitHub Actions futást, és a még nem tesztelt részeket ellenőrizni.
 
