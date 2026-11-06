@@ -1,0 +1,2 @@
+fonttools>=4.40      # only for --han-font / --ui-font embedding
+playwright>=1.40     # only for --mp4 (then: playwright install chromium)

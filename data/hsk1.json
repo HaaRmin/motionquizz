@@ -1,0 +1,4722 @@
+[
+{
+"han": "爱",
+"pinyin": "ài",
+"en": "to love",
+"pos": [
+"v",
+"vn",
+"b"
+],
+"multi": false
+},
+{
+"han": "爱好",
+"pinyin": "àihào",
+"en": "to like",
+"pos": [
+"n",
+"v"
+],
+"multi": false
+},
+{
+"han": "八",
+"pinyin": "bā",
+"en": "eight",
+"pos": [
+"m",
+"t"
+],
+"multi": false
+},
+{
+"han": "爸",
+"pinyin": "bà",
+"en": "father",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "爸爸",
+"pinyin": "bàba",
+"en": "father",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "吧",
+"pinyin": "bā",
+"en": "bar",
+"pos": [
+"y"
+],
+"multi": true
+},
+{
+"han": "白",
+"pinyin": "bái",
+"en": "white",
+"pos": [
+"a",
+"nr",
+"d",
+"b",
+"v",
+"g"
+],
+"multi": true
+},
+{
+"han": "白天",
+"pinyin": "báitiān",
+"en": "daytime",
+"pos": [
+"t"
+],
+"multi": false
+},
+{
+"han": "百",
+"pinyin": "bǎi",
+"en": "hundred",
+"pos": [
+"m",
+"t"
+],
+"multi": true
+},
+{
+"han": "班",
+"pinyin": "bān",
+"en": "team",
+"pos": [
+"n",
+"q",
+"nr"
+],
+"multi": true
+},
+{
+"han": "半",
+"pinyin": "bàn",
+"en": "half",
+"pos": [
+"m"
+],
+"multi": false
+},
+{
+"han": "半年",
+"pinyin": "bànnián",
+"en": "half a year",
+"pos": [
+"nr"
+],
+"multi": false
+},
+{
+"han": "半天",
+"pinyin": "bàntiān",
+"en": "half of the day",
+"pos": [
+"mq",
+"t"
+],
+"multi": false
+},
+{
+"han": "帮",
+"pinyin": "bāng",
+"en": "to help",
+"pos": [
+"v",
+"q"
+],
+"multi": true
+},
+{
+"han": "帮忙",
+"pinyin": "bāngmáng",
+"en": "to help",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "包",
+"pinyin": "bāo",
+"en": "to cover",
+"pos": [
+"v",
+"n",
+"q"
+],
+"multi": true
+},
+{
+"han": "包子",
+"pinyin": "bāozi",
+"en": "bao",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "杯",
+"pinyin": "bēi",
+"en": "cup",
+"pos": [
+"q",
+"g"
+],
+"multi": true
+},
+{
+"han": "杯子",
+"pinyin": "bēizi",
+"en": "cup",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "北",
+"pinyin": "běi",
+"en": "north",
+"pos": [
+"f"
+],
+"multi": false
+},
+{
+"han": "北边",
+"pinyin": "běibiān",
+"en": "north",
+"pos": [
+"f"
+],
+"multi": false
+},
+{
+"han": "本",
+"pinyin": "běn",
+"en": "root",
+"pos": [
+"r",
+"q",
+"d",
+"n"
+],
+"multi": false
+},
+{
+"han": "本子",
+"pinyin": "běnzi",
+"en": "book",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "比",
+"pinyin": "bǐ",
+"en": "to compare",
+"pos": [
+"p",
+"v",
+"n",
+"b"
+],
+"multi": true
+},
+{
+"han": "别",
+"pinyin": "bié",
+"en": "to leave",
+"pos": [
+"d",
+"v",
+"r",
+"vn"
+],
+"multi": true
+},
+{
+"han": "别的",
+"pinyin": "biéde",
+"en": "else",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "别人",
+"pinyin": "biéren",
+"en": "other people",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "病",
+"pinyin": "bìng",
+"en": "illness",
+"pos": [
+"n",
+"v"
+],
+"multi": false
+},
+{
+"han": "病人",
+"pinyin": "bìngrén",
+"en": "sick person",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "不",
+"pinyin": "bù",
+"en": "no",
+"pos": [
+"d"
+],
+"multi": false
+},
+{
+"han": "不大",
+"pinyin": "bùdà",
+"en": "not very",
+"pos": [
+"d"
+],
+"multi": false
+},
+{
+"han": "不对",
+"pinyin": "bùduì",
+"en": "incorrect",
+"pos": [
+"a"
+],
+"multi": false
+},
+{
+"han": "不客气",
+"pinyin": "bùkèqi",
+"en": "you're welcome",
+"pos": [],
+"multi": false
+},
+{
+"han": "不用",
+"pinyin": "bùyòng",
+"en": "need not",
+"pos": [
+"d"
+],
+"multi": false
+},
+{
+"han": "菜",
+"pinyin": "cài",
+"en": "dish",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "茶",
+"pinyin": "chá",
+"en": "tea",
+"pos": [
+"n",
+"g"
+],
+"multi": false
+},
+{
+"han": "差",
+"pinyin": "chā",
+"en": "difference",
+"pos": [
+"a",
+"v",
+"g"
+],
+"multi": true
+},
+{
+"han": "常",
+"pinyin": "cháng",
+"en": "always",
+"pos": [
+"d",
+"nr"
+],
+"multi": true
+},
+{
+"han": "常常",
+"pinyin": "chángcháng",
+"en": "frequently",
+"pos": [
+"d"
+],
+"multi": false
+},
+{
+"han": "唱",
+"pinyin": "chàng",
+"en": "to sing",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "唱歌",
+"pinyin": "chànggē",
+"en": "to sing a song",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "车",
+"pinyin": "chē",
+"en": "car",
+"pos": [
+"n",
+"q"
+],
+"multi": true
+},
+{
+"han": "车票",
+"pinyin": "chēpiào",
+"en": "ticket",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "车上",
+"pinyin": "chēshàng",
+"en": "Car",
+"pos": [
+"s"
+],
+"multi": false
+},
+{
+"han": "车站",
+"pinyin": "chēzhàn",
+"en": "rail station",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "吃",
+"pinyin": "chī",
+"en": "to eat",
+"pos": [
+"v"
+],
+"multi": true
+},
+{
+"han": "吃饭",
+"pinyin": "chīfàn",
+"en": "to have a meal",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "出",
+"pinyin": "chū",
+"en": "to go out",
+"pos": [
+"v",
+"q"
+],
+"multi": true
+},
+{
+"han": "出来",
+"pinyin": "chūlái",
+"en": "to come out",
+"pos": [
+"v"
+],
+"multi": true
+},
+{
+"han": "出去",
+"pinyin": "chūqù",
+"en": "to go out",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "穿",
+"pinyin": "chuān",
+"en": "to wear",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "床",
+"pinyin": "chuáng",
+"en": "bed",
+"pos": [
+"n",
+"q"
+],
+"multi": true
+},
+{
+"han": "次",
+"pinyin": "cì",
+"en": "next in sequence",
+"pos": [
+"qv",
+"a",
+"g"
+],
+"multi": false
+},
+{
+"han": "从",
+"pinyin": "cóng",
+"en": "from",
+"pos": [
+"p",
+"g"
+],
+"multi": true
+},
+{
+"han": "错",
+"pinyin": "cuò",
+"en": "mistake",
+"pos": [
+"v",
+"n"
+],
+"multi": true
+},
+{
+"han": "打",
+"pinyin": "dá",
+"en": "dozen",
+"pos": [
+"v"
+],
+"multi": true
+},
+{
+"han": "打车",
+"pinyin": "dǎchē",
+"en": "to take a taxi",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "打电话",
+"pinyin": "dǎdiànhuà",
+"en": "to make a telephone call",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "打开",
+"pinyin": "dǎkāi",
+"en": "to open",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "打球",
+"pinyin": "dǎqiú",
+"en": "to play ball",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "大",
+"pinyin": "dà",
+"en": "big",
+"pos": [
+"a",
+"d",
+"n",
+"g"
+],
+"multi": true
+},
+{
+"han": "大学",
+"pinyin": "dàxué",
+"en": "university",
+"pos": [
+"n"
+],
+"multi": true
+},
+{
+"han": "大学生",
+"pinyin": "dàxuéshēng",
+"en": "university student",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "到",
+"pinyin": "dào",
+"en": "to reach",
+"pos": [
+"v",
+"p"
+],
+"multi": false
+},
+{
+"han": "地",
+"pinyin": "de",
+"en": "-ly",
+"pos": [
+"u",
+"n"
+],
+"multi": true
+},
+{
+"han": "地点",
+"pinyin": "dìdiǎn",
+"en": "place",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "地方",
+"pinyin": "dìfāng",
+"en": "region",
+"pos": [
+"n"
+],
+"multi": true
+},
+{
+"han": "地上",
+"pinyin": "dìshang",
+"en": "on the ground",
+"pos": [
+"s"
+],
+"multi": false
+},
+{
+"han": "地图",
+"pinyin": "dìtú",
+"en": "map",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "的",
+"pinyin": "de",
+"en": "of",
+"pos": [
+"u",
+"n"
+],
+"multi": true
+},
+{
+"han": "得到",
+"pinyin": "dédào",
+"en": "to get",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "等",
+"pinyin": "děng",
+"en": "class",
+"pos": [
+"v",
+"u"
+],
+"multi": false
+},
+{
+"han": "弟",
+"pinyin": "dì",
+"en": "younger brother",
+"pos": [
+"n"
+],
+"multi": true
+},
+{
+"han": "弟弟",
+"pinyin": "dìdi",
+"en": "younger brother",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "第",
+"pinyin": "dì",
+"en": "residence of a high official",
+"pos": [
+"m"
+],
+"multi": false
+},
+{
+"han": "第二",
+"pinyin": "dì'èr",
+"en": "second",
+"pos": [
+"m"
+],
+"multi": false
+},
+{
+"han": "点",
+"pinyin": "diǎn",
+"en": "point",
+"pos": [
+"qt",
+"n",
+"t",
+"v"
+],
+"multi": false
+},
+{
+"han": "电",
+"pinyin": "diàn",
+"en": "lightning",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "电话",
+"pinyin": "diànhuà",
+"en": "telephone",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "电脑",
+"pinyin": "diànnǎo",
+"en": "computer",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "电视",
+"pinyin": "diànshì",
+"en": "television",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "电视机",
+"pinyin": "diànshìjī",
+"en": "television set",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "电影",
+"pinyin": "diànyǐng",
+"en": "movie",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "电影院",
+"pinyin": "diànyǐngyuàn",
+"en": "cinema",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "东",
+"pinyin": "dōng",
+"en": "east",
+"pos": [
+"f",
+"b"
+],
+"multi": true
+},
+{
+"han": "东边",
+"pinyin": "dōngbian",
+"en": "east",
+"pos": [
+"f"
+],
+"multi": false
+},
+{
+"han": "东西",
+"pinyin": "dōngxī",
+"en": "east and west",
+"pos": [
+"n",
+"f",
+"nr"
+],
+"multi": true
+},
+{
+"han": "动",
+"pinyin": "dòng",
+"en": "to move",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "动作",
+"pinyin": "dòngzuò",
+"en": "movement",
+"pos": [
+"n",
+"v"
+],
+"multi": false
+},
+{
+"han": "都",
+"pinyin": "dōu",
+"en": "all",
+"pos": [
+"d",
+"g"
+],
+"multi": true
+},
+{
+"han": "读",
+"pinyin": "dòu",
+"en": "comma",
+"pos": [
+"v"
+],
+"multi": true
+},
+{
+"han": "读书",
+"pinyin": "dúshū",
+"en": "to read a book",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "对",
+"pinyin": "duì",
+"en": "right",
+"pos": [
+"p",
+"v",
+"q",
+"a"
+],
+"multi": false
+},
+{
+"han": "对不起",
+"pinyin": "duìbuqǐ",
+"en": "I'm sorry",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "多",
+"pinyin": "duō",
+"en": "many",
+"pos": [
+"a",
+"m",
+"ad",
+"d",
+"v",
+"g"
+],
+"multi": false
+},
+{
+"han": "多少",
+"pinyin": "duōshǎo",
+"en": "number",
+"pos": [
+"r"
+],
+"multi": true
+},
+{
+"han": "饿",
+"pinyin": "è",
+"en": "to be hungry",
+"pos": [
+"v",
+"a"
+],
+"multi": false
+},
+{
+"han": "儿子",
+"pinyin": "érzi",
+"en": "son",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "二",
+"pinyin": "èr",
+"en": "two",
+"pos": [
+"m",
+"t"
+],
+"multi": false
+},
+{
+"han": "饭",
+"pinyin": "fàn",
+"en": "cooked rice",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "饭店",
+"pinyin": "fàndiàn",
+"en": "restaurant",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "房间",
+"pinyin": "fángjiān",
+"en": "room",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "房子",
+"pinyin": "fángzi",
+"en": "house",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "放",
+"pinyin": "fàng",
+"en": "to put",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "飞",
+"pinyin": "fēi",
+"en": "to fly",
+"pos": [
+"v",
+"g",
+"vn"
+],
+"multi": false
+},
+{
+"han": "飞机",
+"pinyin": "fēijī",
+"en": "airplane",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "非常",
+"pinyin": "fēicháng",
+"en": "very",
+"pos": [
+"d",
+"b"
+],
+"multi": false
+},
+{
+"han": "分",
+"pinyin": "fēn",
+"en": "to divide",
+"pos": [
+"t",
+"qt",
+"v",
+"g",
+"n",
+"d"
+],
+"multi": true
+},
+{
+"han": "风",
+"pinyin": "fēng",
+"en": "wind",
+"pos": [
+"n",
+"g"
+],
+"multi": false
+},
+{
+"han": "干",
+"pinyin": "gān",
+"en": "dry",
+"pos": [
+"v",
+"a"
+],
+"multi": true
+},
+{
+"han": "干净",
+"pinyin": "gānjìng",
+"en": "clean",
+"pos": [
+"a",
+"ad"
+],
+"multi": false
+},
+{
+"han": "高",
+"pinyin": "gāo",
+"en": "high",
+"pos": [
+"a",
+"ad",
+"v",
+"g"
+],
+"multi": true
+},
+{
+"han": "高兴",
+"pinyin": "gāoxìng",
+"en": "happy",
+"pos": [
+"a",
+"an"
+],
+"multi": false
+},
+{
+"han": "告诉",
+"pinyin": "gàosù",
+"en": "to press charges",
+"pos": [
+"v"
+],
+"multi": true
+},
+{
+"han": "哥",
+"pinyin": "gē",
+"en": "elder brother",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "哥哥",
+"pinyin": "gēge",
+"en": "older brother",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "歌",
+"pinyin": "gē",
+"en": "song",
+"pos": [
+"n",
+"g"
+],
+"multi": true
+},
+{
+"han": "个",
+"pinyin": "gè",
+"en": "individual",
+"pos": [
+"q",
+"g"
+],
+"multi": true
+},
+{
+"han": "给",
+"pinyin": "gěi",
+"en": "to",
+"pos": [
+"p",
+"v",
+"u"
+],
+"multi": true
+},
+{
+"han": "跟",
+"pinyin": "gēn",
+"en": "heel",
+"pos": [
+"p",
+"v"
+],
+"multi": false
+},
+{
+"han": "工人",
+"pinyin": "gōngrén",
+"en": "worker",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "工作",
+"pinyin": "gōngzuò",
+"en": "to work",
+"pos": [
+"vn",
+"v",
+"n"
+],
+"multi": false
+},
+{
+"han": "关",
+"pinyin": "guān",
+"en": "mountain pass",
+"pos": [
+"v",
+"n",
+"nr"
+],
+"multi": true
+},
+{
+"han": "关上",
+"pinyin": "guānshàng",
+"en": "to close",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "贵",
+"pinyin": "guì",
+"en": "expensive",
+"pos": [
+"a",
+"r",
+"b",
+"g"
+],
+"multi": false
+},
+{
+"han": "国",
+"pinyin": "guó",
+"en": "country",
+"pos": [
+"n"
+],
+"multi": true
+},
+{
+"han": "国家",
+"pinyin": "guójiā",
+"en": "country",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "国外",
+"pinyin": "guówài",
+"en": "abroad",
+"pos": [
+"s"
+],
+"multi": false
+},
+{
+"han": "过",
+"pinyin": "guò",
+"en": "to cross",
+"pos": [
+"u",
+"v",
+"d",
+"g"
+],
+"multi": true
+},
+{
+"han": "还",
+"pinyin": "hái",
+"en": "still",
+"pos": [
+"d",
+"v"
+],
+"multi": true
+},
+{
+"han": "还是",
+"pinyin": "háishi",
+"en": "still",
+"pos": [
+"c",
+"d",
+"v"
+],
+"multi": false
+},
+{
+"han": "还有",
+"pinyin": "háiyǒu",
+"en": "furthermore",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "孩子",
+"pinyin": "háizi",
+"en": "child",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "汉字",
+"pinyin": "hànzì",
+"en": "Chinese character",
+"pos": [
+"nz",
+"n"
+],
+"multi": false
+},
+{
+"han": "好",
+"pinyin": "hǎo",
+"en": "good",
+"pos": [
+"a",
+"d",
+"v"
+],
+"multi": true
+},
+{
+"han": "好吃",
+"pinyin": "hǎochī",
+"en": "tasty",
+"pos": [
+"a"
+],
+"multi": true
+},
+{
+"han": "好看",
+"pinyin": "hǎokàn",
+"en": "good-looking",
+"pos": [
+"a"
+],
+"multi": false
+},
+{
+"han": "好听",
+"pinyin": "hǎotīng",
+"en": "pleasant to hear",
+"pos": [
+"a"
+],
+"multi": false
+},
+{
+"han": "好玩儿",
+"pinyin": "hǎowánr",
+"en": "amusing",
+"pos": [
+"a"
+],
+"multi": false
+},
+{
+"han": "号",
+"pinyin": "háo",
+"en": "roar",
+"pos": [
+"q",
+"n",
+"v"
+],
+"multi": true
+},
+{
+"han": "喝",
+"pinyin": "hē",
+"en": "to drink",
+"pos": [
+"g",
+"vn"
+],
+"multi": true
+},
+{
+"han": "和",
+"pinyin": "hé",
+"en": "and",
+"pos": [
+"cc",
+"p",
+"v",
+"qv",
+"g",
+"n"
+],
+"multi": true
+},
+{
+"han": "很",
+"pinyin": "hěn",
+"en": "quite",
+"pos": [
+"d"
+],
+"multi": false
+},
+{
+"han": "后",
+"pinyin": "hòu",
+"en": "empress",
+"pos": [
+"f",
+"g",
+"t"
+],
+"multi": true
+},
+{
+"han": "后边",
+"pinyin": "hòubian",
+"en": "the back",
+"pos": [
+"f"
+],
+"multi": false
+},
+{
+"han": "后天",
+"pinyin": "hòutiān",
+"en": "the day after tomorrow",
+"pos": [
+"n",
+"t"
+],
+"multi": false
+},
+{
+"han": "花",
+"pinyin": "huā",
+"en": "flower",
+"pos": [
+"v",
+"n",
+"a"
+],
+"multi": true
+},
+{
+"han": "话",
+"pinyin": "huà",
+"en": "dialect",
+"pos": [
+"n",
+"v"
+],
+"multi": true
+},
+{
+"han": "坏",
+"pinyin": "huài",
+"en": "bad",
+"pos": [
+"a",
+"v"
+],
+"multi": false
+},
+{
+"han": "回",
+"pinyin": "huí",
+"en": "to circle",
+"pos": [
+"v",
+"qv"
+],
+"multi": true
+},
+{
+"han": "回答",
+"pinyin": "huídá",
+"en": "to reply",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "回到",
+"pinyin": "huídào",
+"en": "to return to",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "回家",
+"pinyin": "huíjiā",
+"en": "to return home",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "回来",
+"pinyin": "huílai",
+"en": "to return",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "回去",
+"pinyin": "huíqu",
+"en": "to return",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "会",
+"pinyin": "huì",
+"en": "can",
+"pos": [
+"v",
+"n"
+],
+"multi": true
+},
+{
+"han": "火车",
+"pinyin": "huǒchē",
+"en": "train",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "机场",
+"pinyin": "jīchǎng",
+"en": "airport",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "机票",
+"pinyin": "jīpiào",
+"en": "air ticket",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "鸡蛋",
+"pinyin": "jīdàn",
+"en": "egg",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "几",
+"pinyin": "jī",
+"en": "small table",
+"pos": [
+"m",
+"d"
+],
+"multi": true
+},
+{
+"han": "记",
+"pinyin": "jì",
+"en": "to record",
+"pos": [
+"v",
+"g",
+"q"
+],
+"multi": false
+},
+{
+"han": "记得",
+"pinyin": "jìde",
+"en": "to remember",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "记住",
+"pinyin": "jìzhu",
+"en": "to remember",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "家",
+"pinyin": "jiā",
+"en": "home",
+"pos": [
+"n",
+"q"
+],
+"multi": true
+},
+{
+"han": "家里",
+"pinyin": "jiālǐ",
+"en": "home",
+"pos": [
+"s",
+"n"
+],
+"multi": false
+},
+{
+"han": "家人",
+"pinyin": "jiārén",
+"en": "family member",
+"pos": [
+"n",
+"nr"
+],
+"multi": false
+},
+{
+"han": "间",
+"pinyin": "jiān",
+"en": "between",
+"pos": [
+"q",
+"f",
+"v",
+"g"
+],
+"multi": true
+},
+{
+"han": "见",
+"pinyin": "jiàn",
+"en": "to see",
+"pos": [
+"v",
+"g"
+],
+"multi": true
+},
+{
+"han": "见面",
+"pinyin": "jiànmiàn",
+"en": "to meet",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "叫",
+"pinyin": "jiào",
+"en": "to shout",
+"pos": [
+"v",
+"p",
+"n"
+],
+"multi": true
+},
+{
+"han": "教",
+"pinyin": "jiāo",
+"en": "to teach",
+"pos": [
+"v",
+"g"
+],
+"multi": true
+},
+{
+"han": "教学楼",
+"pinyin": "jiàoxuélóu",
+"en": "teaching block",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "介绍",
+"pinyin": "jièshào",
+"en": "to introduce",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "姐",
+"pinyin": "jiě",
+"en": "older sister",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "姐姐",
+"pinyin": "jiějie",
+"en": "older sister",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "今年",
+"pinyin": "jīnnián",
+"en": "this year",
+"pos": [
+"t"
+],
+"multi": false
+},
+{
+"han": "今天",
+"pinyin": "jīntiān",
+"en": "today",
+"pos": [
+"t"
+],
+"multi": false
+},
+{
+"han": "进",
+"pinyin": "jìn",
+"en": "to go forward",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "进来",
+"pinyin": "jìnlái",
+"en": "to come in",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "进去",
+"pinyin": "jìnqù",
+"en": "to go in",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "九",
+"pinyin": "jiǔ",
+"en": "nine",
+"pos": [
+"m",
+"t",
+"b"
+],
+"multi": false
+},
+{
+"han": "就",
+"pinyin": "jiù",
+"en": "in that case",
+"pos": [
+"d",
+"p",
+"c",
+"v"
+],
+"multi": false
+},
+{
+"han": "觉得",
+"pinyin": "juéde",
+"en": "to think that",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "开",
+"pinyin": "kāi",
+"en": "to open",
+"pos": [
+"v",
+"q"
+],
+"multi": false
+},
+{
+"han": "开车",
+"pinyin": "kāichē",
+"en": "to drive a car",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "开会",
+"pinyin": "kāihuì",
+"en": "to attend a meeting",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "开玩笑",
+"pinyin": "kāiwánxiào",
+"en": "to play a joke",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "看",
+"pinyin": "kān",
+"en": "to look after",
+"pos": [
+"v",
+"u"
+],
+"multi": true
+},
+{
+"han": "看病",
+"pinyin": "kànbìng",
+"en": "to visit a doctor",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "看到",
+"pinyin": "kàndào",
+"en": "to see",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "看见",
+"pinyin": "kànjiàn",
+"en": "to see",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "考",
+"pinyin": "kǎo",
+"en": "to beat",
+"pos": [
+"v",
+"g"
+],
+"multi": true
+},
+{
+"han": "考试",
+"pinyin": "kǎoshì",
+"en": "to take an exam",
+"pos": [
+"vn",
+"v"
+],
+"multi": false
+},
+{
+"han": "渴",
+"pinyin": "kě",
+"en": "thirsty",
+"pos": [
+"a",
+"v"
+],
+"multi": false
+},
+{
+"han": "课",
+"pinyin": "kè",
+"en": "subject",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "课本",
+"pinyin": "kèběn",
+"en": "textbook",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "课文",
+"pinyin": "kèwén",
+"en": "text",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "口",
+"pinyin": "kǒu",
+"en": "mouth",
+"pos": [
+"q",
+"n"
+],
+"multi": false
+},
+{
+"han": "块",
+"pinyin": "kuài",
+"en": "lump",
+"pos": [
+"q",
+"g"
+],
+"multi": false
+},
+{
+"han": "快",
+"pinyin": "kuài",
+"en": "rapid",
+"pos": [
+"a",
+"d",
+"g"
+],
+"multi": false
+},
+{
+"han": "来",
+"pinyin": "lái",
+"en": "to come",
+"pos": [
+"v",
+"f",
+"m",
+"u",
+"y"
+],
+"multi": false
+},
+{
+"han": "来到",
+"pinyin": "láidào",
+"en": "to arrive",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "老",
+"pinyin": "lǎo",
+"en": "venerable",
+"pos": [
+"a",
+"d",
+"g"
+],
+"multi": false
+},
+{
+"han": "老人",
+"pinyin": "lǎorén",
+"en": "the elderly",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "老师",
+"pinyin": "lǎoshī",
+"en": "teacher",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "了",
+"pinyin": "liǎo",
+"en": "to finish",
+"pos": [
+"y",
+"u",
+"v"
+],
+"multi": true
+},
+{
+"han": "累",
+"pinyin": "lěi",
+"en": "to accumulate",
+"pos": [
+"a",
+"v",
+"an"
+],
+"multi": true
+},
+{
+"han": "冷",
+"pinyin": "lěng",
+"en": "cold",
+"pos": [
+"a",
+"ad",
+"g"
+],
+"multi": true
+},
+{
+"han": "里",
+"pinyin": "lǐ",
+"en": "lining",
+"pos": [
+"f",
+"q"
+],
+"multi": true
+},
+{
+"han": "里边",
+"pinyin": "lǐbian",
+"en": "inside",
+"pos": [
+"f"
+],
+"multi": false
+},
+{
+"han": "两",
+"pinyin": "liǎng",
+"en": "two",
+"pos": [
+"m",
+"t"
+],
+"multi": false
+},
+{
+"han": "零",
+"pinyin": "líng",
+"en": "zero",
+"pos": [
+"m",
+"t",
+"g"
+],
+"multi": false
+},
+{
+"han": "六",
+"pinyin": "liù",
+"en": "six",
+"pos": [
+"m",
+"t"
+],
+"multi": false
+},
+{
+"han": "楼",
+"pinyin": "lóu",
+"en": "house with more than 1 story",
+"pos": [
+"n"
+],
+"multi": true
+},
+{
+"han": "楼上",
+"pinyin": "lóushàng",
+"en": "upstairs",
+"pos": [
+"s",
+"f"
+],
+"multi": false
+},
+{
+"han": "楼下",
+"pinyin": "lóuxià",
+"en": "downstairs",
+"pos": [
+"s"
+],
+"multi": false
+},
+{
+"han": "路",
+"pinyin": "lù",
+"en": "road",
+"pos": [
+"n",
+"qv"
+],
+"multi": true
+},
+{
+"han": "路口",
+"pinyin": "lùkǒu",
+"en": "crossing",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "路上",
+"pinyin": "lùshang",
+"en": "on the road",
+"pos": [
+"s"
+],
+"multi": false
+},
+{
+"han": "妈",
+"pinyin": "mā",
+"en": "ma",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "妈妈",
+"pinyin": "māma",
+"en": "mama",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "马路",
+"pinyin": "mǎlù",
+"en": "street",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "马上",
+"pinyin": "mǎshàng",
+"en": "at once",
+"pos": [
+"d",
+"s"
+],
+"multi": false
+},
+{
+"han": "买",
+"pinyin": "mǎi",
+"en": "to buy",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "慢",
+"pinyin": "màn",
+"en": "slow",
+"pos": [
+"a",
+"ad"
+],
+"multi": false
+},
+{
+"han": "忙",
+"pinyin": "máng",
+"en": "busy",
+"pos": [
+"v",
+"a",
+"ad",
+"g",
+"an"
+],
+"multi": false
+},
+{
+"han": "毛",
+"pinyin": "máo",
+"en": "hair",
+"pos": [
+"nr",
+"n",
+"q"
+],
+"multi": true
+},
+{
+"han": "没",
+"pinyin": "méi",
+"en": "not",
+"pos": [
+"d",
+"v"
+],
+"multi": true
+},
+{
+"han": "没关系",
+"pinyin": "méiguānxi",
+"en": "it doesn't matter",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "没什么",
+"pinyin": "méishénme",
+"en": "nothing",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "没事儿",
+"pinyin": "méishìr",
+"en": "to have spare time",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "没有",
+"pinyin": "méiyǒu",
+"en": "haven't",
+"pos": [
+"v",
+"d"
+],
+"multi": false
+},
+{
+"han": "妹",
+"pinyin": "mèi",
+"en": "younger sister",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "妹妹",
+"pinyin": "mèimei",
+"en": "younger sister",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "门",
+"pinyin": "mén",
+"en": "gate",
+"pos": [
+"n",
+"q"
+],
+"multi": true
+},
+{
+"han": "门口",
+"pinyin": "ménkǒu",
+"en": "doorway",
+"pos": [
+"s"
+],
+"multi": false
+},
+{
+"han": "门票",
+"pinyin": "ménpiào",
+"en": "ticket",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "米饭",
+"pinyin": "mǐfàn",
+"en": "rice",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "面包",
+"pinyin": "miànbāo",
+"en": "bread",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "面条儿",
+"pinyin": "miàntiáor",
+"en": "noodles",
+"pos": [],
+"multi": false
+},
+{
+"han": "名字",
+"pinyin": "míngzi",
+"en": "name",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "明白",
+"pinyin": "míngbai",
+"en": "clear",
+"pos": [
+"v",
+"a",
+"an"
+],
+"multi": false
+},
+{
+"han": "明年",
+"pinyin": "míngnián",
+"en": "next year",
+"pos": [
+"t"
+],
+"multi": false
+},
+{
+"han": "明天",
+"pinyin": "míngtiān",
+"en": "tomorrow",
+"pos": [
+"t"
+],
+"multi": false
+},
+{
+"han": "拿",
+"pinyin": "ná",
+"en": "to hold",
+"pos": [
+"v"
+],
+"multi": true
+},
+{
+"han": "哪",
+"pinyin": "nǎ",
+"en": "how",
+"pos": [
+"r",
+"y"
+],
+"multi": true
+},
+{
+"han": "哪儿",
+"pinyin": "nǎr",
+"en": "wherever",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "哪里",
+"pinyin": "nǎlǐ",
+"en": "somewhere",
+"pos": [
+"r"
+],
+"multi": true
+},
+{
+"han": "那",
+"pinyin": "nà",
+"en": "that",
+"pos": [
+"r",
+"c"
+],
+"multi": true
+},
+{
+"han": "那边",
+"pinyin": "nàbian",
+"en": "over there",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "那儿",
+"pinyin": "nàr",
+"en": "there",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "那里",
+"pinyin": "nàli",
+"en": "there",
+"pos": [
+"r"
+],
+"multi": true
+},
+{
+"han": "那些",
+"pinyin": "nàxiē",
+"en": "those",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "奶",
+"pinyin": "nǎi",
+"en": "breast",
+"pos": [
+"n",
+"v"
+],
+"multi": true
+},
+{
+"han": "奶奶",
+"pinyin": "nǎinai",
+"en": "grandma",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "男",
+"pinyin": "nán",
+"en": "male",
+"pos": [
+"b",
+"g"
+],
+"multi": false
+},
+{
+"han": "男孩儿",
+"pinyin": "nánháir",
+"en": "boy",
+"pos": [],
+"multi": false
+},
+{
+"han": "男朋友",
+"pinyin": "nánpéngyou",
+"en": "boyfriend",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "男人",
+"pinyin": "nánrén",
+"en": "a man",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "男生",
+"pinyin": "nánshēng",
+"en": "schoolboy",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "南",
+"pinyin": "nán",
+"en": "south",
+"pos": [
+"b",
+"f"
+],
+"multi": true
+},
+{
+"han": "南边",
+"pinyin": "nánbian",
+"en": "south",
+"pos": [
+"f"
+],
+"multi": false
+},
+{
+"han": "难",
+"pinyin": "nán",
+"en": "difficult",
+"pos": [
+"ad",
+"a",
+"v",
+"g"
+],
+"multi": true
+},
+{
+"han": "呢",
+"pinyin": "ní",
+"en": "woolen material",
+"pos": [
+"y"
+],
+"multi": true
+},
+{
+"han": "能",
+"pinyin": "néng",
+"en": "can",
+"pos": [
+"v",
+"g"
+],
+"multi": true
+},
+{
+"han": "你",
+"pinyin": "nǐ",
+"en": "you",
+"pos": [
+"r"
+],
+"multi": true
+},
+{
+"han": "你们",
+"pinyin": "nǐmen",
+"en": "you",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "年",
+"pinyin": "nián",
+"en": "year",
+"pos": [
+"qt",
+"t",
+"n"
+],
+"multi": true
+},
+{
+"han": "您",
+"pinyin": "nín",
+"en": "you",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "牛奶",
+"pinyin": "niúnǎi",
+"en": "cow's milk",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "女",
+"pinyin": "nǚ",
+"en": "female",
+"pos": [
+"b",
+"g"
+],
+"multi": true
+},
+{
+"han": "女儿",
+"pinyin": "nǚ'ér",
+"en": "daughter",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "女孩儿",
+"pinyin": "nǚháir",
+"en": "girl",
+"pos": [],
+"multi": false
+},
+{
+"han": "女朋友",
+"pinyin": "nǚpéngyou",
+"en": "girlfriend",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "女人",
+"pinyin": "nǚrén",
+"en": "woman",
+"pos": [
+"n"
+],
+"multi": true
+},
+{
+"han": "女生",
+"pinyin": "nǚshēng",
+"en": "schoolgirl",
+"pos": [
+"n",
+"nr"
+],
+"multi": false
+},
+{
+"han": "旁边",
+"pinyin": "pángbiān",
+"en": "side",
+"pos": [
+"f"
+],
+"multi": false
+},
+{
+"han": "跑",
+"pinyin": "páo",
+"en": "to paw",
+"pos": [
+"v"
+],
+"multi": true
+},
+{
+"han": "朋友",
+"pinyin": "péngyou",
+"en": "friend",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "票",
+"pinyin": "piào",
+"en": "ticket",
+"pos": [
+"n",
+"q"
+],
+"multi": false
+},
+{
+"han": "七",
+"pinyin": "qī",
+"en": "seven",
+"pos": [
+"m",
+"t"
+],
+"multi": false
+},
+{
+"han": "起",
+"pinyin": "qǐ",
+"en": "to rise",
+"pos": [
+"v",
+"q",
+"f"
+],
+"multi": false
+},
+{
+"han": "起床",
+"pinyin": "qǐchuáng",
+"en": "to get out of bed",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "起来",
+"pinyin": "qǐlai",
+"en": "to stand up",
+"pos": [
+"v"
+],
+"multi": true
+},
+{
+"han": "汽车",
+"pinyin": "qìchē",
+"en": "car",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "前",
+"pinyin": "qián",
+"en": "front",
+"pos": [
+"f",
+"v"
+],
+"multi": false
+},
+{
+"han": "前边",
+"pinyin": "qiánbian",
+"en": "front",
+"pos": [
+"f"
+],
+"multi": false
+},
+{
+"han": "前天",
+"pinyin": "qiántiān",
+"en": "the day before yesterday",
+"pos": [
+"t",
+"n"
+],
+"multi": false
+},
+{
+"han": "钱",
+"pinyin": "qián",
+"en": "coin",
+"pos": [
+"n",
+"nr"
+],
+"multi": true
+},
+{
+"han": "钱包",
+"pinyin": "qiánbāo",
+"en": "purse",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "请",
+"pinyin": "qǐng",
+"en": "to ask",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "请假",
+"pinyin": "qǐngjià",
+"en": "to request leave of absence",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "请坐",
+"pinyin": "qǐngzuò",
+"en": "please, have a seat",
+"pos": [],
+"multi": false
+},
+{
+"han": "球",
+"pinyin": "qiú",
+"en": "ball",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "去",
+"pinyin": "qù",
+"en": "to go",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "去年",
+"pinyin": "qùnián",
+"en": "last year",
+"pos": [
+"t"
+],
+"multi": false
+},
+{
+"han": "热",
+"pinyin": "rè",
+"en": "to warm up",
+"pos": [
+"a",
+"n",
+"k",
+"v",
+"ad",
+"an"
+],
+"multi": false
+},
+{
+"han": "人",
+"pinyin": "rén",
+"en": "person",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "认识",
+"pinyin": "rènshi",
+"en": "to know",
+"pos": [
+"v",
+"n",
+"vn"
+],
+"multi": false
+},
+{
+"han": "认真",
+"pinyin": "rènzhēn",
+"en": "conscientious",
+"pos": [
+"a",
+"ad"
+],
+"multi": false
+},
+{
+"han": "日",
+"pinyin": "rì",
+"en": "sun",
+"pos": [
+"t",
+"g",
+"b",
+"qt"
+],
+"multi": true
+},
+{
+"han": "日期",
+"pinyin": "rìqī",
+"en": "date",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "肉",
+"pinyin": "ròu",
+"en": "meat",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "三",
+"pinyin": "sān",
+"en": "three",
+"pos": [
+"m",
+"t"
+],
+"multi": true
+},
+{
+"han": "山",
+"pinyin": "shān",
+"en": "mountain",
+"pos": [
+"n"
+],
+"multi": true
+},
+{
+"han": "商场",
+"pinyin": "shāngchǎng",
+"en": "shopping mall",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "商店",
+"pinyin": "shāngdiàn",
+"en": "store",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "上",
+"pinyin": "shàng",
+"en": "up",
+"pos": [
+"f",
+"v",
+"g"
+],
+"multi": true
+},
+{
+"han": "上班",
+"pinyin": "shàngbān",
+"en": "to go to work",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "上边",
+"pinyin": "shàngbian",
+"en": "the top",
+"pos": [
+"f",
+"n"
+],
+"multi": false
+},
+{
+"han": "上车",
+"pinyin": "shàngchē",
+"en": "to get on or into",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "上次",
+"pinyin": "shàngcì",
+"en": "last time",
+"pos": [
+"t"
+],
+"multi": false
+},
+{
+"han": "上课",
+"pinyin": "shàngkè",
+"en": "to go to class",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "上网",
+"pinyin": "shàngwǎng",
+"en": "to go online",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "上午",
+"pinyin": "shàngwǔ",
+"en": "morning",
+"pos": [
+"t"
+],
+"multi": false
+},
+{
+"han": "上学",
+"pinyin": "shàngxué",
+"en": "to go to school",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "少",
+"pinyin": "shǎo",
+"en": "few",
+"pos": [
+"a",
+"ad",
+"v",
+"d",
+"g"
+],
+"multi": true
+},
+{
+"han": "身上",
+"pinyin": "shēnshang",
+"en": "on the body",
+"pos": [
+"s"
+],
+"multi": false
+},
+{
+"han": "身体",
+"pinyin": "shēntǐ",
+"en": "the body",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "什么",
+"pinyin": "shénme",
+"en": "something",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "生病",
+"pinyin": "shēngbìng",
+"en": "to fall ill",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "生气",
+"pinyin": "shēngqì",
+"en": "to get angry",
+"pos": [
+"a",
+"n",
+"v",
+"an"
+],
+"multi": false
+},
+{
+"han": "生日",
+"pinyin": "shēngrì",
+"en": "birthday",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "十",
+"pinyin": "shí",
+"en": "ten",
+"pos": [
+"m",
+"t"
+],
+"multi": false
+},
+{
+"han": "时候",
+"pinyin": "shíhou",
+"en": "time",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "时间",
+"pinyin": "shíjiān",
+"en": "time",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "事",
+"pinyin": "shì",
+"en": "matter",
+"pos": [
+"n",
+"g"
+],
+"multi": false
+},
+{
+"han": "试",
+"pinyin": "shì",
+"en": "to test",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "是",
+"pinyin": "shì",
+"en": "to be",
+"pos": [
+"v"
+],
+"multi": true
+},
+{
+"han": "是不是",
+"pinyin": "shìbùshì",
+"en": "is or isn't",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "手",
+"pinyin": "shǒu",
+"en": "hand",
+"pos": [
+"n",
+"q"
+],
+"multi": false
+},
+{
+"han": "手机",
+"pinyin": "shǒujī",
+"en": "cell phone",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "书",
+"pinyin": "shū",
+"en": "book",
+"pos": [
+"n",
+"g"
+],
+"multi": true
+},
+{
+"han": "书包",
+"pinyin": "shūbāo",
+"en": "schoolbag",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "书店",
+"pinyin": "shūdiàn",
+"en": "bookstore",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "树",
+"pinyin": "shù",
+"en": "tree",
+"pos": [
+"n",
+"v"
+],
+"multi": false
+},
+{
+"han": "谁",
+"pinyin": "shéi",
+"en": "who",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "水",
+"pinyin": "shuǐ",
+"en": "water",
+"pos": [
+"n"
+],
+"multi": true
+},
+{
+"han": "水果",
+"pinyin": "shuǐguǒ",
+"en": "fruit",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "睡",
+"pinyin": "shuì",
+"en": "to sleep",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "睡觉",
+"pinyin": "shuìjiào",
+"en": "to go to bed",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "说",
+"pinyin": "shuì",
+"en": "to persuade",
+"pos": [
+"v",
+"g"
+],
+"multi": true
+},
+{
+"han": "说话",
+"pinyin": "shuōhuà",
+"en": "to speak",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "四",
+"pinyin": "sì",
+"en": "four",
+"pos": [
+"m",
+"t"
+],
+"multi": false
+},
+{
+"han": "送",
+"pinyin": "sòng",
+"en": "to send",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "岁",
+"pinyin": "suì",
+"en": "years old",
+"pos": [
+"qt"
+],
+"multi": true
+},
+{
+"han": "他",
+"pinyin": "tā",
+"en": "he",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "他们",
+"pinyin": "tāmen",
+"en": "they",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "她",
+"pinyin": "tā",
+"en": "she",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "她们",
+"pinyin": "tāmen",
+"en": "they",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "太",
+"pinyin": "tài",
+"en": "highest",
+"pos": [
+"d",
+"b"
+],
+"multi": false
+},
+{
+"han": "天",
+"pinyin": "tiān",
+"en": "day",
+"pos": [
+"qt",
+"n"
+],
+"multi": false
+},
+{
+"han": "天气",
+"pinyin": "tiānqì",
+"en": "weather",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "听",
+"pinyin": "yǐn",
+"en": "smile",
+"pos": [
+"v"
+],
+"multi": true
+},
+{
+"han": "听到",
+"pinyin": "tīngdào",
+"en": "to hear",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "听见",
+"pinyin": "tīngjiàn",
+"en": "to hear",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "听写",
+"pinyin": "tīngxiě",
+"en": "to write down",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "同学",
+"pinyin": "tóngxué",
+"en": "to study at the same school",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "图书馆",
+"pinyin": "túshūguǎn",
+"en": "library",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "外",
+"pinyin": "wài",
+"en": "outside",
+"pos": [
+"f"
+],
+"multi": false
+},
+{
+"han": "外边",
+"pinyin": "wàibian",
+"en": "outside",
+"pos": [
+"f"
+],
+"multi": false
+},
+{
+"han": "外国",
+"pinyin": "wàiguó",
+"en": "foreign",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "外语",
+"pinyin": "wàiyǔ",
+"en": "foreign language",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "玩儿",
+"pinyin": "wánr",
+"en": "to play",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "晚",
+"pinyin": "wǎn",
+"en": "evening",
+"pos": [
+"tg",
+"a",
+"ad"
+],
+"multi": false
+},
+{
+"han": "晚饭",
+"pinyin": "wǎnfàn",
+"en": "evening meal",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "晚上",
+"pinyin": "wǎnshang",
+"en": "evening",
+"pos": [
+"t"
+],
+"multi": false
+},
+{
+"han": "网上",
+"pinyin": "wǎngshàng",
+"en": "online",
+"pos": [
+"s"
+],
+"multi": false
+},
+{
+"han": "网友",
+"pinyin": "wǎngyǒu",
+"en": "online friend",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "忘",
+"pinyin": "wàng",
+"en": "to forget",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "忘记",
+"pinyin": "wàngjì",
+"en": "to forget",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "问",
+"pinyin": "wèn",
+"en": "to ask",
+"pos": [
+"v",
+"g",
+"vn"
+],
+"multi": false
+},
+{
+"han": "我",
+"pinyin": "wǒ",
+"en": "I",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "我们",
+"pinyin": "wǒmen",
+"en": "we",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "五",
+"pinyin": "wǔ",
+"en": "five",
+"pos": [
+"m",
+"t"
+],
+"multi": false
+},
+{
+"han": "午饭",
+"pinyin": "wǔfàn",
+"en": "lunch",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "洗",
+"pinyin": "xǐ",
+"en": "to wash",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "洗手间",
+"pinyin": "xǐshǒujiān",
+"en": "toilet",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "喜欢",
+"pinyin": "xǐhuan",
+"en": "to like",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "西",
+"pinyin": "xī",
+"en": "west",
+"pos": [
+"f",
+"b"
+],
+"multi": true
+},
+{
+"han": "西边",
+"pinyin": "xībiān",
+"en": "west",
+"pos": [
+"f",
+"nr"
+],
+"multi": false
+},
+{
+"han": "下",
+"pinyin": "xià",
+"en": "down",
+"pos": [
+"v",
+"f",
+"qt",
+"g"
+],
+"multi": false
+},
+{
+"han": "下班",
+"pinyin": "xiàbān",
+"en": "to finish work",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "下边",
+"pinyin": "xiàbian",
+"en": "under",
+"pos": [
+"f"
+],
+"multi": false
+},
+{
+"han": "下车",
+"pinyin": "xiàchē",
+"en": "to get off or out of",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "下次",
+"pinyin": "xiàcì",
+"en": "next time",
+"pos": [
+"t"
+],
+"multi": false
+},
+{
+"han": "下课",
+"pinyin": "xiàkè",
+"en": "to finish class",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "下午",
+"pinyin": "xiàwǔ",
+"en": "afternoon",
+"pos": [
+"t"
+],
+"multi": false
+},
+{
+"han": "下雨",
+"pinyin": "xiàyǔ",
+"en": "to rain",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "先",
+"pinyin": "xiān",
+"en": "early",
+"pos": [
+"d",
+"g"
+],
+"multi": false
+},
+{
+"han": "先生",
+"pinyin": "xiānsheng",
+"en": "teacher",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "现在",
+"pinyin": "xiànzài",
+"en": "now",
+"pos": [
+"t"
+],
+"multi": false
+},
+{
+"han": "想",
+"pinyin": "xiǎng",
+"en": "to think",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "小",
+"pinyin": "xiǎo",
+"en": "small",
+"pos": [
+"a",
+"ad"
+],
+"multi": false
+},
+{
+"han": "小孩儿",
+"pinyin": "xiǎoháir",
+"en": "child",
+"pos": [],
+"multi": false
+},
+{
+"han": "小姐",
+"pinyin": "xiǎojie",
+"en": "young lady",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "小朋友",
+"pinyin": "xiǎopéngyǒu",
+"en": "child",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "小时",
+"pinyin": "xiǎoshí",
+"en": "hour",
+"pos": [
+"n",
+"q"
+],
+"multi": false
+},
+{
+"han": "小学",
+"pinyin": "xiǎoxué",
+"en": "elementary school",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "小学生",
+"pinyin": "xiǎoxuéshēng",
+"en": "primary school student",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "笑",
+"pinyin": "xiào",
+"en": "to laugh",
+"pos": [
+"v",
+"vn"
+],
+"multi": true
+},
+{
+"han": "写",
+"pinyin": "xiě",
+"en": "to write",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "谢谢",
+"pinyin": "xièxie",
+"en": "to thank",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "新",
+"pinyin": "xīn",
+"en": "new",
+"pos": [
+"a",
+"d",
+"b"
+],
+"multi": true
+},
+{
+"han": "新年",
+"pinyin": "xīnnián",
+"en": "New Year",
+"pos": [
+"t"
+],
+"multi": false
+},
+{
+"han": "星期",
+"pinyin": "xīngqī",
+"en": "week",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "行",
+"pinyin": "háng",
+"en": "row",
+"pos": [
+"v",
+"g",
+"q",
+"a",
+"n"
+],
+"multi": true
+},
+{
+"han": "休息",
+"pinyin": "xiūxi",
+"en": "rest",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "学",
+"pinyin": "xué",
+"en": "to learn",
+"pos": [
+"v",
+"g"
+],
+"multi": false
+},
+{
+"han": "学生",
+"pinyin": "xuésheng",
+"en": "student",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "学习",
+"pinyin": "xuéxí",
+"en": "to learn",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "学校",
+"pinyin": "xuéxiào",
+"en": "school",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "学院",
+"pinyin": "xuéyuàn",
+"en": "college",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "要",
+"pinyin": "yāo",
+"en": "to demand",
+"pos": [
+"v"
+],
+"multi": true
+},
+{
+"han": "也",
+"pinyin": "yě",
+"en": "also",
+"pos": [
+"d",
+"y",
+"u",
+"b"
+],
+"multi": true
+},
+{
+"han": "页",
+"pinyin": "xié",
+"en": "head",
+"pos": [
+"q",
+"g"
+],
+"multi": true
+},
+{
+"han": "爷爷",
+"pinyin": "yéye",
+"en": "father's father",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "一",
+"pinyin": "yī",
+"en": "one",
+"pos": [
+"m",
+"d",
+"t"
+],
+"multi": false
+},
+{
+"han": "一半",
+"pinyin": "yībàn",
+"en": "half",
+"pos": [
+"m"
+],
+"multi": false
+},
+{
+"han": "一边",
+"pinyin": "yībiān",
+"en": "one side",
+"pos": [
+"d",
+"f"
+],
+"multi": false
+},
+{
+"han": "一点儿",
+"pinyin": "yīdiǎnr",
+"en": "a bit",
+"pos": [
+"mq"
+],
+"multi": false
+},
+{
+"han": "一会儿",
+"pinyin": "yīhuìr",
+"en": "a moment",
+"pos": [
+"mq"
+],
+"multi": false
+},
+{
+"han": "一块儿",
+"pinyin": "yīkuàir",
+"en": "a piece",
+"pos": [
+"d",
+"s"
+],
+"multi": false
+},
+{
+"han": "一起",
+"pinyin": "yīqǐ",
+"en": "in the same place",
+"pos": [
+"s",
+"d",
+"nr"
+],
+"multi": false
+},
+{
+"han": "一下儿",
+"pinyin": "yīxiàr",
+"en": "one time",
+"pos": [],
+"multi": false
+},
+{
+"han": "一些",
+"pinyin": "yīxiē",
+"en": "some",
+"pos": [
+"mq"
+],
+"multi": false
+},
+{
+"han": "一样",
+"pinyin": "yīyàng",
+"en": "same",
+"pos": [
+"u",
+"a",
+"ad"
+],
+"multi": false
+},
+{
+"han": "衣服",
+"pinyin": "yīfu",
+"en": "clothes",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "医生",
+"pinyin": "yīshēng",
+"en": "doctor",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "医院",
+"pinyin": "yīyuàn",
+"en": "hospital",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "用",
+"pinyin": "yòng",
+"en": "to use",
+"pos": [
+"v",
+"p",
+"g"
+],
+"multi": false
+},
+{
+"han": "有",
+"pinyin": "yǒu",
+"en": "to have",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "有的",
+"pinyin": "yǒude",
+"en": "some",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "有名",
+"pinyin": "yǒumíng",
+"en": "famous",
+"pos": [
+"a"
+],
+"multi": false
+},
+{
+"han": "有时",
+"pinyin": "yǒushí",
+"en": "sometimes",
+"pos": [
+"d"
+],
+"multi": false
+},
+{
+"han": "有时候",
+"pinyin": "yǒushíhou",
+"en": "sometimes",
+"pos": [
+"d"
+],
+"multi": false
+},
+{
+"han": "有些",
+"pinyin": "yǒuxiē",
+"en": "some",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "有一些",
+"pinyin": "yǒuyīxiē",
+"en": "somewhat",
+"pos": [],
+"multi": false
+},
+{
+"han": "有用",
+"pinyin": "yǒuyòng",
+"en": "useful",
+"pos": [
+"a",
+"v"
+],
+"multi": false
+},
+{
+"han": "右",
+"pinyin": "yòu",
+"en": "right",
+"pos": [
+"f",
+"a"
+],
+"multi": false
+},
+{
+"han": "右边",
+"pinyin": "yòubian",
+"en": "right side",
+"pos": [
+"f"
+],
+"multi": false
+},
+{
+"han": "雨",
+"pinyin": "yǔ",
+"en": "rain",
+"pos": [
+"n",
+"g"
+],
+"multi": true
+},
+{
+"han": "元",
+"pinyin": "yuán",
+"en": "currency unit",
+"pos": [
+"q",
+"tg"
+],
+"multi": true
+},
+{
+"han": "远",
+"pinyin": "yuǎn",
+"en": "far",
+"pos": [
+"a",
+"ad"
+],
+"multi": true
+},
+{
+"han": "月",
+"pinyin": "yuè",
+"en": "moon",
+"pos": [
+"n",
+"t"
+],
+"multi": false
+},
+{
+"han": "再",
+"pinyin": "zài",
+"en": "again",
+"pos": [
+"d",
+"g"
+],
+"multi": false
+},
+{
+"han": "再见",
+"pinyin": "zàijiàn",
+"en": "goodbye",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "在",
+"pinyin": "zài",
+"en": "to exist",
+"pos": [
+"p",
+"v",
+"d"
+],
+"multi": false
+},
+{
+"han": "在家",
+"pinyin": "zàijiā",
+"en": "to be at home",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "早",
+"pinyin": "zǎo",
+"en": "early",
+"pos": [
+"ad",
+"a",
+"tg"
+],
+"multi": false
+},
+{
+"han": "早饭",
+"pinyin": "zǎofàn",
+"en": "breakfast",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "早上",
+"pinyin": "zǎoshang",
+"en": "early morning",
+"pos": [
+"t"
+],
+"multi": false
+},
+{
+"han": "站",
+"pinyin": "zhàn",
+"en": "station",
+"pos": [
+"v",
+"n",
+"q"
+],
+"multi": false
+},
+{
+"han": "找",
+"pinyin": "zhǎo",
+"en": "to try to find",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "找到",
+"pinyin": "zhǎodào",
+"en": "to find",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "这",
+"pinyin": "zhè",
+"en": "this",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "这边",
+"pinyin": "zhèbiān",
+"en": "this side",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "这儿",
+"pinyin": "zhèr",
+"en": "here",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "这里",
+"pinyin": "zhèlǐ",
+"en": "here",
+"pos": [
+"r"
+],
+"multi": true
+},
+{
+"han": "这些",
+"pinyin": "zhèxiē",
+"en": "these",
+"pos": [
+"r"
+],
+"multi": false
+},
+{
+"han": "着",
+"pinyin": "zhāo",
+"en": "move",
+"pos": [
+"u",
+"v",
+"n",
+"q"
+],
+"multi": true
+},
+{
+"han": "真",
+"pinyin": "zhēn",
+"en": "really",
+"pos": [
+"d",
+"a",
+"g"
+],
+"multi": false
+},
+{
+"han": "真的",
+"pinyin": "zhēnde",
+"en": "really, truly, indeed",
+"pos": [
+"d",
+"a"
+],
+"multi": false
+},
+{
+"han": "正",
+"pinyin": "zhèng",
+"en": "straight",
+"pos": [
+"d",
+"b",
+"a",
+"v"
+],
+"multi": true
+},
+{
+"han": "正在",
+"pinyin": "zhèngzài",
+"en": "just at",
+"pos": [
+"d"
+],
+"multi": false
+},
+{
+"han": "知道",
+"pinyin": "zhīdào",
+"en": "to know",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "知识",
+"pinyin": "zhīshi",
+"en": "knowledge",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "中",
+"pinyin": "zhōng",
+"en": "within",
+"pos": [
+"f",
+"b",
+"v"
+],
+"multi": true
+},
+{
+"han": "中间",
+"pinyin": "zhōngjiān",
+"en": "the middle",
+"pos": [
+"f"
+],
+"multi": false
+},
+{
+"han": "中午",
+"pinyin": "zhōngwǔ",
+"en": "noon",
+"pos": [
+"t"
+],
+"multi": false
+},
+{
+"han": "中学",
+"pinyin": "zhōngxué",
+"en": "middle school",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "中学生",
+"pinyin": "zhōngxuéshēng",
+"en": "middle-school student",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "重",
+"pinyin": "chóng",
+"en": "to repeat",
+"pos": [
+"a",
+"d",
+"v",
+"q",
+"g"
+],
+"multi": true
+},
+{
+"han": "重要",
+"pinyin": "zhòngyào",
+"en": "important",
+"pos": [
+"a"
+],
+"multi": false
+},
+{
+"han": "住",
+"pinyin": "zhù",
+"en": "to live",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "准备",
+"pinyin": "zhǔnbèi",
+"en": "preparation",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "桌子",
+"pinyin": "zhuōzi",
+"en": "table",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "字",
+"pinyin": "zì",
+"en": "letter",
+"pos": [
+"n"
+],
+"multi": false
+},
+{
+"han": "子",
+"pinyin": "zǐ",
+"en": "son",
+"pos": [
+"g",
+"q"
+],
+"multi": true
+},
+{
+"han": "走",
+"pinyin": "zǒu",
+"en": "to walk",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "走路",
+"pinyin": "zǒulù",
+"en": "to walk",
+"pos": [
+"v",
+"vn"
+],
+"multi": false
+},
+{
+"han": "最",
+"pinyin": "zuì",
+"en": "most",
+"pos": [
+"d",
+"g"
+],
+"multi": true
+},
+{
+"han": "最好",
+"pinyin": "zuìhǎo",
+"en": "best",
+"pos": [
+"d"
+],
+"multi": false
+},
+{
+"han": "最后",
+"pinyin": "zuìhòu",
+"en": "final",
+"pos": [
+"f"
+],
+"multi": false
+},
+{
+"han": "昨天",
+"pinyin": "zuótiān",
+"en": "yesterday",
+"pos": [
+"t"
+],
+"multi": false
+},
+{
+"han": "左",
+"pinyin": "zuǒ",
+"en": "left",
+"pos": [
+"f",
+"a"
+],
+"multi": true
+},
+{
+"han": "左边",
+"pinyin": "zuǒbian",
+"en": "left",
+"pos": [
+"f"
+],
+"multi": false
+},
+{
+"han": "坐",
+"pinyin": "zuò",
+"en": "to sit",
+"pos": [
+"v"
+],
+"multi": true
+},
+{
+"han": "坐下",
+"pinyin": "zuòxia",
+"en": "to sit down",
+"pos": [
+"v"
+],
+"multi": false
+},
+{
+"han": "做",
+"pinyin": "zuò",
+"en": "to make",
+"pos": [
+"v"
+],
+"multi": false
+}
+]

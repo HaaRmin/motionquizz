@@ -1,0 +1,9 @@
+out/
+__pycache__/
+raw/*.json
+# Google service-account keys (the real TTS key lives in tts/, never in git)
+tts/*.json
+*service-account*.json
+decent-space-*.json
+.venv/
+.DS_Store

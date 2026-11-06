@@ -1,0 +1,34 @@
+{
+  "kepes": {
+    "question": "How do you say this in Chinese?",
+    "questions": 3,
+    "countdown": 3,
+    "reveal": 3
+  },
+  "szoveges": {
+    "question": "How do you say “{en}” in Chinese?",
+    "questions": 4,
+    "countdown": 5,
+    "reveal": 3
+  },
+  "follow": {
+    "enabled": true,
+    "text": "Follow me for more Chinese quizzes! 🎯",
+    "seconds": 2
+  },
+  "cat": {
+    "enabled": false,
+    "poses": {
+      "peek": "assets/cat/peek.avif",
+      "look": "assets/cat/look.avif",
+      "sit": "assets/cat/sit.avif",
+      "sleep": "assets/cat/sleep.avif"
+    }
+  },
+  "audio": {
+    "enabled": true,
+    "voice": "cmn-CN-Chirp3-HD-Despina",
+    "language": "cmn-CN"
+  },
+  "logos": "assets/logos"
+}

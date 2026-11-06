@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<style>
+/*FONTFACES*/
+:root { --ground:#2A0306; --main:#D95050; --second:#FFFFFF; --accent:#32B15D;
+  --wine:color-mix(in srgb, var(--main) 38%, var(--ground)); --paper:#7A0C12; --lamp:#E8312F;
+  --glow:#FF9A6B; --cap:color-mix(in srgb, var(--ground) 80%, var(--main));
+  --card:color-mix(in srgb, var(--second) 88%, var(--main)); --ink:color-mix(in srgb, var(--ground) 90%, var(--second));
+  --badge:color-mix(in srgb, var(--second) 92%, var(--main));
+  --ui-font:"QuizUI","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",system-ui,sans-serif;
+  --han-font:"QuizHan","Kaiti SC","STKaiti","KaiTi","Noto Serif CJK SC","Songti SC",serif; }
+html, body { margin:0; height:100%; background:#140103; overflow:hidden; font-family:var(--ui-font) }
+#wrap { position:absolute; inset:0 0 64px 0; display:flex; align-items:center; justify-content:center }
+body.capture #wrap { inset:0 }
+#frame { position:relative; width:1080px; height:1920px; flex:none }
+#stage { position:absolute; left:0; top:0; width:1080px; height:1920px; overflow:hidden; background:var(--ground); color:var(--second); font-family:var(--ui-font); font-weight:700; font-feature-settings:"palt" }
+#bar { position:absolute; left:0; right:0; bottom:0; height:64px; display:flex; align-items:center; gap:14px; padding:0 18px; box-sizing:border-box; color:#f5e3e5; font:500 15px system-ui, sans-serif; background:#1e0204 }
+body.capture #bar { display:none }
+/* TikTok guides: where TikTok draws its own interface (preview only, never in the video) */
+#guides { position:absolute; left:0; top:0; width:1080px; height:1920px; pointer-events:none; display:none; transform-origin:0 0; font:600 30px system-ui, sans-serif; color:#fff }
+body.guides #guides { display:block } body.capture #guides { display:none !important }
+.tg { position:absolute; background:rgba(0,0,0,.5); display:flex; align-items:center; justify-content:center; text-align:center; line-height:1.4 }
+.tg-safe { position:absolute; left:60px; right:150px; top:130px; bottom:480px; border:4px dashed #66CCFF }
+#bar button { background:#3b0a0d; color:#fff; border:0; border-radius:8px; padding:9px 14px; font:inherit; cursor:pointer }
+#bar button:focus-visible, #bar input:focus-visible { outline:2px solid #32B15D; outline-offset:2px }
+#bar input[type=range] { flex:1; accent-color:#D95050 }
+#time { font-variant-numeric:tabular-nums; min-width:92px; text-align:right }
+
+.layer { position:absolute; inset:0 }
+.art { position:absolute; inset:0; width:100%; height:100%; overflow:visible }
+.qz-air { position:absolute; inset:0; background:radial-gradient(120% 70% at 50% 62%, var(--wine), var(--ground) 75%) }
+.qz-photo { position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; transform-origin:50% 40% }
+/* on a busy photo the boxes need more body and the red bubble an outline */
+#stage.photo .qz-ans { background:color-mix(in srgb, var(--ground) 90%, transparent) }
+#stage.photo .qz-card { background:color-mix(in srgb, var(--card) 95%, transparent) }
+#stage.photo .qz-bubble { box-shadow:0 0 0 4px rgba(255,240,230,.55), 0 20px 50px rgba(0,0,0,.5) }
+#stage.photo .qz-followtxt { background:color-mix(in srgb, var(--ground) 92%, transparent) }
+.qz-shade { position:absolute; inset:0; background:linear-gradient(180deg, rgba(12,2,4,.5) 0%, rgba(12,2,4,.3) 30%, rgba(12,2,4,.34) 70%, rgba(12,2,4,.62) 100%) }
+.qz-vignette { position:absolute; inset:0; background:radial-gradient(90% 70% at 50% 50%, transparent 55%, color-mix(in srgb, var(--ground) 70%, transparent)) }
+.qz-ui { position:absolute; inset:0; display:none }
+.qz-col { position:absolute; left:72px; right:162px; top:330px; display:flex; flex-direction:column; align-items:stretch }
+.qz-bubble { position:relative; padding:44px 60px 50px; border-radius:46px; background:color-mix(in srgb, var(--main) 94%, transparent); text-align:center; font-size:58px; line-height:1.28; box-shadow:0 20px 50px rgba(0,0,0,.28); transform-origin:50% 100% }
+.qz-bubble::after { content:''; position:absolute; left:50%; bottom:-30px; margin-left:-34px; border-left:34px solid transparent; border-right:34px solid transparent; border-top:32px solid color-mix(in srgb, var(--main) 94%, transparent) }
+.qz-word { margin-top:52px; text-align:center; font-size:58px; text-shadow:0 2px 12px rgba(0,0,0,.4) }
+.qz-card { position:relative; margin-top:30px; height:640px; border-radius:46px; background:color-mix(in srgb, var(--card) 86%, transparent); box-shadow:0 24px 60px rgba(0,0,0,.3); display:flex; align-items:center; justify-content:center }
+.qz-grid { display:flex }
+.qz-cell { position:relative }
+.qz-cell svg { position:absolute; inset:0; width:100%; height:100% }
+.qz-han { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--han-font); font-weight:900; line-height:1; color:var(--ink) }
+.qz-popwrap { position:absolute; inset:0; display:flex; align-items:center; justify-content:center }
+.qz-pop { padding:40px 70px 30px; border-radius:40px; background:color-mix(in srgb, var(--ink) 58%, transparent); box-shadow:0 30px 70px rgba(0,0,0,.4); text-align:center; display:flex; flex-direction:column; align-items:center; gap:6px; max-width:740px }
+.qz-pophan { font-size:96px; line-height:1.1 } .qz-poppin { font-size:76px; line-height:1.15 }
+.qz-under { width:380px; height:30px; display:block }
+.qz-answers { margin-top:80px; display:flex; flex-direction:column; gap:40px }
+.qz-ans { position:relative; padding:42px 120px 42px 56px; border-radius:36px; background:color-mix(in srgb, var(--ground) 70%, transparent); font-size:52px; line-height:1.2; box-shadow:0 14px 40px rgba(0,0,0,.25) }
+.qz-fill { position:absolute; inset:0; border-radius:36px; background:var(--accent); opacity:0 }
+.qz-anstxt { position:relative }
+.qz-check { position:absolute; right:44px; top:50%; width:64px; height:64px; margin-top:-32px }
+.qz-badge { position:absolute; right:162px; top:148px; width:170px; height:170px }
+.qz-badge svg { position:absolute; inset:0; width:100%; height:100%; filter:drop-shadow(0 8px 18px rgba(0,0,0,.3)) }
+.qz-num { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:88px; color:var(--ink) }
+.qz-follow { position:absolute; left:72px; right:162px; bottom:510px; display:flex; align-items:center; gap:28px; opacity:0 }
+.qz-followtxt { flex:1; padding:36px 46px; border-radius:32px; background:color-mix(in srgb, var(--ground) 86%, transparent); font-size:50px; line-height:1.25 }
+.qz-logo { width:240px; height:240px; border-radius:50%; flex:none; object-fit:cover; box-shadow:0 14px 36px rgba(0,0,0,.45) }
+.qz-cat { pointer-events:none }
+.qz-catimg { position:absolute; display:block; height:auto; opacity:0; transform-origin:50% 100%; filter:drop-shadow(0 12px 22px rgba(0,0,0,.4)) }
+.qz-catshadow { position:absolute; height:46px; border-radius:50%; background:radial-gradient(closest-side, rgba(0,0,0,.5), transparent); opacity:0 }
+.qz-spark { position:absolute; width:70px; height:70px; margin:-35px 0 0 -35px; opacity:0 }
+.qz-z { position:absolute; font-size:60px; line-height:1; color:var(--second); opacity:0; text-shadow:0 3px 10px rgba(0,0,0,.4) }
+</style>
+</head>
+<body>
+<div id="wrap"><div id="frame"><div id="stage"></div>
+  <div id="guides" aria-hidden="true">
+    <div class="tg" style="left:0;right:0;top:0;height:130px">Following &nbsp;|&nbsp; For You</div>
+    <div class="tg" style="right:0;width:150px;top:130px;bottom:480px;flex-direction:column;gap:70px;font-size:46px">♥<br>💬<br>🔖<br>↗</div>
+    <div class="tg" style="left:0;right:0;bottom:0;height:480px;flex-direction:column;align-items:flex-start;padding:0 60px;box-sizing:border-box">@username<br>caption and hashtags…<br>♫ music</div>
+    <div class="tg-safe"></div>
+  </div>
+</div></div>
+<div id="bar">
+  <button id="play" type="button">Play</button>
+  <input id="seek" type="range" min="0" max="1000" value="0" aria-label="Position">
+  <span id="time">0.0 / 0.0</span>
+  <button id="snd" type="button">Sound on</button>
+  <button id="guide" type="button" aria-pressed="false">TikTok guides</button>
+</div>
+<script>
+window.QUIZ = /*QUIZDATA*/null;
+</script>
+<script>
+(() => {
+'use strict';
+const Q = window.QUIZ;
+// ---------- pure helpers ----------
+const clamp01 = x => Math.max(0, Math.min(1, x));
+const seg = (t, a, b) => clamp01((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const eo = x => 1 - Math.pow(1 - x, 3);
+const eob = (x, s = 1.4) => 1 + (s + 1) * Math.pow(x - 1, 3) + s * Math.pow(x - 1, 2);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const h = html => { const d = document.createElement('div'); d.innerHTML = html.trim(); return d.firstElementChild; };
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+const W = 1080, H = 1920;
+const stage = document.getElementById('stage');
+
+// ---------- timeline ----------
+const scenes = []; let acc = 0;
+Q.items.forEach((it, i) => {
+  const n = Q.count, last = i === Q.items.length - 1;
+  const dur = n + Q.reveal + (last && Q.follow ? Q.outro : 0);
+  scenes.push({ it, start: acc, dur, n, last }); acc += dur;
+});
+const DUR = acc;
+
+// ---------- backdrop: lanterns on a night street, driven by global time ----------
+// Silk colours of the lanterns, each [glowing core, silk, deep edge]: a market street of mixed lanterns.
+const LANTERN_COLORS = [
+  ['#FFE2B8', '#E8312F', '#7A0C12'], ['#FFE8AE', '#F57C1F', '#8A3A08'], ['#FFF8C8', '#F2C41C', '#8C6A05'],
+  ['#E4FFC0', '#4DBB45', '#165C1E'], ['#CFFFF6', '#1DB2A4', '#0B5550'], ['#D6EEFF', '#2F7BEA', '#122F7A'],
+  ['#F0DCFF', '#8C48D9', '#3B1670'], ['#FFDDEE', '#E2559A', '#7A1648'], ['#FFFFFF', '#F4E7CF', '#A08A64'],
+];
+// one lantern: r = radius, L = where its cap hangs, c = colour index, shape = round | tall | onion (pointed ends)
+function lantern(r, L, c, shape) {
+  const rx = shape === 'tall' ? r * 0.8 : r, hh = shape === 'tall' ? r * 1.42 : shape === 'onion' ? r * 1.05 : r * 1.12;
+  const cy = L + r * 0.2 + hh, bot = cy + hh, sw = Math.max(1.5, r * 0.025), f = v => v.toFixed(1), col = LANTERN_COLORS[c];
+  const body = k => (shape === 'onion'
+    ? '<path d="M0 ' + f(cy - hh) + ' C' + f(rx * 1.34 * k) + ' ' + f(cy - hh * 0.6) + ' ' + f(rx * 1.34 * k) + ' ' + f(cy + hh * 0.6) + ' 0 ' + f(cy + hh) +
+      ' C' + f(-rx * 1.34 * k) + ' ' + f(cy + hh * 0.6) + ' ' + f(-rx * 1.34 * k) + ' ' + f(cy - hh * 0.6) + ' 0 ' + f(cy - hh) + 'Z"'
+    : '<ellipse cx="0" cy="' + f(cy) + '" rx="' + f(rx * k) + '" ry="' + f(hh) + '"');
+  let s = '<g><circle class="halo" cx="0" cy="' + f(cy) + '" r="' + f(r * 2.1) + '" fill="url(#lt-glow-' + c + ')"/>';
+  s += '<path d="M0 -40 V' + f(L + 2) + '" style="stroke:var(--cap);stroke-width:' + f(Math.max(2, r * 0.04)) + '"/>';
+  s += '<rect x="' + f(-r * 0.46) + '" y="' + f(L) + '" width="' + f(r * 0.92) + '" height="' + f(r * 0.26) + '" rx="' + f(r * 0.06) + '" style="fill:var(--cap)"/>';
+  s += body(1) + ' fill="url(#lt-body-' + c + ')"/>';
+  s += [0.34, 0.66, 0.9].map(k => body(k) + ' style="fill:none;stroke:' + col[2] + ';stroke-width:' + f(sw) + ';opacity:.45"/>').join('');
+  s += '<path d="M' + f(-rx * 0.62) + ' ' + f(cy - hh * 0.62) + ' Q' + f(-rx * 0.98) + ' ' + f(cy) + ' ' + f(-rx * 0.62) + ' ' + f(cy + hh * 0.62) + '" style="fill:none;stroke:#fff;stroke-width:' + f(r * 0.07) + ';stroke-linecap:round;opacity:.25"/>';
+  s += '<rect x="' + f(-r * 0.4) + '" y="' + f(bot - r * 0.2) + '" width="' + f(r * 0.8) + '" height="' + f(r * 0.24) + '" rx="' + f(r * 0.06) + '" style="fill:var(--cap)"/>';
+  s += '<path d="M' + f(-r * 0.12) + ' ' + f(bot + r * 0.04) + ' L' + f(-r * 0.2) + ' ' + f(bot + r * 0.95) + ' H' + f(r * 0.2) + ' L' + f(r * 0.12) + ' ' + f(bot + r * 0.04) + ' Z" style="fill:' + col[1] + ';opacity:.85"/>';
+  return s + '</g>';
+}
+function backdrop() {
+  const r = rng(7), rc = rng(11), all = [];
+  const defs = '<defs>' + LANTERN_COLORS.map((c, i) =>
+    '<radialGradient id="lt-body-' + i + '" cx=".4" cy=".42" r=".65"><stop offset="0" stop-color="' + c[0] + '"/><stop offset=".45" stop-color="' + c[1] + '"/><stop offset="1" stop-color="' + c[2] + '"/></radialGradient>' +
+    '<radialGradient id="lt-glow-' + i + '"><stop offset="0" stop-color="' + c[1] + '" stop-opacity=".38"/><stop offset="1" stop-color="' + c[1] + '" stop-opacity="0"/></radialGradient>').join('') + '</defs>';
+  // colours and shapes come from their own seeded sequence, so the lanterns' positions stay as they were
+  let lastC = -1;
+  const look = () => { let c = Math.floor(rc() * LANTERN_COLORS.length); if (c === lastC) c = (c + 1) % LANTERN_COLORS.length; lastC = c; return [c, ['round', 'onion', 'tall'][Math.floor(rc() * 3)]]; };
+  const hang = (x, R, L) => { all.push({ x, f: 0.55 + r() * 0.5, ph: r() * 6.28, a: 1.5 + r() * 2.5 }); const [c, shape] = look(); return '<g class="hang" transform="translate(' + x.toFixed(0) + ' -20)">' + lantern(R, L, c, shape) + '</g>'; };
+  let far = '<svg class="art bd-far" viewBox="0 0 ' + W + ' ' + H + '" style="opacity:.45">' + defs;
+  for (let i = 0; i < 12; i++) { const R = 32 + r() * 28; far += hang((i + 0.15 + r() * 0.7) / 12 * W, R, 60 + r() * H * 0.8); }
+  far += '</svg>';
+  let mid = '<svg class="art bd-mid" viewBox="0 0 ' + W + ' ' + H + '" style="opacity:.8">';
+  for (let i = 0; i < 6; i++) { const R = 80 + r() * 50; mid += hang((i + 0.2 + r() * 0.6) / 6 * W, R, 120 + r() * H * 0.7); }
+  mid += '</svg>';
+  let near = '<svg class="art bd-near" viewBox="0 0 ' + W + ' ' + H + '">';
+  [[-30, 1000, 250], [1110, 700, 220], [600, 1480, 290]].forEach(([x, top, R]) => { near += hang(x, R, top); });
+  near += '</svg>';
+  const el = h('<div class="layer"><div class="qz-air"></div>' + far + mid + near + '<div class="qz-vignette"></div></div>');
+  const hangs = Array.from(el.querySelectorAll('.hang')), halos = Array.from(el.querySelectorAll('.halo'));
+  const layers = ['.bd-far', '.bd-mid', '.bd-near'].map(s => el.querySelector(s));
+  return { el, render(T) {
+    hangs.forEach((g, i) => {
+      const q = all[i];
+      g.setAttribute('transform', 'translate(' + q.x.toFixed(1) + ' -20) rotate(' + (q.a * Math.sin(T * q.f + q.ph)).toFixed(2) + ')');
+      halos[i].style.opacity = (0.8 + 0.2 * Math.sin(T * 1.3 + q.ph * 2)).toFixed(3);
+    });
+    layers[0].style.transform = 'translateX(' + (6 * Math.sin(T * 0.2)).toFixed(1) + 'px)';
+    layers[1].style.transform = 'translateX(' + (14 * Math.sin(T * 0.2 + 0.5)).toFixed(1) + 'px)';
+    layers[2].style.transform = 'translate(' + (30 * Math.sin(T * 0.2 + 1)).toFixed(1) + 'px,' + (10 * Math.sin(T * 0.3)).toFixed(1) + 'px)';
+  } };
+}
+
+// ---------- countdown badge ----------
+function badge() {
+  const C = 2 * Math.PI * 74;
+  const el = h('<div class="qz-badge"><svg viewBox="0 0 170 170"><circle cx="85" cy="85" r="80" style="fill:var(--badge)"/><circle class="ring" cx="85" cy="85" r="74" transform="rotate(-90 85 85)" style="fill:none;stroke:var(--main);stroke-width:9;stroke-linecap:round;stroke-dasharray:' + C.toFixed(1) + '"/></svg><div class="qz-num">0</div></div>');
+  const ring = el.querySelector('.ring'), num = el.querySelector('.qz-num');
+  return { el, render(t, n) {
+    num.textContent = String(t < n ? n - Math.floor(Math.max(0, t)) : 0);
+    const f = t < 0 ? 1 : (t < n ? t - Math.floor(t) : t - n);
+    num.style.transform = 'scale(' + (1 + 0.18 * (1 - eo(seg(f, 0, 0.35)))).toFixed(3) + ')';
+    if (t < n) { ring.style.strokeDashoffset = (C * clamp01(t / n)).toFixed(1); ring.style.stroke = 'var(--main)'; }
+    else { ring.style.strokeDashoffset = (C * (1 - eo(seg(t, n, n + 0.5)))).toFixed(1); ring.style.stroke = 'var(--accent)'; }
+    el.style.transform = 'scale(' + (1 + 0.015 * Math.sin(t * 2.1)).toFixed(4) + ')';
+  } };
+}
+
+const enter = (el, t, t0, dy) => { const q = eo(seg(t, t0, t0 + 0.45)); el.style.opacity = q.toFixed(3); return (1 - q) * (dy || 40); };
+
+// ---------- follow card ----------
+function follow() {
+  const el = h('<div class="qz-follow"><div class="qz-followtxt">' + esc(Q.followText) + '</div>' + (Q.logo ? '<img class="qz-logo" alt="" src="' + Q.logo + '">' : '') + '</div>');
+  const txt = el.querySelector('.qz-followtxt'), logo = el.querySelector('.qz-logo');
+  return { el, render(t, t0) {
+    const a = eo(seg(t, t0, t0 + 0.5)), b = eob(seg(t, t0 + 0.2, t0 + 0.8), 1.7);
+    el.style.opacity = a.toFixed(3);
+    txt.style.transform = 'translateY(' + ((1 - a) * 90).toFixed(1) + 'px)';
+    if (logo) logo.style.transform = 'rotate(' + lerp(-120, 0, b).toFixed(1) + 'deg) scale(' + lerp(0.4, 1, b).toFixed(3) + ')';
+  } };
+}
+
+// ---------- quiz type "kepes": English word -> characters in a practice grid -> pinyin card ----------
+function charQuiz(sc) {
+  const it = sc.it, chars = Array.from(it.han), cs = Math.min(380, Math.floor(740 / chars.length));
+  const cells = chars.map(ch => '<div class="qz-cell" style="width:' + cs + 'px;height:' + cs + 'px"><svg viewBox="0 0 400 400"><rect x="2" y="2" width="396" height="396" style="fill:none;stroke:var(--ink);stroke-width:4;opacity:.6"/><path d="M200 2V398M2 200H398" style="fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:14 12;opacity:.45"/></svg><div class="qz-han" style="font-size:' + Math.round(cs * 0.83) + 'px">' + esc(ch) + '</div></div>').join('');
+  const el = h('<div class="qz-ui"><div class="qz-col"><div class="qz-bubble">' + esc(Q.question) + '</div><div class="qz-word">' + esc(it.en) + '</div><div class="qz-card"><div class="qz-grid">' + cells + '</div><div class="qz-popwrap"><div class="qz-pop"><div class="qz-pophan">' + esc(it.han) + '</div><div class="qz-poppin">(' + esc(it.pinyin) + ')</div><svg class="qz-under" viewBox="0 0 400 30"><path class="under" d="M10 18 Q120 6 200 16 T390 12" style="fill:none;stroke:var(--accent);stroke-width:8;stroke-linecap:round;stroke-dasharray:420"/></svg></div></div></div></div></div>');
+  const q = s => el.querySelector(s);
+  const p = { bubble: q('.qz-bubble'), word: q('.qz-word'), card: q('.qz-card'), grid: q('.qz-grid'), pop: q('.qz-pop'), under: q('.under'), hans: Array.from(el.querySelectorAll('.qz-han')) };
+  return { el, render(t) {
+    const e = sc.start === 0 ? -1.4 : 0, n = sc.n;
+    p.bubble.style.transform = 'translateY(' + enter(p.bubble, t, e, 50).toFixed(1) + 'px) scale(' + (1 + 0.006 * Math.sin(t * 2.1)).toFixed(4) + ')';
+    p.word.style.transform = 'translateY(' + enter(p.word, t, e + 0.12, 30).toFixed(1) + 'px)';
+    p.card.style.transform = 'translateY(' + enter(p.card, t, e + 0.22, 60).toFixed(1) + 'px)';
+    p.hans.forEach((hn, i) => {
+      const k = eob(seg(t, e + 0.35 + i * 0.15, e + 0.85 + i * 0.15), 1.6);
+      hn.style.opacity = clamp01(k * 1.5).toFixed(3);
+      hn.style.transform = 'scale(' + lerp(0.7, 1, k).toFixed(3) + ') rotate(' + (0.6 * Math.sin(t * 1.4 + i)).toFixed(2) + 'deg)';
+    });
+    const rp = eob(seg(t, n, n + 0.45), 1.7), ro = eo(seg(t, n, n + 0.22));
+    p.pop.style.opacity = ro.toFixed(3);
+    p.pop.style.transform = 'translateY(' + (3 * Math.sin(t * 1.7)).toFixed(1) + 'px) scale(' + lerp(0.6, 1, rp).toFixed(3) + ')';
+    p.under.style.strokeDashoffset = (420 * (1 - eo(seg(t, n + 0.4, n + 0.9)))).toFixed(1);
+    p.grid.style.opacity = lerp(1, 0.8, ro).toFixed(3);
+  } };
+}
+
+// ---------- quiz type "szoveges": question, three answers, right one turns green ----------
+function mcQuiz(sc) {
+  const it = sc.it;
+  const answers = it.options.map((o, i) => '<div class="qz-ans"><div class="qz-fill"></div><span class="qz-anstxt">' + esc(o.han) + ' (' + esc(o.pinyin) + ')</span>' + (i === it.correct ? '<svg class="qz-check" viewBox="0 0 64 64"><path class="tick" d="M12 34 L27 48 L53 18" style="fill:none;stroke:var(--second);stroke-width:9;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:70"/></svg>' : '') + '</div>').join('');
+  const qtext = Q.question.replace('{en}', it.en);
+  const el = h('<div class="qz-ui"><div class="qz-col"><div class="qz-bubble">' + esc(qtext) + '</div><div class="qz-answers">' + answers + '</div></div></div>');
+  const bubble = el.querySelector('.qz-bubble'), tick = el.querySelector('.tick');
+  const ans = Array.from(el.querySelectorAll('.qz-ans')).map(a => ({ el: a, fill: a.querySelector('.qz-fill') }));
+  return { el, render(t) {
+    const e = sc.start === 0 ? -1.4 : 0, n = sc.n;
+    bubble.style.transform = 'translateY(' + enter(bubble, t, e, 50).toFixed(1) + 'px) scale(' + (1 + 0.006 * Math.sin(t * 2.1)).toFixed(4) + ')';
+    const hit = eo(seg(t, n, n + 0.35)), grow = eob(seg(t, n, n + 0.5), 1.8);
+    ans.forEach((a, i) => {
+      const dy = enter(a.el, t, e + 0.25 + i * 0.14, 50), right = i === it.correct;
+      const op = eo(seg(t, e + 0.25 + i * 0.14, e + 0.7 + i * 0.14));
+      a.el.style.opacity = (right ? op : op * lerp(1, 0.5, hit)).toFixed(3);
+      a.fill.style.opacity = right ? hit.toFixed(3) : '0';
+      a.el.style.transform = 'translateY(' + dy.toFixed(1) + 'px) scale(' + (right ? 1 + 0.02 * grow : 1).toFixed(4) + ')';
+    });
+    if (tick) tick.style.strokeDashoffset = (70 * (1 - eo(seg(t, n + 0.25, n + 0.6)))).toFixed(1);
+  } };
+}
+
+// ---------- the cat: photo cut-outs, posed and moved by time only ----------
+// Poses (all optional): peek = looking over an edge (flat bottom), look = lying, looking up (flat left edge),
+// sit = sitting, sleep = curled up. During a question the cat peeks (even questions) or looks up from the left
+// (odd ones); at the reveal it crouches and jumps in sitting; after the last question it falls asleep.
+function catView() {
+  if (!Q.cat) return null;
+  const z = Q.kind === 'szoveges' ? 1.2 : 1;  // the text quiz leaves more room at the bottom
+  const POSE = {
+    peek:  { w: 470 * z, left: 40,  bottom: 0 },
+    look:  { w: 520 * z, left: -16, bottom: 26 },
+    sit:   { w: 372 * z, left: 64,  bottom: 30 },
+    sleep: { w: 560 * z, left: (W - 560 * z) / 2, bottom: 36 },
+  };
+  const el = h('<div class="layer qz-cat"></div>'), img = {};
+  const shadow = h('<div class="qz-catshadow"></div>'); el.append(shadow);
+  Object.keys(POSE).forEach(k => {
+    if (!Q.cat[k]) return;
+    const p = POSE[k], im = document.createElement('img');
+    im.className = 'qz-catimg'; im.alt = ''; im.src = Q.cat[k];
+    im.style.width = p.w.toFixed(0) + 'px'; im.style.left = p.left.toFixed(0) + 'px'; im.style.bottom = p.bottom + 'px';
+    el.append(im); img[k] = im;
+  });
+  const star = '<svg viewBox="-50 -50 100 100"><path d="M0-48 C6-12 12-6 48 0 C12 6 6 12 0 48 C-6 12-12 6-48 0 C-12-6-6-12 0-48Z" style="fill:#FFE8A3"/></svg>';
+  const sparks = [[-150, -40, 0], [130, -110, 0.12], [190, 40, 0.24]].map(([dx, dy, d]) => {
+    const s = h('<div class="qz-spark">' + star + '</div>'); el.append(s); return { s, dx, dy, d };
+  });
+  const zs = ['z', 'z', 'Z'].map(c => { const e = h('<div class="qz-z">' + c + '</div>'); el.append(e); return e; });
+  const pick = (...ks) => ks.find(k => img[k]);  // first pose that exists
+  const qPoses = [pick('peek', 'look', 'sit'), pick('look', 'peek', 'sit')];
+  const put = (k, o) => {
+    const im = img[k]; if (!im) return;
+    im.style.opacity = clamp01(o.op).toFixed(3);
+    im.style.transform = 'translate(' + (o.x || 0).toFixed(1) + 'px,' + (o.y || 0).toFixed(1) + 'px) rotate(' + (o.rot || 0).toFixed(2) +
+      'deg) scale(' + (o.sx || 1).toFixed(3) + ',' + (o.sy || 1).toFixed(3) + ')';
+  };
+  const headOf = k => { const p = POSE[k]; return { x: p.left + p.w * 0.7, y: H - p.bottom - p.w * 1.0 }; };
+  // wait for the load event, not img.decode(): decode() can stay pending while the page is in the background
+  const loaded = im => (im.complete ? Promise.resolve() : new Promise(r => { im.onload = im.onerror = r; }));
+  return { el, ready: Promise.all(Object.values(img).map(loaded)), render(sc, i, t) {
+    Object.values(img).forEach(im => { im.style.opacity = '0'; });
+    sparks.forEach(o => { o.s.style.opacity = '0'; });
+    zs.forEach(e => { e.style.opacity = '0'; });
+    shadow.style.opacity = '0';
+    const e = sc.start === 0 ? -1.4 : 0, n = sc.n, q = qPoses[i % 2];
+    if (t < n + 0.15) {
+      // question: come in, watch with a slow bob, crouch just before the answer, then duck away
+      const k = eob(seg(t, e + 0.3, e + 1.0), 1.5), c = seg(t, n - 0.2, n), d = eo(seg(t, n, n + 0.15));
+      const o = { op: 1 - d, rot: 1.4 * Math.sin(t * 1.3), sx: 1 + 0.05 * c, sy: 1 - 0.08 * c };
+      if (q === 'look') { o.x = -(1 - k) * POSE.look.w * 1.1; o.y = 4 * Math.sin(t * 1.8) + d * 260; }
+      else { o.y = (1 - k) * POSE[q].w + 6 * Math.sin(t * 2.2) + d * 300; }
+      put(q, o);
+    }
+    if (t >= n) {
+      const r = t - n, outro = sc.last && Q.follow ? t - (n + Q.reveal) : -1;
+      // jump in sitting: up from below, an arc, a squash on landing, then a gentle bob
+      const k = seg(r, 0.05, 0.6), land = Math.sin(Math.PI * seg(r, 0.6, 0.85)), air = Math.sin(Math.PI * k);
+      const away = outro >= 0 ? eo(seg(outro, 0, 0.35)) : 0;
+      const y = lerp(320, 0, k) - 300 * 4 * k * (1 - k) + (r > 0.85 ? 4 * Math.sin(t * 2.4) : 0) + away * 520;
+      const sk = pick('sit', 'peek', 'look');
+      put(sk, { op: (r > 0.05 ? 1 : 0) * (1 - away), y, sx: 1 - 0.04 * air + 0.08 * land, sy: 1 + 0.07 * air - 0.12 * land, rot: -3 * air });
+      if (sk === 'sit') {
+        const p = POSE.sit; shadow.style.left = (p.left + p.w * 0.12).toFixed(0) + 'px'; shadow.style.width = (p.w * 0.8).toFixed(0) + 'px';
+        shadow.style.top = (H - p.bottom - 26).toFixed(0) + 'px';
+        shadow.style.opacity = (seg(r, 0.3, 0.6) * (1 - 0.6 * air) * (1 - away)).toFixed(3);
+        shadow.style.transform = 'scaleX(' + (1 - 0.4 * air).toFixed(3) + ')';
+      }
+      const hd = headOf(sk);
+      sparks.forEach(o => {
+        const f = seg(r, 0.55 + o.d, 1.25 + o.d), s = Math.sin(Math.PI * f);
+        o.s.style.left = (hd.x + o.dx).toFixed(0) + 'px'; o.s.style.top = (hd.y + o.dy).toFixed(0) + 'px';
+        o.s.style.opacity = (s * (1 - away)).toFixed(3); o.s.style.transform = 'scale(' + (0.3 + 0.9 * s).toFixed(3) + ') rotate(' + (90 * f).toFixed(1) + 'deg)';
+      });
+      if (outro >= 0 && img.sleep) {
+        // after the last answer: curl up and sleep, breathing, with z's floating up
+        const a = eob(seg(outro, 0.15, 0.7), 1.3), p = POSE.sleep;
+        put('sleep', { op: eo(seg(outro, 0.15, 0.45)), y: (1 - a) * 160, sx: 1 + 0.012 * Math.sin(t * 2.6), sy: 1 + 0.02 * Math.sin(t * 2.6) });
+        zs.forEach((ze, j) => {
+          const ph = ((outro - 0.6) * 0.8 + j / 3) % 1;
+          if (outro < 0.6 + j * 0.42) return;
+          ze.style.left = (p.left + p.w * 0.78 + ph * 60 + j * 14).toFixed(0) + 'px';
+          ze.style.top = (H - p.bottom - p.w * 0.62 * 0.62 - ph * 150).toFixed(0) + 'px';
+          ze.style.opacity = Math.sin(Math.PI * ph).toFixed(3);
+          ze.style.transform = 'scale(' + (0.6 + 0.6 * ph).toFixed(3) + ') rotate(' + (-12 + 10 * ph).toFixed(1) + 'deg)';
+        });
+      }
+    }
+  } };
+}
+
+// ---------- build ----------
+// a background photo (config.json "backgrounds") replaces the drawn lantern street
+function photoBackdrop() {
+  const el = h('<div class="layer"><img class="qz-photo" alt="" src="' + Q.background + '"><div class="qz-shade"></div><div class="qz-vignette"></div></div>');
+  const img = el.querySelector('.qz-photo');
+  stage.classList.add('photo');
+  const ready = img.complete ? Promise.resolve() : new Promise(r => { img.onload = img.onerror = r; });
+  return { el, ready, render(T) {
+    // a slow zoom and drift over the whole video
+    const p = T / DUR;
+    img.style.transform = 'translate(' + (18 * Math.sin(T * 0.11)).toFixed(1) + 'px,' + (-40 * p).toFixed(1) + 'px) scale(' + (1.06 + 0.07 * p).toFixed(4) + ')';
+  } };
+}
+const bd = Q.background ? photoBackdrop() : backdrop(); stage.append(bd.el);
+scenes.forEach(sc => { sc.view = Q.kind === 'kepes' ? charQuiz(sc) : mcQuiz(sc); stage.append(sc.view.el); });
+const cat = catView(); if (cat) stage.append(cat.el);
+const bg = badge(); stage.append(bg.el);
+const fw = Q.follow ? follow() : null; if (fw) stage.append(fw.el);
+let current = null;
+
+function renderAt(T) {
+  T = Math.max(0, Math.min(DUR - 1e-6, T));
+  bd.render(T);
+  let sc = scenes[scenes.length - 1];
+  for (const s of scenes) if (T < s.start + s.dur) { sc = s; break; }
+  if (current !== sc) { if (current) current.view.el.style.display = 'none'; sc.view.el.style.display = 'block'; current = sc; }
+  const t = T - sc.start;
+  sc.view.render(t);
+  if (cat) cat.render(sc, scenes.indexOf(sc), t);
+  bg.render(t, sc.n);
+  if (fw) { if (sc.last) fw.render(t, sc.n + 0.6); else fw.el.style.opacity = '0'; }
+}
+window.DURATION = DUR;
+window.renderAt = renderAt;
+
+// ---------- sound: synthesized, same events live and offline ----------
+const mid = m => 440 * Math.pow(2, (m - 69) / 12);
+const NOTE = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+const nm = s => { const m = /^([A-G])(#?)(\d)$/.exec(s); return 12 * (+m[3] + 1) + NOTE[m[1]] + (m[2] ? 1 : 0); };
+function score() {
+  const ev = [], add = (t, k, o) => ev.push(Object.assign({ t, k }, o || {}));
+  const chords = [['D3', 'A3', 'E4'], ['B2', 'F#3', 'D4'], ['G2', 'D3', 'B3'], ['A2', 'E3', 'C#4']];
+  const roots = ['D2', 'B1', 'G1', 'A1'];
+  const mel = [['D4', 'F#4', 'A4', 'B4'], ['B3', 'D4', 'F#4', 'A4'], ['G4', 'A4', 'B4', 'D5'], ['A4', 'B4', 'D5', 'E5']];
+  const pat = 'x.x.X.xx';
+  scenes.forEach((sc, i) => {
+    const t0 = sc.start, c = i % 4, len = sc.n + Q.reveal;
+    add(t0, 'whoosh');
+    add(t0, 'pad', { notes: chords[c], dur: sc.dur });
+    for (let b = 0; b < len * 2; b++) {
+      const s = pat[b % 8]; if (s !== '.') add(t0 + b * 0.25, 'pluck', { note: mel[c][b % 4], vel: s === 'X' ? 0.9 : 0.6 });
+      if (b % 4 === 0) add(t0 + b * 0.25, 'bass', { note: roots[c] });
+    }
+    if (Q.kind === 'szoveges' && !sc.last) for (let b = 0; b < len * 2; b += 2) { add(t0 + b * 0.25, b % 4 === 0 ? 'kick' : 'hat'); }
+    for (let x = 0; x < sc.n; x += 0.5) add(t0 + x, 'tick');
+    add(t0 + sc.n, Q.kind === 'kepes' ? 'ding' : 'chime');
+    if (sc.last && Q.follow) { add(t0 + sc.n + 1.2, 'pop'); add(t0 + sc.n + 1.2, 'pad', { notes: ['D3', 'A3', 'F#4', 'E5'], dur: sc.dur - sc.n - 1.2 }); }
+  });
+  return ev;
+}
+const EVENTS = score();
+
+// ---------- the spoken clips (Google TTS, made by tts/make_audio.py, embedded by quiz_gen.py) ----------
+// Each card: its question shortly after it appears (the picture quiz has one fixed question), and the word in
+// Mandarin right after the reveal. Decoded once; the same buffers play live and in the offline render.
+const VOICE = Q.voice || null, VOICE_BUF = {}, VOICE_EVENTS = [];
+if (VOICE) scenes.forEach((sc, i) => {
+  VOICE_EVENTS.push({ t: sc.start + (i === 0 ? 0.35 : 0.3), k: Q.kind === 'kepes' ? 'question' : 'q' + i });
+  VOICE_EVENTS.push({ t: sc.start + sc.n + 0.45, k: 'zh' + i });
+});
+const VOICE_READY = (async () => {
+  if (!VOICE) return;
+  const dec = new OfflineAudioContext(1, 1, 44100), jobs = [];
+  if (VOICE.question) jobs.push(['question', VOICE.question]);
+  VOICE.items.forEach((v, i) => { if (v.q) jobs.push(['q' + i, v.q]); if (v.zh) jobs.push(['zh' + i, v.zh]); });
+  for (const [k, uri] of jobs) {
+    const bin = atob(uri.slice(uri.indexOf(',') + 1)), bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    try { VOICE_BUF[k] = await dec.decodeAudioData(bytes.buffer); } catch (e) { console.warn('voice clip ' + k + ' could not be decoded', e); }
+  }
+})();
+
+function synth(ctx, from, at) {
+  // from: film time to start at; at: context time that equals `from`
+  const master = ctx.createGain(); master.gain.value = 0.55; master.connect(ctx.destination);
+  const endAt = at + (DUR - from);
+  master.gain.setValueAtTime(0.55, Math.max(at, endAt - 1.4)); master.gain.linearRampToValueAtTime(0, endAt);
+  // the music goes through `out`, which dips while a voice speaks; the voices go straight to the master
+  const out = ctx.createGain(); out.gain.value = 1; out.connect(master);
+  const voice = ctx.createGain(); voice.gain.value = 1.5; voice.connect(master);
+  for (const v of VOICE_EVENTS) {
+    const buf = VOICE_BUF[v.k];
+    if (!buf || v.t < from - 0.01) continue;
+    const t = at + (v.t - from), src = ctx.createBufferSource();
+    src.buffer = buf; src.connect(voice); src.start(t);
+    out.gain.setTargetAtTime(0.35, Math.max(at, t - 0.12), 0.05);
+    out.gain.setTargetAtTime(1, t + buf.duration, 0.15);
+  }
+  const nb = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate), nd = nb.getChannelData(0), nr = rng(3);
+  for (let i = 0; i < nd.length; i++) nd[i] = nr() * 2 - 1;
+  const env = (g, t, a, peak, d) => { g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(0.0001, t + a + d); };
+  const osc = (type, f, t, a, peak, d, dest) => { const o = ctx.createOscillator(), g = ctx.createGain(); o.type = type; o.frequency.value = f; env(g, t, a, peak, d); o.connect(g).connect(dest || out); o.start(t); o.stop(t + a + d + 0.05); return o; };
+  const noise = (t, d, peak, ftype, f, f2) => { const s = ctx.createBufferSource(), fl = ctx.createBiquadFilter(), g = ctx.createGain(); s.buffer = nb; fl.type = ftype; fl.frequency.setValueAtTime(f, t); if (f2) fl.frequency.exponentialRampToValueAtTime(f2, t + d); env(g, t, Math.min(0.01, d / 4), peak, d); s.connect(fl).connect(g).connect(out); s.start(t); s.stop(t + d + 0.05); };
+  for (const e of EVENTS) {
+    if (e.t < from - 0.01) continue;
+    const t = at + (e.t - from);
+    switch (e.k) {
+      case 'tick': osc('square', 1800, t, 0.002, 0.05, 0.03); break;
+      case 'ding': osc('sine', 1318.5, t, 0.005, 0.32, 1.2); osc('sine', 2637, t, 0.005, 0.1, 0.6); break;
+      case 'chime': [1046.5, 1318.5, 1568].forEach((f, i) => osc('sine', f, t + i * 0.06, 0.005, 0.22, 1.0)); osc('sine', 2093, t + 0.25, 0.005, 0.08, 0.8); break;
+      case 'pop': osc('sine', 660, t, 0.003, 0.3, 0.12).frequency.exponentialRampToValueAtTime(1300, t + 0.1); break;
+      case 'pluck': { const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 2400; f.connect(out); osc('triangle', mid(nm(e.note)), t, 0.004, 0.13 * e.vel, 0.45, f); break; }
+      case 'bass': osc('sine', mid(nm(e.note)), t, 0.01, 0.28, 0.5); break;
+      case 'kick': { const o = osc('sine', 120, t, 0.002, 0.5, 0.25); o.frequency.exponentialRampToValueAtTime(45, t + 0.15); break; }
+      case 'hat': noise(t, 0.05, 0.05, 'highpass', 7000); break;
+      case 'whoosh': noise(t, 0.45, 0.06, 'bandpass', 400, 2200); break;
+      case 'pad': {
+        const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 900; f.connect(out);
+        e.notes.forEach(n => [-6, 6].forEach(det => {
+          const o = ctx.createOscillator(), g = ctx.createGain(); o.type = 'sawtooth'; o.frequency.value = mid(nm(n)); o.detune.value = det;
+          g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.018, t + 0.6); g.gain.setValueAtTime(0.018, t + Math.max(0.7, e.dur - 0.4)); g.gain.linearRampToValueAtTime(0.0001, t + e.dur + 0.6);
+          o.connect(g).connect(f); o.start(t); o.stop(t + e.dur + 0.7);
+        }));
+        break;
+      }
+    }
+  }
+}
+function wav(buf) {
+  const ch = buf.numberOfChannels, len = buf.length, sr = buf.sampleRate, bytes = 44 + len * ch * 2, ab = new ArrayBuffer(bytes), v = new DataView(ab);
+  const str = (o, s) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+  str(0, 'RIFF'); v.setUint32(4, bytes - 8, true); str(8, 'WAVEfmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, ch, true);
+  v.setUint32(24, sr, true); v.setUint32(28, sr * ch * 2, true); v.setUint16(32, ch * 2, true); v.setUint16(34, 16, true); str(36, 'data'); v.setUint32(40, len * ch * 2, true);
+  const data = []; for (let c = 0; c < ch; c++) data.push(buf.getChannelData(c));
+  let o = 44; for (let i = 0; i < len; i++) for (let c = 0; c < ch; c++) { v.setInt16(o, Math.max(-1, Math.min(1, data[c][i])) * 32767, true); o += 2; }
+  let bin = ''; const u8 = new Uint8Array(ab); for (let i = 0; i < u8.length; i += 0x8000) bin += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000));
+  return btoa(bin);
+}
+window.renderAudioWav = async () => {
+  await VOICE_READY;
+  const sr = 44100, ctx = new OfflineAudioContext(2, Math.ceil(sr * DUR), sr);
+  synth(ctx, 0, 0);
+  return wav(await ctx.startRendering());
+};
+
+// ---------- player ----------
+const capture = new URLSearchParams(location.search).has('capture');
+if (capture) document.body.classList.add('capture');
+const frame = document.getElementById('frame'), wrap = document.getElementById('wrap');
+function fit() {
+  const s = capture ? 1 : Math.min(wrap.clientWidth / W, wrap.clientHeight / H);
+  frame.style.width = W * s + 'px'; frame.style.height = H * s + 'px';
+  stage.style.transformOrigin = '0 0'; stage.style.transform = 'scale(' + s + ')';
+  document.getElementById('guides').style.transform = 'scale(' + s + ')';
+}
+window.addEventListener('resize', fit); fit();
+let T = 0, playing = false, t0 = 0, p0 = 0, ac = null, soundOn = true;
+const playBtn = document.getElementById('play'), seek = document.getElementById('seek'), time = document.getElementById('time'), snd = document.getElementById('snd');
+const show = () => { renderAt(T); seek.value = Math.round(T / DUR * 1000); time.textContent = T.toFixed(1) + ' / ' + DUR.toFixed(1); };
+const stopAudio = () => { if (ac) { ac.close(); ac = null; } };
+const startAudio = () => { stopAudio(); if (!soundOn) return; ac = new AudioContext(); synth(ac, T, ac.currentTime + 0.05); };
+function loop() { if (!playing) return; T = p0 + (performance.now() - t0) / 1000; if (T >= DUR) { T = DUR; playing = false; playBtn.textContent = 'Play'; stopAudio(); } show(); if (playing) requestAnimationFrame(loop); }
+function play() { if (T >= DUR - 0.01) T = 0; playing = true; p0 = T; t0 = performance.now() + 50; playBtn.textContent = 'Pause'; startAudio(); requestAnimationFrame(loop); }
+function pause() { playing = false; playBtn.textContent = 'Play'; stopAudio(); }
+playBtn.onclick = () => (playing ? pause() : play());
+seek.oninput = () => { T = seek.value / 1000 * DUR; if (playing) { p0 = T; t0 = performance.now(); startAudio(); } show(); };
+snd.onclick = () => { soundOn = !soundOn; snd.textContent = soundOn ? 'Sound on' : 'Sound off'; if (playing) startAudio(); };
+document.getElementById('guide').onclick = e => { const on = document.body.classList.toggle('guides'); e.currentTarget.setAttribute('aria-pressed', String(on)); };
+document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); playing ? pause() : play(); } });
+show();
+window.QUIZ_READY = Promise.all([document.fonts ? document.fonts.ready : null, cat ? cat.ready : null, VOICE_READY, bd.ready])
+  .then(() => { show(); return true; });
+})();
+</script>
+</body>
+</html>
