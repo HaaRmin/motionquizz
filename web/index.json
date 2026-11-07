@@ -16,7 +16,8 @@
   "assets/backgrounds/bg-1-lanterns.jpg",
   "assets/backgrounds/bg-2-neon.jpg",
   "assets/backgrounds/bg-3-blossom.jpg",
-  "assets/backgrounds/bg-4-cat-moon.jpg"
+  "assets/backgrounds/bg-4-cat-moon.jpg",
+  "assets/backgrounds/bg-5-cat-moon-high.jpg"
  ],
  "thumbs": {
   "assets/logos/logo-01.jpg": "assets/thumbs/logo-01.jpg",
@@ -33,6 +34,7 @@
   "assets/backgrounds/bg-1-lanterns.jpg": "assets/thumbs/bg-1-lanterns.jpg",
   "assets/backgrounds/bg-2-neon.jpg": "assets/thumbs/bg-2-neon.jpg",
   "assets/backgrounds/bg-3-blossom.jpg": "assets/thumbs/bg-3-blossom.jpg",
-  "assets/backgrounds/bg-4-cat-moon.jpg": "assets/thumbs/bg-4-cat-moon.jpg"
+  "assets/backgrounds/bg-4-cat-moon.jpg": "assets/thumbs/bg-4-cat-moon.jpg",
+  "assets/backgrounds/bg-5-cat-moon-high.jpg": "assets/thumbs/bg-5-cat-moon-high.jpg"
  }
 }

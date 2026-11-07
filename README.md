@@ -86,7 +86,8 @@ Az `out/` mappába kerül a `.html`, a `.mp4` és egy `.json` (a kiválasztott s
 - Válaszsávok (szöveges kvíz) és a „Follow me” doboz: a szöveg középen; a sáv színét a sablon a háttérből számolja
   (`template.html` → `tuneBands`): a válaszok mögötti rész átlagszíne (a sötétítő réteggel együtt) adja az árnyalatot,
   sötét háttéren világosabb, világos háttéren sötétebb sávval, mindig olvasható fehér szöveggel.
-- Alapértelmezett háttér: `config.json` → `background` (most `bg-4-cat-moon.jpg`); a weboldal ezzel indul,
+- Alapértelmezett háttér: `config.json` → `background` (most `bg-4-cat-moon.jpg`; a `bg-5-cat-moon-high.jpg` ugyanez
+  a rajz feljebb, a TikTok felirata fölött, így a videóban is látszik); a weboldal ezzel indul,
   a `quiz_gen.py` is ezt használja. `--background auto` vagy az oldalon a „Chosen by the number” a sorszám
   szerint választ a mappából. A logó továbbra is a sorszámból adódik, ha nincs kiválasztva.
 - `data/overrides.csv`: angol jelentés javítása (`han,en,`), szó kizárása (`han,,exclude`) vagy
