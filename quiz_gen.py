@@ -49,11 +49,13 @@ def load_words(levels):
                 continue
             seen.add(w["han"])
             ov = overrides.get(w["han"])
-            action = (ov or {}).get("action", "").strip()
+            action = ((ov or {}).get("action") or "").strip()
             if action == "exclude":
                 continue
-            if ov and ov.get("en", "").strip():
+            if ov and (ov.get("en") or "").strip():
                 w = dict(w, en=ov["en"].strip())
+            if ov and (ov.get("pinyin") or "").strip():  # the right reading where the source lists several
+                w = dict(w, pinyin=ov["pinyin"].strip())
             w["eligible"] = action == "include" or (not w.get("multi") and bool(w["pos"]) and w["pos"][0] in ELIGIBLE_POS)
             words.append(w)
     return words
@@ -83,19 +85,57 @@ def pick(kind, levels, words, n, seed, used, forced):
     return chosen
 
 
-def distractors(target, words, seed, k=2):
-    cands = [w for w in words if w["eligible"] and w["han"] != target["han"]
-             and w["en"].lower() != target["en"].lower()
-             and not (set(w["han"]) & set(target["han"]))]
-    cands.sort(key=lambda w: (abs(len(w["han"]) - len(target["han"])), h(seed, target["han"], w["han"])))
-    out, glosses = [], {target["en"].lower()}
-    for w in cands:
-        if w["en"].lower() in glosses:
-            continue
-        out.append(w)
-        glosses.add(w["en"].lower())
-        if len(out) == k:
-            break
+def load_groups():
+    """data/groups.csv: the words each word shares a set or a topic with, and the words it must never be shown with.
+    kind "set": natural alternatives (today / tomorrow / yesterday); "topic": a subject (Food and drink);
+    "same": the same meaning, so never one as the other's wrong answer (爸爸 / 爸)."""
+    groups = {"set": {}, "topic": {}, "same": {}, "rows": []}
+    path = HERE / "data" / "groups.csv"
+    if not path.exists():
+        return groups
+    with open(path, encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            kind = (row.get("kind") or "").strip()
+            words = [x.strip() for x in (row.get("words") or "").split(";") if x.strip()]
+            groups["rows"].append({"group": (row.get("group") or "").strip(), "kind": kind, "words": words})
+            if kind in ("set", "topic", "same"):
+                for x in words:
+                    groups[kind].setdefault(x, set()).update(y for y in words if y != x)
+    return groups
+
+
+def distractor_levels(levels):
+    """Wrong answers may come from the chosen levels and the ones below them (an HSK 2 learner knows HSK 1)."""
+    top = max(int(x) for x in levels)
+    return [str(i) for i in range(1, top + 1)]
+
+
+def distractors(target, words, seed, groups, k=2):
+    """k wrong answers, taken in this order until there are k: words of the same set, of the same topic, of the
+    same word type and a similar length, then any word. Shared characters are allowed in the set and topic steps
+    (上边 / 下边); never a word with the same English meaning or from the target's "same" group."""
+    never = groups["same"].get(target["han"], set()) | {target["han"]}
+    tchars, tlen, ten = set(target["han"]), len(target["han"]), target["en"].lower()
+    tpos = target["pos"][:1]
+    by_han = {w["han"]: w for w in words}
+    order = lambda w: h(seed, target["han"], w["han"])  # noqa: E731
+    mates = lambda kind: [by_han[x] for x in groups[kind].get(target["han"], ()) if x in by_han]  # noqa: E731
+    tiers = [
+        sorted(mates("set"), key=order),
+        sorted(mates("topic"), key=order),
+        sorted((w for w in words if w["pos"][:1] == tpos and abs(len(w["han"]) - tlen) <= 1 and not set(w["han"]) & tchars), key=order),
+        sorted((w for w in words if not set(w["han"]) & tchars), key=lambda w: (abs(len(w["han"]) - tlen), order(w))),
+    ]
+    out, glosses = [], {ten}
+    for tier in tiers:
+        for w in tier:
+            if (not w["eligible"] or w["han"] in never or w["en"].lower() in glosses or w in out
+                    or any(w["han"] in groups["same"].get(o["han"], ()) for o in out)):
+                continue
+            out.append(w)
+            glosses.add(w["en"].lower())
+            if len(out) == k:
+                return out
     return out
 
 
@@ -257,6 +297,7 @@ def main():
     used = set(entry["used"])
 
     words = load_words(levels)
+    pool, groups = load_words(distractor_levels(levels)), load_groups()  # wrong answers: these levels and the ones below
     forced = [x.strip() for x in a.words.split(",")] if a.words else None
     chosen = pick(a.kind, levels, words, n, seed, used, forced)
 
@@ -264,7 +305,7 @@ def main():
     for w in chosen:
         item = {"han": w["han"], "pinyin": w["pinyin"], "en": w["en"]}
         if a.kind == "szoveges":
-            opts = distractors(w, words, seed)
+            opts = distractors(w, pool, seed, groups)
             pos = h(seed, w["han"], "pos") % (len(opts) + 1)
             opts.insert(pos, w)
             item["options"] = [{"han": o["han"], "pinyin": o["pinyin"], "en": o["en"]} for o in opts]

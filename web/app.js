@@ -1,16 +1,12 @@
-// The quiz video page: pick a quiz, preview it with sound, export the MP4 in the browser and download it.
+// The quiz video page: make a new quiz, preview it with sound, export the MP4 in the browser and download it.
 // Everything runs in the browser; the data files, voice clips and images are read from this site.
 // ?v=__BUILD__: the GitHub Pages workflow writes the commit there, so a new version never runs with old cached scripts
-import { parseCsv, buildQuiz, pickBySeed } from './quiz.js?v=__BUILD__';
+import { parseCsv, buildQuiz, loadGroups, pickBySeed } from './quiz.js?v=__BUILD__';
 import { exportMp4, canExport } from './export.js?v=__BUILD__';
 
 const $ = id => document.getElementById(id);
 // the preview plays like a media player, so an iPhone's silent switch does not mute it (see template.html)
 try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) { /* older browser */ }
-const store = {
-  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
-  set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private mode: only the convenience is lost */ } },
-};
 const path = p => p.split('/').map(encodeURIComponent).join('/');
 const get = async (url, opts) => { const r = await fetch(url, opts); if (!r.ok) throw new Error(url + ' (' + r.status + ')'); return r; };
 const dataUri = async url => {
@@ -18,7 +14,10 @@ const dataUri = async url => {
   return new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = rej; fr.readAsDataURL(blob); });
 };
 const label = p => p.split('/').pop().replace(/\.[^.]+$/, '');
+// "bg-4-cat-moon.jpg" -> "Cat moon"
+const bgName = p => label(p).replace(/^bg-\d+-/, '').replace(/[-_]+/g, ' ').replace(/^./, c => c.toUpperCase());
 const say = (text, kind = '') => { const s = $('status'); s.textContent = text; s.dataset.kind = kind; };
+const checked = name => document.querySelector('input[name="' + name + '"]:checked').value;
 
 let D = null, current = null, videoUrl = null;
 
@@ -26,24 +25,45 @@ let D = null, current = null, videoUrl = null;
 const fresh = url => get(url, { cache: 'no-cache' });
 
 async function loadData() {
-  const [cfg, index, l1, l2, ov, manifest, tpl] = await Promise.all([
+  const [cfg, index, l1, l2, ov, groups, manifest, tpl] = await Promise.all([
     fresh('config.json').then(r => r.json()), fresh('web/index.json').then(r => r.json()),
     fresh('data/hsk1.json').then(r => r.json()), fresh('data/hsk2.json').then(r => r.json()),
-    fresh('data/overrides.csv').then(r => r.text()), fresh('audio/manifest.json').then(r => r.json()).catch(() => null),
-    fresh('template.html').then(r => r.text()),
+    fresh('data/overrides.csv').then(r => r.text()), fresh('data/groups.csv').then(r => r.text()).catch(() => ''),
+    fresh('audio/manifest.json').then(r => r.json()).catch(() => null), fresh('template.html').then(r => r.text()),
   ]);
-  D = { cfg, index, lists: { 1: l1, 2: l2 }, overrides: parseCsv(ov), manifest, tpl };
-  for (const f of index.backgrounds) $('bg').add(new Option(label(f), f));
-  // config.json "background": the photo the page starts with (the logo stays chosen by the number)
-  if (cfg.background && index.backgrounds.includes(cfg.background)) $('bg').value = cfg.background;
-  for (const f of index.logos) $('logo').add(new Option(label(f), f));
+  D = { cfg, index, lists: { 1: l1, 2: l2 }, overrides: parseCsv(ov), groups: loadGroups(groups ? parseCsv(groups) : []), manifest, tpl };
+  pictureTiles();
 }
 
-const choice = () => ({ kind: $('kind').value, levels: $('level').value.split(','), number: Math.max(1, parseInt($('number').value, 10) || 1) });
-const nextKey = c => 'hsk-next:' + c.kind + ':' + c.levels.join('+');
-function suggestNumber() { $('number').value = store.get(nextKey(choice())) || '1'; }
-// remember the next unused number as soon as a quiz is made, so a new visit or Next gives new words
-function remember(c) { const k = nextKey(c), n = parseInt(store.get(k), 10) || 1; if (c.number + 1 > n) store.set(k, String(c.number + 1)); }
+// The background and logo pickers: one tile per picture (its thumbnail), plus "Drawn lanterns" and 🎲 Random.
+// config.json "background" is the background the page starts with; the logo starts on 🎲.
+function tile(group, value, { img, text, icon, cls = '', on = false }) {
+  const l = document.createElement('label');
+  l.className = 'tile ' + cls;
+  const input = Object.assign(document.createElement('input'), { type: 'radio', name: group, value, checked: on });
+  input.setAttribute('aria-label', text);
+  l.append(input);
+  if (img) l.append(Object.assign(document.createElement('img'), { src: path(img), alt: '', loading: 'lazy', decoding: 'async' }));
+  if (icon) l.append(Object.assign(document.createElement('span'), { className: 'icon', textContent: icon }));
+  if (group === 'bg') l.append(Object.assign(document.createElement('span'), { textContent: text }));
+  return l;
+}
+function pictureTiles() {
+  const thumb = f => D.index.thumbs?.[f] || f, start = D.cfg.background;
+  const bgs = D.index.backgrounds.slice().sort((a, b) => (b === start) - (a === start)); // the default first
+  $('bgs').replaceChildren(
+    ...bgs.map(f => tile('bg', f, { img: thumb(f), text: bgName(f), on: f === start })),
+    tile('bg', 'lanterns', { text: 'Drawn lanterns', icon: '🏮', cls: 'drawn' }),
+    tile('bg', 'auto', { text: 'Random', icon: '🎲', on: !bgs.includes(start) }));
+  $('logos').replaceChildren(
+    tile('logo', 'auto', { text: 'Random logo', icon: '🎲', on: true }),
+    ...D.index.logos.map((f, i) => tile('logo', f, { img: thumb(f), text: 'Logo ' + (i + 1) })));
+}
+
+// a new random seed for every quiz: new words, wrong answers and (with 🎲) background and logo
+const newSeed = () => Array.from(crypto.getRandomValues(new Uint8Array(8)), b => b.toString(16).padStart(2, '0')).join('');
+const choice = () => ({ kind: checked('kind'), levels: checked('level').split(',') });
+
 // the preview frame keeps the video's proportions at any width, plus the player's bar (one row, or two when narrow)
 function sizeFrame() {
   const f = $('frame'), bar = f.contentDocument && f.contentDocument.getElementById('bar');
@@ -54,9 +74,10 @@ function sizeFrame() {
 
 // quiz_gen.py main(): the quiz data the template expects, with the clips and images inlined as data URIs
 async function quizData(c) {
-  const q = buildQuiz(D.cfg, D.lists, D.overrides, c.kind, c.levels, c.number), k = D.cfg[c.kind];
-  const logo = $('logo').value === 'auto' ? pickBySeed(D.index.logos, q.seed, 'logo') : $('logo').value;
-  const bg = $('bg').value === 'auto' ? pickBySeed(D.index.backgrounds, q.seed, 'background') : $('bg').value === 'lanterns' ? null : $('bg').value;
+  const q = buildQuiz(D.cfg, D.lists, D.overrides, D.groups, c.kind, c.levels, newSeed()), k = D.cfg[c.kind];
+  const logoPick = checked('logo'), bgPick = checked('bg');
+  const logo = logoPick === 'auto' ? pickBySeed(D.index.logos, q.seed, 'logo') : logoPick;
+  const bg = bgPick === 'auto' ? pickBySeed(D.index.backgrounds, q.seed, 'background') : bgPick === 'lanterns' ? null : bgPick;
   let voice = null;
   if (D.manifest && (D.cfg.audio || {}).enabled !== false) {
     const clip = async (group, key) => { const e = (D.manifest[group] || {})[key]; return e ? dataUri('audio/' + path(e.file)) : null; };
@@ -78,29 +99,28 @@ async function quizData(c) {
 
 function showWords(q) {
   const list = $('words');
-  list.replaceChildren(...q.items.map((it, i) => {
+  list.replaceChildren(...q.items.map(it => {
     const li = document.createElement('li');
     li.innerHTML = '<span class="han"></span> <span class="pin"></span> <span class="en"></span>';
     li.querySelector('.han').textContent = it.han;
     li.querySelector('.pin').textContent = it.pinyin;
     li.querySelector('.en').textContent = it.en;
     if (it.options) {
-      const wrong = it.options.filter((o, j) => j !== it.correct).map(o => o.han + ' (' + o.pinyin + ')').join(', ');
+      const wrong = it.options.filter((o, j) => j !== it.correct).map(o => o.han + ' (' + o.pinyin + ', ' + o.en + ')').join(', ');
       const small = document.createElement('small'); small.textContent = 'wrong answers: ' + wrong; li.append(small);
     }
     return li;
   }));
-  const lv = q.levels.join('+');
-  $('caption').value = 'HSK ' + lv + ' Chinese quiz #' + Number(q.name.split('_').pop()) + ': ' +
+  $('caption').value = 'HSK ' + q.levels.join('+') + ' Chinese quiz: ' +
     q.items.map(it => it.han + ' ' + it.pinyin + ' = ' + it.en).join(' · ') +
     '\n#learnchinese #chinese #hsk #mandarin #chineselanguage';
 }
 
 async function preview() {
   const c = choice();
-  $('make').disabled = true; $('next').disabled = true; $('export').disabled = true; $('download').hidden = true;
+  $('make').disabled = true; $('export').disabled = true; $('download').hidden = true;
   sizeFrame();
-  say('Making quiz #' + c.number + '…');
+  say('Making a new quiz…');
   try {
     const { q, quiz, logo, bg } = await quizData(c);
     const html = D.tpl.split('__TITLE__').join(q.name).replace('/*QUIZDATA*/null', () => JSON.stringify(quiz).replace(/<\//g, '<\\/'));
@@ -109,22 +129,21 @@ async function preview() {
     await frame.contentWindow.QUIZ_READY;
     sizeFrame();
     current = { c, q };
-    remember(c);
     showWords(q);
-    $('picked').textContent = (bg ? label(bg) : 'drawn lanterns') + ' · ' + (logo ? label(logo) : 'no logo') + ' · ' + Math.round(frame.contentWindow.DURATION) + ' s';
-    say('Quiz #' + c.number + ' is ready. Press Play in the preview, or export the video.', 'ok');
+    $('picked').textContent = (bg ? bgName(bg) : 'Drawn lanterns') + ' · ' + (logo ? label(logo) : 'no logo') + ' · ' + Math.round(frame.contentWindow.DURATION) + ' s';
+    say('Your quiz is ready. Press Play in the preview, or export the video.', 'ok');
     $('export').disabled = !(await canExport());
   } catch (e) {
     say('Could not make the quiz: ' + e.message, 'error');
   } finally {
-    $('make').disabled = false; $('next').disabled = false;
+    $('make').disabled = false;
   }
 }
 
 async function exportVideo() {
   if (!current) return;
-  const { c, q } = current;
-  $('export').disabled = true; $('make').disabled = true; $('next').disabled = true;
+  const { q } = current;
+  $('export').disabled = true; $('make').disabled = true;
   const t0 = performance.now();
   try {
     const blob = await exportMp4($('frame').contentWindow, (done, total) => {
@@ -137,19 +156,17 @@ async function exportVideo() {
     a.href = videoUrl; a.download = q.name + '.mp4'; a.hidden = false;
     a.textContent = 'Download ' + q.name + '.mp4 (' + (blob.size / 1048576).toFixed(1) + ' MB)';
     a.click();
-    say('Video ready in ' + ((performance.now() - t0) / 1000).toFixed(0) + ' s. Press Next ▸ for quiz #' + (c.number + 1) + '.', 'ok');
+    say('Video ready in ' + ((performance.now() - t0) / 1000).toFixed(0) + ' s.', 'ok');
   } catch (e) {
     say('Export failed: ' + e.message, 'error');
   } finally {
-    $('bar').value = 0; $('export').disabled = false; $('make').disabled = false; $('next').disabled = false;
+    $('bar').value = 0; $('export').disabled = false; $('make').disabled = false;
   }
 }
 
 $('make').onclick = preview;
-$('next').onclick = () => { $('number').value = String(choice().number + 1); preview(); };
-window.addEventListener('resize', sizeFrame);
 $('export').onclick = exportVideo;
-$('kind').onchange = $('level').onchange = suggestNumber;
+window.addEventListener('resize', sizeFrame);
 $('copy').onclick = async () => {
   try { await navigator.clipboard.writeText($('caption').value); $('copy').textContent = 'Copied'; } catch (e) { $('caption').select(); }
   setTimeout(() => { $('copy').textContent = 'Copy caption'; }, 1500);
@@ -159,10 +176,9 @@ $('copy').onclick = async () => {
   say('Loading the word lists…');
   try {
     await loadData();
-    suggestNumber();
     if (!(await canExport())) $('browser').hidden = false;
-    say('Ready. Choose a quiz and press Make quiz.');
-    $('make').disabled = false; $('next').disabled = false;
+    say('Ready. Choose a quiz and press New quiz.');
+    $('make').disabled = false;
     sizeFrame();
   } catch (e) {
     say('Could not load the quiz data: ' + e.message, 'error');

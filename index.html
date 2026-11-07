@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <title>HSK quiz video</title>
 <style>
 :root { --bg:#140103; --panel:#22060a; --line:#3d1117; --text:#f6e7e9; --muted:#c9a9ad; --accent:#D95050; --ok:#32B15D; --error:#ff8a8a }
@@ -12,22 +13,47 @@ html, body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 sy
 header { padding:20px 24px 4px; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap }
 h1 { margin:0; font-size:24px }
 header p { margin:0; color:var(--muted) }
-header .ver { font-size:12px; opacity:.7 }
-main { display:grid; grid-template-columns:minmax(300px, 440px) auto; gap:24px; padding:16px 24px 32px; align-items:start }
-@media (max-width: 860px) { main { grid-template-columns:1fr; padding:12px 16px 24px } }
-section { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px }
-section + section { margin-top:16px }
+/* computer: the card, the words and the caption on the left, the preview on the right;
+   phone: the card, then the preview, then the words and the caption */
+main { display:grid; grid-template-columns:minmax(300px, 460px) auto; grid-template-areas:"quiz preview" "words preview" "caption preview";
+  gap:16px 24px; padding:16px 24px 32px; align-items:start; justify-content:start }
+#quizcard { grid-area:quiz } #wordscard { grid-area:words } #captioncard { grid-area:caption }
+.preview { grid-area:preview; grid-row:1 / span 3; position:sticky; top:16px; display:flex; flex-direction:column; align-items:center; gap:8px }
+@media (max-width: 860px) {
+  main { grid-template-columns:1fr; grid-template-areas:"quiz" "preview" "words" "caption"; padding:12px 16px 24px }
+  .preview { grid-row:auto; position:static }
+}
+section { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px; min-width:0 }
 h2 { margin:0 0 12px; font-size:16px; color:var(--muted); font-weight:600 }
-label { display:block; margin:0 0 12px; font-size:14px; color:var(--muted) }
-select, input[type=number], textarea { display:block; width:100%; margin-top:4px; padding:9px 10px; border-radius:9px; border:1px solid var(--line); background:#140205; color:var(--text); font:inherit }
-.row { display:grid; grid-template-columns:1fr 1fr; gap:12px }
-.numrow { display:flex; gap:10px; margin:4px 0 12px } .numrow input { margin-top:0 }
-button, a.button { display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:10px 16px; border-radius:10px; border:0; background:var(--accent); color:#fff; font:600 15px system-ui, sans-serif; cursor:pointer; text-decoration:none; white-space:nowrap }
+fieldset { border:0; margin:0 0 16px; padding:0; min-width:0 }
+legend { padding:0; margin:0 0 6px; font-size:14px; color:var(--muted) }
+legend small { font-size:12px; opacity:.85 }
+/* tap buttons: real radio buttons, drawn as a segmented control */
+.seg { display:flex; gap:4px; padding:4px; border-radius:12px; background:#140205; border:1px solid var(--line) }
+.seg label { flex:1; position:relative; text-align:center; padding:9px 4px; border-radius:9px; font-weight:600; color:var(--muted); cursor:pointer }
+.seg input, .tile input { position:absolute; opacity:0; inset:0; margin:0; cursor:pointer }
+.seg label:has(input:checked) { background:var(--accent); color:#fff }
+.seg label:has(input:focus-visible), .tile:has(input:focus-visible) { outline:2px solid var(--ok); outline-offset:2px }
+/* picture tiles for the backgrounds and the logos */
+.bgs { display:grid; grid-template-columns:repeat(6, 1fr); gap:8px }
+@media (max-width: 860px) { .bgs { grid-template-columns:repeat(3, 1fr) } }
+.tile { position:relative; display:block; border:2px solid transparent; overflow:hidden; cursor:pointer; background:#2c080c }
+.tile:has(input:checked) { border-color:var(--ok); box-shadow:0 0 0 2px var(--ok) }
+.bgs .tile { aspect-ratio:9 / 16; border-radius:10px }
+.bgs .tile img { width:100%; height:100%; object-fit:cover; display:block }
+.bgs .tile span { position:absolute; left:0; right:0; bottom:0; padding:14px 4px 5px; font-size:12px; font-weight:600; text-align:center; background:linear-gradient(transparent, rgba(0,0,0,.75)) }
+.tile.drawn { background:radial-gradient(120% 70% at 50% 62%, #5a1414, #2A0306 75%) }
+.tile .icon { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:28px; padding-bottom:18px }
+.logos { display:grid; grid-template-columns:repeat(6, 1fr); gap:8px }
+.logos .tile { aspect-ratio:1; border-radius:50% }
+.logos .tile img { width:100%; height:100%; object-fit:cover; display:block }
+.logos .tile .icon { padding:0; font-size:24px }
+button, a.button { display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:12px 16px; border-radius:12px; border:0; background:var(--accent); color:#fff; font:700 16px system-ui, sans-serif; cursor:pointer; text-decoration:none; white-space:nowrap }
 button.secondary { background:#3b0a0d }
 a.button { background:var(--ok); margin-top:12px; width:100% }
 button:disabled { opacity:.45; cursor:not-allowed }
-button:focus-visible, a.button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible { outline:2px solid var(--ok); outline-offset:2px }
-.actions { display:flex; gap:10px; flex-wrap:wrap }
+button:focus-visible, a.button:focus-visible, textarea:focus-visible { outline:2px solid var(--ok); outline-offset:2px }
+.actions { display:flex; gap:10px } .actions button { flex:1 }
 progress { width:100%; height:8px; margin-top:12px; accent-color:var(--ok) }
 #status { min-height:1.5em; margin:10px 0 0; font-size:14px; color:var(--muted) }
 #status[data-kind=ok] { color:#9fe0b4 } #status[data-kind=error] { color:var(--error) }
@@ -37,10 +63,9 @@ ol#words li { margin-bottom:6px }
 .han { font-size:20px; font-weight:700 } .pin { color:#ffd59a } .en { color:var(--muted) }
 ol#words small { display:block; color:var(--muted); font-size:12px }
 #picked { font-size:13px; color:var(--muted); margin:8px 0 0 }
-textarea { min-height:96px; resize:vertical; font-size:14px }
-.preview { position:sticky; top:16px; display:flex; flex-direction:column; align-items:center; gap:8px }
+textarea { display:block; width:100%; min-height:96px; resize:vertical; margin-top:4px; padding:9px 10px; border-radius:9px; border:1px solid var(--line); background:#140205; color:var(--text); font:14px/1.5 system-ui, sans-serif }
 iframe { width:405px; height:784px; max-width:100%; border:1px solid var(--line); border-radius:14px; background:#000 }
-@media (max-width: 860px) { .preview { position:static } iframe { width:100% } }
+@media (max-width: 860px) { iframe { width:100% } }
 .hint { font-size:13px; color:var(--muted); text-align:center; max-width:405px; margin:0 }
 </style>
 </head>
@@ -48,57 +73,56 @@ iframe { width:405px; height:784px; max-width:100%; border:1px solid var(--line)
 <header>
   <h1>HSK quiz video</h1>
   <p>Make a quiz, preview it, download the MP4 for TikTok.</p>
-  <p class="ver">version __BUILD__</p>
 </header>
 <main>
-  <div>
-    <section aria-labelledby="h-quiz">
-      <h2 id="h-quiz">Quiz</h2>
-      <p id="browser" hidden>This browser cannot make the video file. The preview works; for the MP4 use Chrome or Edge on a computer.</p>
-      <div class="row">
-        <label>Type
-          <select id="kind"><option value="kepes">Picture quiz (képes)</option><option value="szoveges">Text quiz (szöveges)</option></select>
-        </label>
-        <label>HSK level
-          <select id="level"><option value="1">HSK 1</option><option value="2">HSK 2</option><option value="1,2">HSK 1 + 2</option></select>
-        </label>
+  <section id="quizcard" aria-labelledby="h-quiz">
+    <h2 id="h-quiz">Quiz</h2>
+    <p id="browser" hidden>This browser cannot make the video file. The preview works; for the MP4 use Chrome or Edge on a computer, or Safari on an iPhone.</p>
+    <fieldset>
+      <legend>Type</legend>
+      <div class="seg">
+        <label><input type="radio" name="kind" value="kepes" checked>Picture quiz</label>
+        <label><input type="radio" name="kind" value="szoveges">Text quiz</label>
       </div>
-      <label for="number">Quiz number</label>
-      <div class="numrow">
-        <input id="number" type="number" min="1" step="1" value="1" inputmode="numeric">
-        <button id="next" type="button" class="secondary" disabled>Next ▸</button>
+    </fieldset>
+    <fieldset>
+      <legend>HSK level</legend>
+      <div class="seg">
+        <label><input type="radio" name="level" value="1" checked>HSK 1</label>
+        <label><input type="radio" name="level" value="2">HSK 2</label>
+        <label><input type="radio" name="level" value="1,2">HSK 1 + 2</label>
       </div>
-      <div class="row">
-        <label>Background
-          <select id="bg"><option value="auto">Chosen by the number</option><option value="lanterns">Drawn lanterns</option></select>
-        </label>
-        <label>Logo
-          <select id="logo"><option value="auto">Chosen by the number</option></select>
-        </label>
-      </div>
-      <div class="actions">
-        <button id="make" type="button" disabled>Make quiz</button>
-        <button id="export" type="button" class="secondary" disabled>Export MP4</button>
-      </div>
-      <progress id="bar" max="1" value="0"></progress>
-      <p id="status" role="status" aria-live="polite"></p>
-      <a id="download" class="button" hidden>Download</a>
-    </section>
-    <section aria-labelledby="h-words">
-      <h2 id="h-words">Words in this quiz</h2>
-      <ol id="words"></ol>
-      <p id="picked"></p>
-    </section>
-    <section aria-labelledby="h-caption">
-      <h2 id="h-caption">TikTok caption</h2>
-      <textarea id="caption" aria-label="TikTok caption"></textarea>
-      <div class="actions" style="margin-top:10px"><button id="copy" type="button" class="secondary">Copy caption</button></div>
-    </section>
-  </div>
+    </fieldset>
+    <fieldset>
+      <legend>Background</legend>
+      <div class="bgs" id="bgs"></div>
+    </fieldset>
+    <fieldset>
+      <legend>Logo <small>or 🎲 for a random one</small></legend>
+      <div class="logos" id="logos"></div>
+    </fieldset>
+    <div class="actions">
+      <button id="make" type="button" disabled>New quiz</button>
+      <button id="export" type="button" class="secondary" disabled>Export MP4</button>
+    </div>
+    <progress id="bar" max="1" value="0"></progress>
+    <p id="status" role="status" aria-live="polite"></p>
+    <a id="download" class="button" hidden>Download</a>
+  </section>
   <div class="preview">
-    <iframe id="frame" title="Quiz preview"></iframe>
-    <p class="hint">The same quiz number always gives the same quiz. This browser remembers the next unused number, so a new visit starts with new words; “Next ▸” jumps to the following quiz. The preview's “TikTok guides” button shows where TikTok draws its buttons and caption.</p>
+    <iframe id="frame" title="Quiz preview" srcdoc="<!doctype html><body style='margin:0;background:#140103'></body>"></iframe>
+    <p class="hint">Every “New quiz” picks new words. The player's “TikTok guides” button shows where TikTok draws its buttons and caption.</p>
   </div>
+  <section id="wordscard" aria-labelledby="h-words">
+    <h2 id="h-words">Words in this quiz</h2>
+    <ol id="words"></ol>
+    <p id="picked"></p>
+  </section>
+  <section id="captioncard" aria-labelledby="h-caption">
+    <h2 id="h-caption">TikTok caption</h2>
+    <textarea id="caption" aria-label="TikTok caption"></textarea>
+    <div class="actions" style="margin-top:10px"><button id="copy" type="button" class="secondary">Copy caption</button></div>
+  </section>
 </main>
 <script type="module" src="web/app.js?v=__BUILD__"></script>
 </body>

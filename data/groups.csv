@@ -1,0 +1,101 @@
+group,kind,label,words
+days,set,today / tomorrow / yesterday,今天;明天;昨天;前天;后天
+years,set,this year / next year / last year,今年;明年;去年;前年
+daytime,set,morning / noon / evening,早上;上午;中午;下午;晚上;半夜;白天
+seasons,set,spring / summer / autumn / winter,春天;夏天;秋天;冬天
+when,set,last time / next time / now,上次;下次;上周;现在;以前;以后;最近;刚才;后来
+time-units,set,hour / week / month,小时;星期;月;刻;日期
+places,set,above / below / inside / beside,上边;下边;左边;右边;前边;后边;旁边;里边;外边;中间;对面;楼上;楼下
+compass,set,east / west / south / north,东边;西边;南边;北边;东南;西南
+meals,set,breakfast / lunch / dinner,早饭;午饭;晚饭;早餐;午餐;晚餐
+dishes,set,dishes,包子;米饭;面包;鸡蛋;肉;饺子;方便面;鱼
+drinks,set,drinks,茶;牛奶;酒;水
+cuisine,set,Chinese / Western / fast food,中餐;西餐;快餐
+come-go,set,come / go / back / out / in,来;去;回来;回去;出去;进来;进去;出来;过来
+on-off,set,get on / get off / start / finish,上车;下车;上班;下班;上课;下课;上学
+open-close,set,open / close / switch on / switch off,打开;关上;开机;关机;开;关
+buy-sell,set,buy / sell / borrow / exchange,买;卖;借;换;送
+perceive,set,see / hear / find / notice,看见;听见;找到;碰见;发现
+skills,set,listen / say / read / write / look,听;说;读;写;看
+give-get,set,receive / give / get / bring,收到;交给;拿到;带来;送给
+remember,set,remember / forget,记得;忘记;想起
+know,set,know / understand / believe,认识;知道;明白;觉得;相信;懂
+like,set,love / like / want,爱;喜欢;想;愿意
+emotions,set,happy / sad / angry / afraid,高兴;难过;生气;满意;放心;快乐;开心;难受;怕
+states,set,hungry / thirsty / busy / hurting,饿;渴;忙;疼
+size,set,big / small / many / few,大;小;多;少
+speed-distance,set,fast / slow / far / near,快;慢;远;近
+temperature,set,hot / cold / cool,热;冷;凉;凉快
+height,set,high / low / short / light,高;低;短;轻
+price,set,expensive / cheap,贵;便宜
+looks,set,pretty / ugly / nice to hear / tasty,好看;难看;漂亮;可爱;好听;难听;好吃
+good-bad,set,good / bad,好;坏;好人;坏人;不错
+right-wrong,set,correct / incorrect,正确;不对;准确
+colors,set,colors,白色;黑色;红色;黄色;蓝色;绿色;白;黑;红;蓝;绿
+weather,set,rain / snow / sunny / cloudy,下雨;下雪;晴天;阴天;雨;雪;风
+balls,set,basketball / volleyball / tennis,篮球;排球;网球
+vehicles,set,train / car / plane / taxi,火车;汽车;飞机;出租车;地铁;自行车;船;车
+stations,set,airport / station / parking lot,机场;车站;地铁站;停车场;路口
+town,set,shop / bank / hospital / library,商店;商场;书店;饭店;饭馆;医院;银行;图书馆;电影院;公园;动物园;酒店;药店
+school-people,set,student / teacher / classmate,学生;老师;同学;校长;小学生;中学生;大学生;留学生;班长
+schools,set,elementary school / middle school / university,小学;中学;高中;大学;学院
+family,set,family,爸爸;妈妈;哥哥;姐姐;弟弟;妹妹;儿子;女儿;爷爷;奶奶
+people,set,man / woman / child / adult,男人;女人;孩子;大人;老人;青年;少年;男生;女生;先生;小姐;太太
+friends,set,friend / boyfriend / colleague,朋友;男朋友;女朋友;同事;网友;客人
+body,set,hand / face / eye / foot,手;脸;眼睛;头发;头;脚;腿;身体
+animals,set,dog / cat / bird / fish,狗;猫;鸡;鸟;鱼
+sky,set,sun / moon / star,太阳;月亮;星星
+nature,set,sea / lake / river / mountain,大海;湖;河;山;树;草;草地
+school-things,set,book / notebook / schoolbag / dictionary,书;本子;书包;课本;词典;报纸;纸
+furniture,set,table / chair / bed / door,桌子;椅子;床;门;墙;灯
+language,set,character / word / sentence,字;词语;句子;课文;生词;读音;音节
+jobs,set,doctor / worker / driver / manager,医生;工人;司机;经理;画家;作家;科学家;老师;商人
+moving,set,walk / run / fly / ride,走;跑;飞;爬;骑;开车;打车;坐
+routine,set,get up / sleep / bathe / rest,起床;睡觉;洗澡;吃饭;午睡;休息;做饭
+talk,set,ask / reply / tell / introduce,问;回答;说话;告诉;介绍;讨论;说明;叫;喊
+media,set,TV / film / computer / phone,电视;电影;电脑;手机;电话;相机;报纸;新闻
+time,topic,Time,今天;明天;昨天;前天;后天;今年;明年;去年;前年;早上;上午;中午;下午;晚上;半夜;白天;夜里;春天;夏天;秋天;冬天;上次;下次;上周;周末;现在;以前;以后;最近;刚才;后来;小时;星期;月;日期;生日;假期;时间;时候;新年;节日
+people-topic,topic,Family and people,爸爸;妈妈;哥哥;姐姐;弟弟;妹妹;儿子;女儿;爷爷;奶奶;家人;家庭;孩子;大人;老人;男人;女人;朋友;男朋友;女朋友;同事;客人;太太;先生;小姐
+food,topic,Food and drink,包子;米饭;面包;鸡蛋;肉;饺子;方便面;鱼;茶;牛奶;酒;水;早饭;午饭;晚饭;菜;饭;水果;中餐;西餐;快餐;菜单;筷子;碗;杯子;瓶子;饭店;饭馆;做饭;吃饭;吃;饿;渴;好吃;味道;食物
+school,topic,School,学校;小学;中学;高中;大学;学院;学生;老师;同学;校长;班长;课;上课;下课;课本;书包;本子;词典;字;汉字;句子;生词;考试;作业;成绩;年级;学期;教室;黑板;练习;复习;学习;听写
+town-topic,topic,In town,商店;商场;书店;饭店;医院;银行;图书馆;电影院;公园;动物园;酒店;药店;马路;街;路口;广场;车站;机场;地铁站
+travel,topic,Transport and travel,火车;汽车;飞机;出租车;地铁;自行车;船;车;机场;车站;地铁站;停车场;机票;车票;护照;旅行;旅游;旅客;出发;起飞;开车;打车;骑;司机
+health,topic,Body and health,手;脸;眼睛;头发;头;脚;腿;身体;病;病人;生病;看病;医生;医院;药;药店;住院;出院;疼;健康;休息
+nature-topic,topic,Weather and nature,天气;下雨;下雪;晴天;阴天;雨;雪;风;冷;热;凉快;气温;温度;太阳;月亮;星星;大海;湖;河;山;树;草;草地;动物;狗;猫;鸟;鱼;鸡
+home,topic,At home,房间;房子;家里;门;墙;桌子;椅子;床;灯;洗手间;洗衣机;电视;住;住房;院子;花园;门口
+media-topic,topic,Media and devices,电视;电影;电脑;手机;电话;相机;报纸;新闻;网站;网上;上网;照片;音乐;节目;打电话;打印;音乐会
+feelings,topic,Feelings,高兴;快乐;开心;难过;生气;满意;放心;难受;怕;喜欢;爱;饿;渴;忙;疼
+shopping,topic,Shopping and money,买;卖;贵;便宜;钱;钱包;信用卡;银行;商店;商场;换;借;顾客;收入
+work,topic,Work,工作;上班;下班;公司;办公室;同事;经理;工人;开会;请假;干活儿;单位;司机;医生;老师
+sports,topic,Sports and hobbies,打球;篮球;排球;网球;球;球场;球队;体育;体育馆;运动;爬山;唱歌;歌;爱好;玩儿;旅游;音乐
+daily,topic,Everyday actions,起床;睡觉;洗澡;吃饭;午睡;休息;做饭;洗;穿;走;跑;坐;看;听;说;读;写;买
+dad,same,father,爸爸;爸
+mom,same,mom,妈妈;妈
+brother,same,older brother,哥哥;哥
+sister,same,older sister,姐姐;姐
+little-sister,same,younger sister,妹妹;妹
+morning,same,morning,早上;上午;早晨
+tv,same,television,电视;电视机
+film,same,film,电影;影片
+happy,same,happy,高兴;快乐;开心
+pretty,same,pretty,好看;漂亮
+right,same,right,右;右边
+front,same,in front,前;前边;面前
+inside,same,inside,里边;里头
+outside,same,outside,外;外边
+station,same,station,车站;站;地铁站
+think,same,to think,觉得;认为
+want,same,to want,想;愿意
+read,same,to read,读;读书
+sit,same,to sit,坐;坐下
+get-up,same,to get up,起来;起床
+come-back,same,to return,回到;回来
+go-back,same,to return,回到;回去
+enter,same,to enter,进;进去;进入
+speak,same,to speak,说;说话;讲;讲话
+friend,same,friend,朋友;老朋友
+wife,same,wife,太太;爱人
+ticket,same,ticket,票;车票;门票;机票
+road,same,road,路;马路;道路;公路;街
+correct,same,correct,正确;准确
+remember,same,to remember,记得;想起

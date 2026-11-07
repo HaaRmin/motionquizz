@@ -1,106 +1,176 @@
-han,en,action
-包子,steamed bun,
-本子,notebook,
-车上,on the bus,
-车站,station,
-等,to wait,
-电,electricity,
-饿,hungry,
-饭,meal,
-后边,behind,
-进,to enter,
-课,class,
-快,fast,
-老,old,
-妈,mom,
-妈妈,mom,
-没事儿,it's nothing,include
-没有,not have,
-明白,to understand,
-男人,man,
-牛奶,milk,
-前,in front,
-请,please,include
-热,hot,
-上边,above,
-事,thing,
-试,to try,
-是不是,is it or not,
-同学,classmate,
-先生,Mr.,
-想,to want,
-谢谢,thank you,include
-不客气,you're welcome,include
-对不起,sorry,include
-没关系,it's okay,include
-再见,goodbye,include
-你好,hello,include
-休息,to rest,
-一起,together,
-爷爷,grandpa,
-月,month,
-早上,morning,
-找,to look for,
-准备,to prepare,
-字,character,
-最后,last,
-做,to do,
-记,to remember,
-爱好,hobby,
-回去,to go back,
-回来,to come back,
-小姐,miss,
-不错,not bad,
-带,to bring,
-打印,to print,
-店,shop,
-队,team,
-酒店,hotel,
-老朋友,old friend,
-交通,traffic,
-接下来,next,
-相机,camera,
-心里,in one's heart,
-心中,,exclude
-一般,usually,
-装,to load,
-中餐,Chinese food,
-院长,dean,
-天上,in the sky,
-讲话,to speak,
-响,to ring,
-市,city,
-算,to count,
-气,,exclude
-鸡,chicken,
-太太,wife,
-疼,to hurt,
-例子,example,
-生活,life,
-实际,actual,
-送到,to deliver,
-少年,teenager,
-活动,activity,
-加油,come on,
-正常,normal,
-帮助,to help,
-检查,to check,
-开学,school starts,
-分数,score,
-方面,aspect,
-校长,principal,
-影片,film,
-院,yard,
-主人,host,
-进行,to carry out,
-收入,income,
-作用,effect,
-叫作,to be called,
-笔记,notes,
-不如,not as good as,
-行动,action,
-大小,size,
-不好意思,excuse me,include
-得出,,exclude
-正是,,exclude
-一点点,a little bit,
+han,en,action,pinyin
+包子,steamed bun,,
+本子,notebook,,
+车上,on the bus,,
+车站,station,,
+等,to wait,,
+电,electricity,,
+饿,hungry,,
+饭,meal,,
+后边,behind,,
+进,to enter,,
+课,class,,
+快,fast,,
+老,old,,
+妈,mom,,
+妈妈,mom,,
+没事儿,it's nothing,include,
+没有,not have,,
+明白,to understand,,
+男人,man,,
+牛奶,milk,,
+前,in front,,
+请,please,include,
+热,hot,,
+上边,above,,
+事,thing,,
+试,to try,,
+是不是,is it or not,,
+同学,classmate,,
+先生,Mr.,,
+想,to want,,
+谢谢,thank you,include,
+不客气,you're welcome,include,
+对不起,sorry,include,
+没关系,it's okay,include,
+再见,goodbye,include,
+你好,hello,include,
+休息,to rest,,
+一起,together,,
+爷爷,grandpa,,
+月,month,,
+早上,morning,,
+找,to look for,,
+准备,to prepare,,
+字,character,,
+最后,last,,
+做,to do,,
+记,to remember,,
+爱好,hobby,,
+回去,to go back,,
+回来,to come back,,
+小姐,miss,,
+不错,not bad,,
+带,to bring,,
+打印,to print,,
+店,shop,,
+队,team,,
+酒店,hotel,,
+老朋友,old friend,,
+交通,traffic,,
+接下来,next,,
+相机,camera,,
+心里,in one's heart,,
+心中,,exclude,
+一般,usually,,
+装,to load,,
+中餐,Chinese food,,
+院长,dean,,
+天上,in the sky,,
+讲话,to speak,,
+响,to ring,,
+市,city,,
+算,to count,,
+气,,exclude,
+鸡,chicken,,
+太太,wife,,
+疼,to hurt,,
+例子,example,,
+生活,life,,
+实际,actual,,
+送到,to deliver,,
+少年,teenager,,
+活动,activity,,
+加油,come on,,
+正常,normal,,
+帮助,to help,,
+检查,to check,,
+开学,school starts,,
+分数,score,,
+方面,aspect,,
+校长,principal,,
+影片,film,,
+院,yard,,
+主人,host,,
+进行,to carry out,,
+收入,income,,
+作用,effect,,
+叫作,to be called,,
+笔记,notes,,
+不如,not as good as,,
+行动,action,,
+大小,size,,
+不好意思,excuse me,include,
+得出,,exclude,
+正是,,exclude,
+一点点,a little bit,,
+认识,to know (a person),,
+知道,to know (a fact),,
+下边,below,,
+开机,to switch on,,
+司机,driver,,
+听,to listen,include,tīng
+说,to say,include,shuō
+读,to read,include,dú
+看,to look at,include,kàn
+跑,to run,include,pǎo
+东西,thing,include,dōngxi
+关,to close,include,guān
+吃,to eat,include,chī
+好,good,include,hǎo
+好吃,tasty,include,hǎochī
+书,book,include,shū
+车,car,include,chē
+床,bed,include,chuáng
+路,road,include,lù
+门,door,include,mén
+钱,money,include,qián
+歌,song,include,gē
+笑,to laugh,include,xiào
+新,new,include,xīn
+雨,rain,include,yǔ
+坐,to sit,include,zuò
+白,white,include,bái
+黑,black,include,hēi
+红,red,include,hóng
+蓝,blue,include,lán
+大,big,include,dà
+少,few,include,shǎo
+冷,cold,include,lěng
+远,far,include,yuǎn
+高,high,include,gāo
+水,water,include,shuǐ
+山,mountain,include,shān
+大学,university,include,dàxué
+便宜,cheap,include,piányi
+借,to borrow,include,jiè
+船,boat,include,chuán
+草,grass,include,cǎo
+海,sea,include,hǎi
+鱼,fish,include,yú
+鸟,bird,include,niǎo
+脚,foot,include,jiǎo
+腿,leg,include,tuǐ
+头,head,include,tóu
+鞋,shoe,include,xié
+雪,snow,include,xuě
+纸,paper,include,zhǐ
+碗,bowl,include,wǎn
+墙,wall,include,qiáng
+女人,woman,include,nǚrén
+叫,to call,include,jiào
+拿,to take,include,ná
+怕,to be afraid,include,pà
+告诉,to tell,include,gàosu
+复习,to review,include,fùxí
+故事,story,include,gùshi
+高中,senior high school,include,gāozhōng
+刚才,just now,include,gāngcái
+出来,to come out,include,chūlai
+过来,to come over,include,guòlai
+起来,to get up,include,qǐlai
+凉,cool,include,liáng
+友好,friendly,include,yǒuhǎo
+药,medicine,include,yào
+骑,to ride,include,qí
+明星,celebrity,,

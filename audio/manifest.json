@@ -460,6 +460,11 @@
    "text": "How do you say “below zero” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
+  "How do you say “below” in Chinese?": {
+   "file": "en/below-852b0c.mp3",
+   "text": "How do you say “below” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
   "How do you say “best” in Chinese?": {
    "file": "en/best-058a87.mp3",
    "text": "How do you say “best” in Chinese?",
@@ -478,6 +483,11 @@
   "How do you say “big” in Chinese?": {
    "file": "en/big-393025.mp3",
    "text": "How do you say “big” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
+  "How do you say “bird” in Chinese?": {
+   "file": "en/bird-39b4b8.mp3",
+   "text": "How do you say “bird” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
   "How do you say “birthday” in Chinese?": {
@@ -625,6 +635,11 @@
    "text": "How do you say “cause” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
+  "How do you say “celebrity” in Chinese?": {
+   "file": "en/celebrity-87a932.mp3",
+   "text": "How do you say “celebrity” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
   "How do you say “cell phone” in Chinese?": {
    "file": "en/cell_phone-81567b.mp3",
    "text": "How do you say “cell phone” in Chinese?",
@@ -658,6 +673,11 @@
   "How do you say “chauffeur” in Chinese?": {
    "file": "en/chauffeur-ba1182.mp3",
    "text": "How do you say “chauffeur” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
+  "How do you say “cheap” in Chinese?": {
+   "file": "en/cheap-ca9cb4.mp3",
+   "text": "How do you say “cheap” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
   "How do you say “chicken” in Chinese?": {
@@ -990,6 +1010,11 @@
    "text": "How do you say “doorway” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
+  "How do you say “door” in Chinese?": {
+   "file": "en/door-7edd63.mp3",
+   "text": "How do you say “door” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
   "How do you say “downstairs” in Chinese?": {
    "file": "en/downstairs-75ad9b.mp3",
    "text": "How do you say “downstairs” in Chinese?",
@@ -1003,6 +1028,11 @@
   "How do you say “dozen” in Chinese?": {
    "file": "en/dozen-2a7f35.mp3",
    "text": "How do you say “dozen” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
+  "How do you say “driver” in Chinese?": {
+   "file": "en/driver-aec52f.mp3",
+   "text": "How do you say “driver” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
   "How do you say “dry” in Chinese?": {
@@ -2025,6 +2055,11 @@
    "text": "How do you say “medicine in liquid form” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
+  "How do you say “medicine” in Chinese?": {
+   "file": "en/medicine-bd3c56.mp3",
+   "text": "How do you say “medicine” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
   "How do you say “menu” in Chinese?": {
    "file": "en/menu-2c69c9.mp3",
    "text": "How do you say “menu” in Chinese?",
@@ -2098,6 +2133,11 @@
   "How do you say “mom” in Chinese?": {
    "file": "en/mom-f27005.mp3",
    "text": "How do you say “mom” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
+  "How do you say “money” in Chinese?": {
+   "file": "en/money-ccf6ec.mp3",
+   "text": "How do you say “money” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
   "How do you say “month” in Chinese?": {
@@ -3175,6 +3215,11 @@
    "text": "How do you say “store” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
+  "How do you say “story” in Chinese?": {
+   "file": "en/story-dd948c.mp3",
+   "text": "How do you say “story” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
   "How do you say “straight” in Chinese?": {
    "file": "en/straight-fb52ce.mp3",
    "text": "How do you say “straight” in Chinese?",
@@ -3665,6 +3710,11 @@
    "text": "How do you say “to blow” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
+  "How do you say “to borrow” in Chinese?": {
+   "file": "en/to_borrow-669280.mp3",
+   "text": "How do you say “to borrow” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
   "How do you say “to bring” in Chinese?": {
    "file": "en/to_bring-ba25be.mp3",
    "text": "How do you say “to bring” in Chinese?",
@@ -3673,6 +3723,11 @@
   "How do you say “to buy” in Chinese?": {
    "file": "en/to_buy-15ff30.mp3",
    "text": "How do you say “to buy” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
+  "How do you say “to call” in Chinese?": {
+   "file": "en/to_call-36072e.mp3",
+   "text": "How do you say “to call” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
   "How do you say “to carry out” in Chinese?": {
@@ -4015,6 +4070,11 @@
    "text": "How do you say “to get out of bed” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
+  "How do you say “to get up” in Chinese?": {
+   "file": "en/to_get_up-71ca0d.mp3",
+   "text": "How do you say “to get up” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
   "How do you say “to get” in Chinese?": {
    "file": "en/to_get-e82268.mp3",
    "text": "How do you say “to get” in Chinese?",
@@ -4150,6 +4210,16 @@
    "text": "How do you say “to introduce” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
+  "How do you say “to know (a fact)” in Chinese?": {
+   "file": "en/to_know_a_fact-e48502.mp3",
+   "text": "How do you say “to know (a fact)” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
+  "How do you say “to know (a person)” in Chinese?": {
+   "file": "en/to_know_a_person-a128a3.mp3",
+   "text": "How do you say “to know (a person)” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
   "How do you say “to know” in Chinese?": {
    "file": "en/to_know-284e09.mp3",
    "text": "How do you say “to know” in Chinese?",
@@ -4210,6 +4280,11 @@
    "text": "How do you say “to line up” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
+  "How do you say “to listen” in Chinese?": {
+   "file": "en/to_listen-88842b.mp3",
+   "text": "How do you say “to listen” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
   "How do you say “to live” in Chinese?": {
    "file": "en/to_live-d80835.mp3",
    "text": "How do you say “to live” in Chinese?",
@@ -4228,6 +4303,11 @@
   "How do you say “to look around” in Chinese?": {
    "file": "en/to_look_around-89150a.mp3",
    "text": "How do you say “to look around” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
+  "How do you say “to look at” in Chinese?": {
+   "file": "en/to_look_at-d77a1d.mp3",
+   "text": "How do you say “to look at” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
   "How do you say “to look for” in Chinese?": {
@@ -4420,6 +4500,11 @@
    "text": "How do you say “to read a book” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
+  "How do you say “to read” in Chinese?": {
+   "file": "en/to_read-cec6ae.mp3",
+   "text": "How do you say “to read” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
   "How do you say “to recall” in Chinese?": {
    "file": "en/to_recall-39ebd1.mp3",
    "text": "How do you say “to recall” in Chinese?",
@@ -4500,6 +4585,11 @@
    "text": "How do you say “to ride a bike” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
+  "How do you say “to ride” in Chinese?": {
+   "file": "en/to_ride-1fe963.mp3",
+   "text": "How do you say “to ride” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
   "How do you say “to ring” in Chinese?": {
    "file": "en/to_ring-787d43.mp3",
    "text": "How do you say “to ring” in Chinese?",
@@ -4513,6 +4603,11 @@
   "How do you say “to run into” in Chinese?": {
    "file": "en/to_run_into-22a7c7.mp3",
    "text": "How do you say “to run into” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
+  "How do you say “to run” in Chinese?": {
+   "file": "en/to_run-78190b.mp3",
+   "text": "How do you say “to run” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
   "How do you say “to save” in Chinese?": {
@@ -4645,6 +4740,11 @@
    "text": "How do you say “to surpass” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
+  "How do you say “to switch on” in Chinese?": {
+   "file": "en/to_switch_on-1f2307.mp3",
+   "text": "How do you say “to switch on” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
   "How do you say “to take a nap” in Chinese?": {
    "file": "en/to_take_a_nap-4c3a11.mp3",
    "text": "How do you say “to take a nap” in Chinese?",
@@ -4693,6 +4793,11 @@
   "How do you say “to teach” in Chinese?": {
    "file": "en/to_teach-1a9f40.mp3",
    "text": "How do you say “to teach” in Chinese?",
+   "voice": "cmn-CN-Chirp3-HD-Despina"
+  },
+  "How do you say “to tell” in Chinese?": {
+   "file": "en/to_tell-67f5ba.mp3",
+   "text": "How do you say “to tell” in Chinese?",
    "voice": "cmn-CN-Chirp3-HD-Despina"
   },
   "How do you say “to think of” in Chinese?": {

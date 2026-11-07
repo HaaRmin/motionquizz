@@ -32,7 +32,7 @@ jobs:
         run: |
           mkdir -p _site/assets
           cp -r index.html web template.html config.json data audio _site/
-          cp -r assets/logos assets/backgrounds _site/assets/
+          cp -r assets/logos assets/backgrounds assets/thumbs _site/assets/
 
       # every script address carries the commit, so browsers load the new scripts after each deploy instead of
       # running cached old ones with the new template (GitHub Pages lets browsers keep files for 10 minutes)

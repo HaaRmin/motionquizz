@@ -1,5 +1,5 @@
-// Word picking and quiz building, ported from quiz_gen.py. The same quiz number, level and data files give
-// the same words, answer order, logo and background as the Python generator (checked against it).
+// Word picking and quiz building, ported from quiz_gen.py. The same seed, levels and data files give the same
+// words, wrong answers and answer order as the Python generator; the page makes a new random seed for every quiz.
 import { sha256hex } from './sha256.js?v=__BUILD__';
 
 const ELIGIBLE_POS = new Set(['n', 'v', 'a', 'vn', 'an', 't', 's', 'f', 'nz']);
@@ -8,7 +8,7 @@ export const h = (...parts) => BigInt('0x' + sha256hex(parts.map(String).join('|
 const bigCmp = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 const chars = s => Array.from(s);
 
-// data/overrides.csv (han,en,action); a small CSV reader that understands quoted fields
+// data/overrides.csv (han,en,action,pinyin) and data/groups.csv; a small CSV reader that understands quoted fields
 export function parseCsv(text) {
   const rows = [];
   let row = [], field = '', quoted = false;
@@ -36,7 +36,7 @@ export function loadWords(levels, lists, overrides) {
       seen.add(w0.han);
       const o = ov.get(w0.han), action = ((o && o.action) || '').trim();
       if (action === 'exclude') continue;
-      const w = Object.assign({}, w0, o && o.en.trim() ? { en: o.en.trim() } : {});
+      const w = Object.assign({}, w0, o && o.en.trim() ? { en: o.en.trim() } : {}, o && (o.pinyin || '').trim() ? { pinyin: o.pinyin.trim() } : {});
       w.eligible = action === 'include' || (!w.multi && w.pos.length > 0 && ELIGIBLE_POS.has(w.pos[0]));
       words.push(w);
     }
@@ -59,42 +59,69 @@ function pick(kind, words, n, seed, used) {
   return chosen;
 }
 
-// quiz_gen.distractors: k wrong answers of other meanings, without a shared character, similar length
-function distractors(target, words, seed, k = 2) {
+// quiz_gen.load_groups: data/groups.csv rows -> per word the words of its sets, its topics and its "same" groups
+export function loadGroups(rows) {
+  const groups = { set: new Map(), topic: new Map(), same: new Map() };
+  for (const r of rows) {
+    const kind = (r.kind || '').trim(), words = (r.words || '').split(';').map(x => x.trim()).filter(Boolean);
+    if (!groups[kind]) continue;
+    for (const x of words) {
+      if (!groups[kind].has(x)) groups[kind].set(x, new Set());
+      for (const y of words) if (y !== x) groups[kind].get(x).add(y);
+    }
+  }
+  return groups;
+}
+
+// quiz_gen.distractor_levels: wrong answers may come from the chosen levels and the ones below them
+export const distractorLevels = levels => Array.from({ length: Math.max(...levels.map(Number)) }, (_, i) => String(i + 1));
+
+// quiz_gen.distractors: k wrong answers, in this order until there are k: the same set, the same topic, the same
+// word type and a similar length, then any word. Shared characters only in the set and topic steps; never the same
+// English meaning, never a word of the target's "same" group, never two wrong answers of one "same" group.
+function distractors(target, words, seed, groups, k = 2) {
   const tchars = new Set(chars(target.han)), tlen = chars(target.han).length, ten = target.en.toLowerCase();
-  const cands = words.filter(w => w.eligible && w.han !== target.han && w.en.toLowerCase() !== ten && !chars(w.han).some(c => tchars.has(c)))
-    .map(w => [Math.abs(chars(w.han).length - tlen), h(seed, target.han, w.han), w])
-    .sort((a, b) => a[0] - b[0] || bigCmp(a[1], b[1])).map(x => x[2]);
+  const never = new Set([target.han, ...(groups.same.get(target.han) || [])]);
+  const tpos = target.pos.slice(0, 1).join(), byHan = new Map(words.map(w => [w.han, w]));
+  const key = w => h(seed, target.han, w.han), shares = w => chars(w.han).some(c => tchars.has(c));
+  const byKey = list => list.map(w => [key(w), w]).sort((a, b) => bigCmp(a[0], b[0])).map(x => x[1]);
+  const mates = kind => [...(groups[kind].get(target.han) || [])].filter(x => byHan.has(x)).map(x => byHan.get(x));
+  const tiers = [
+    byKey(mates('set')),
+    byKey(mates('topic')),
+    byKey(words.filter(w => w.pos.slice(0, 1).join() === tpos && Math.abs(chars(w.han).length - tlen) <= 1 && !shares(w))),
+    words.filter(w => !shares(w)).map(w => [Math.abs(chars(w.han).length - tlen), key(w), w])
+      .sort((a, b) => a[0] - b[0] || bigCmp(a[1], b[1])).map(x => x[2]),
+  ];
   const out = [], glosses = new Set([ten]);
-  for (const w of cands) {
-    if (glosses.has(w.en.toLowerCase())) continue;
-    out.push(w); glosses.add(w.en.toLowerCase());
-    if (out.length === k) break;
+  for (const tier of tiers) {
+    for (const w of tier) {
+      if (!w.eligible || never.has(w.han) || glosses.has(w.en.toLowerCase()) || out.includes(w)
+        || out.some(o => (groups.same.get(o.han) || new Set()).has(w.han))) continue;
+      out.push(w); glosses.add(w.en.toLowerCase());
+      if (out.length === k) return out;
+    }
   }
   return out;
 }
 
-// Quiz number N (1, 2, 3 ...) of a type and level: the same as the N-th run of quiz_gen.py with history.json.
-// The earlier runs are replayed to know which words they used, so no history file is needed.
-export function buildQuiz(cfg, lists, overrides, kind, levels, number) {
-  const words = loadWords(levels, lists, overrides), n = cfg[kind].questions, key = kind + '-L' + levels.join('+');
-  const used = new Set();
-  for (let r = 0; r < number - 1; r++) {
-    for (const w of pick(kind, words, n, key + '-run' + r, used)) used.add(w.han);
-  }
-  const seed = key + '-run' + (number - 1);
-  const items = pick(kind, words, n, seed, used).map(w => {
+// A new quiz for the seed: its words from the chosen levels, the wrong answers of a text quiz from the chosen
+// levels and the ones below them. The page passes a new random seed every time, so every quiz is new.
+export function buildQuiz(cfg, lists, overrides, groups, kind, levels, seed) {
+  const words = loadWords(levels, lists, overrides), pool = loadWords(distractorLevels(levels), lists, overrides);
+  const items = pick(kind, words, cfg[kind].questions, seed, new Set()).map(w => {
     const item = { han: w.han, pinyin: w.pinyin, en: w.en };
     if (kind === 'szoveges') {
-      const opts = distractors(w, words, seed), pos = Number(h(seed, w.han, 'pos') % BigInt(opts.length + 1));
+      const opts = distractors(w, pool, seed, groups), pos = Number(h(seed, w.han, 'pos') % BigInt(opts.length + 1));
       opts.splice(pos, 0, w);
       item.options = opts.map(o => ({ han: o.han, pinyin: o.pinyin, en: o.en }));
       item.correct = pos;
     }
     return item;
   });
-  const name = kind + '_hsk' + levels.join('-') + '_' + String(number).padStart(3, '0');
-  return { name, kind, levels, seed, items };
+  const d = new Date(), two = x => String(x).padStart(2, '0');
+  const stamp = d.getFullYear() + two(d.getMonth() + 1) + two(d.getDate()) + '-' + two(d.getHours()) + two(d.getMinutes()) + two(d.getSeconds());
+  return { name: kind + '_hsk' + levels.join('-') + '_' + stamp, kind, levels, seed, items };
 }
 
 // quiz_gen.pick_logo / pick_background: one file of the list, chosen by the seed

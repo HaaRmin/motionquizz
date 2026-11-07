@@ -34,12 +34,24 @@ Az `out/` mappába kerül a `.html`, a `.mp4` és egy `.json` (a kiválasztott s
 - Ugyanaz a seed + ugyanazok az adatfájlok = ugyanaz a kvíz, ugyanaz a válaszsorrend, ugyanaz a videó.
 - Seed nélkül a seed `<típus>-L<szint>-run<N>`; a `history.json` jegyzi a már használt szavakat, így a futások
   ismétlés nélkül haladnak végig a listán, és ha elfogyott, új kört kezdenek. `--no-history` kikapcsolja.
-- Alapból főnevek, igék, melléknevek és időszavak kerülnek be, a többféle kiejtésű szavak nem.
-  A szöveges kvíz rossz válaszai ugyanabból a szintből jönnek, eltérő jelentéssel, közös írásjegy nélkül.
+- Alapból főnevek, igék, melléknevek és időszavak kerülnek be, a többféle kiejtésű szavak nem, hacsak az
+  `overrides.csv` meg nem adja a helyes kiejtést (`pinyin` oszlop) és be nem veszi őket (`include`).
+- A szöveges kvíz két rossz válasza csoportokból jön (`data/groups.csv`), ebben a sorrendben, amíg kettő nincs:
+  1. ugyanabból a **halmazból** (set: természetes alternatívák, pl. ma / holnap / tegnap, fent / lent / mellett);
+  2. ugyanabból a **témából** (topic: pl. Étel és ital, Iskola);
+  3. azonos szófajú, hasonló hosszú szó, közös írásjegy nélkül;
+  4. bármelyik szó, közös írásjegy nélkül.
+  Az 1–2. lépésben a közös írásjegy megengedett (上边 / 下边 — épp az a lényeg). Soha nem lesz rossz válasz
+  ugyanolyan angol jelentésű szó, sem a helyes válasz **same** csoportjából való szó (pl. 爸爸 / 爸).
+- A kérdések a választott szintről jönnek, a rossz válaszok a választott szintről és az alatta lévőkről is
+  (HSK 2-nél HSK 1-ből is), felette lévőből soha.
+- `data/groups.csv` formátuma: `group,kind,label,words` (a szavak `;`-vel elválasztva; `kind`: `set`, `topic`
+  vagy `same`). Szerkesztés után: `python3 tools/check_groups.py` (elgépelt vagy kvízben nem szereplő szavak,
+  lefedettség).
 
 ## Testreszabás
 
-- `config.json`: kérdésszöveg, kérdések száma, visszaszámlálás és felfedés hossza, követő kártya.
+- `config.json`: kérdésszöveg, kérdések száma (mindkét típusban 3), visszaszámlálás és felfedés hossza, követő kártya.
 - Logók: az `assets/logos/` mappa összes képe. Videónként egy, a seedből választva (ugyanaz a seed =
   ugyanaz a logó; a választott fájl neve a kimeneti `.json`-ban, `logo`). Új logó: tedd a mappába
   (négyzetes kép, a kör alakú keret levágja a sarkait). A mappát a `config.json` → `logos` adja meg.
@@ -58,6 +70,7 @@ Az `out/` mappába kerül a `.html`, a `.mp4` és egy `.json` (a kiválasztott s
   (profilkép, like, komment, mentés, megosztás) 955 és 1820 között van, 940 pixeltől jobbra, a felirat kb.
   1720-nál kezdődik. A szaggatott keret az a rész, amit semmi nem takar. A videóba egyik sem kerül bele.
 - A záró „Follow me” kártya a legalsó kérdés alá kerül, így nem takar el választ vagy kártyát.
+- A szöveges kvíz válaszai kicsit lejjebb, a buborék alatt 190 pixellel kezdődnek („A” elrendezés, 2026-11-07).
 - Válaszsávok (szöveges kvíz) és a „Follow me” doboz: a szöveg középen; a sáv színét a sablon a háttérből számolja
   (`template.html` → `tuneBands`): a válaszok mögötti rész átlagszíne (a sötétítő réteggel együtt) adja az árnyalatot,
   sötét háttéren világosabb, világos háttéren sötétebb sávval, mindig olvasható fehér szöveggel.
@@ -117,14 +130,14 @@ kerül gitbe. Ingyenes keret: Chirp3-HD hangra havi 1 millió karakter; a teljes
 A videók egy weboldalon készülnek: `index.html` és a `web/` mappa. Minden a böngészőben fut, szerver és
 e-mail nincs.
 
-1. Válaszd ki a típust (képes / szöveges), a HSK-szintet és a **kvíz sorszámát**, majd **Make quiz**.
-   Ugyanaz a sorszám mindig ugyanazt a kvízt adja; a szavakat a `quiz_gen.py`-jal azonos módon választja
-   (a korábbi sorszámok szavait kihagyja, és ha a lista elfogyott, új kört kezd). A háttér és a logó a
-   sorszámból adódik, vagy kézzel választható. A böngésző megjegyzi a következő még nem használt sorszámot
-   (már a Make quiznél), így egy új látogatás új szavakkal indul; a **Next ▸** gomb a következő kvízt készíti el.
+1. Koppints a típusra (Picture quiz / Text quiz) és a HSK-szintre, válassz hátteret és logót a képek közül
+   (🎲 = minden kvíznél véletlen; a háttér alapból a `config.json` → `background`, a logó alapból 🎲), majd
+   **New quiz**. Minden New quiz új, véletlen kvízt készít (3 kérdés); sorszám és előzmény nincs. A szavakat
+   és a rossz válaszokat ugyanúgy választja, mint a `quiz_gen.py` (ugyanaz a seed = ugyanaz a kvíz), csak
+   minden kvízhez új véletlen seedet ad.
 2. Az előnézetben Play gombbal meghallgatható, a **TikTok guides** gomb a TikTok gombjait és feliratát mutatja.
 3. **Export MP4**: a böngésző elkészíti a videót (1080×1920, 30 fps, hanggal; egy szöveges kvíz kb. fél perc),
-   és letölti (`kepes_hsk1_001.mp4` stb.).
+   és letölti (`szoveges_hsk1_20261107-111530.mp4` stb.).
 4. A „TikTok caption” mezőben kész leírás van a kvíz szavaival; **Copy caption** a vágólapra teszi.
 
 Az MP4 készítéséhez WebCodecs (H.264 + AAC) kell: Chrome és Edge számítógépen, Safari iPhone-on (Safari 26).
@@ -140,12 +153,14 @@ gépen kissé másképp nézhetnek ki.
 
 **Közzététel:** a `.github/workflows/pages.yml` minden `main`-re pusholáskor kiteszi az oldalt a GitHub
 Pagesre (csak az oldalhoz kellő fájlokat: `index.html`, `web/`, `template.html`, `config.json`, `data/`,
-`audio/`, `assets/logos/`, `assets/backgrounds/`). Egyszeri beállítás: **Settings → Pages → Source:
+`audio/`, `assets/logos/`, `assets/backgrounds/`, `assets/thumbs/`). Egyszeri beállítás: **Settings → Pages → Source:
 GitHub Actions**. Az oldal címe: `https://haarmin.github.io/motionquizz/`. A Pages oldal mindig nyilvános.
 
-Új logó vagy háttér: tedd a mappába és pushold; a workflow frissíti a `web/index.json` listát.
+Új logó vagy háttér: tedd a mappába, futtasd a `tools/make_thumbs.sh`-t (kis képek a választóhoz,
+`assets/thumbs/`), és pushold; a workflow frissíti a `web/index.json` listát. Kis kép nélkül a választó a
+teljes képet mutatja.
 
-Verzió: a workflow minden közzétételkor a commit rövid azonosítóját írja a szkriptek címébe (`?v=__BUILD__`), és az oldal fejlécében is megjelenik („version …”). Így a böngésző egy új közzététel után mindig az új szkripteket tölti be, nem a tárolt régieket (a GitHub Pages 10 percig engedi tárolni a fájlokat).
+Verzió: a workflow minden közzétételkor a commit rövid azonosítóját írja a szkriptek címébe (`?v=__BUILD__`). Így a böngésző egy új közzététel után mindig az új szkripteket tölti be, nem a tárolt régieket (a GitHub Pages 10 percig engedi tárolni a fájlokat).
 Helyben: `python3 tools/site_index.py`, majd `python3 -m http.server` a mappában, és
 `http://localhost:8000/`.
 
