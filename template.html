@@ -55,10 +55,10 @@ body.guides #guides { display:block } body.capture #guides { display:none !impor
 .qz-shade { position:absolute; inset:0; background:linear-gradient(180deg, rgba(12,2,4,.5) 0%, rgba(12,2,4,.3) 30%, rgba(12,2,4,.34) 70%, rgba(12,2,4,.62) 100%) }
 .qz-vignette { position:absolute; inset:0; background:radial-gradient(90% 70% at 50% 50%, transparent 55%, color-mix(in srgb, var(--ground) 70%, transparent)) }
 /* The quiz itself (badge, question, card or answers, follow card) is one group, laid out below in the full 1080 x 1920
-   frame at x 72-918. placeGroup() measures the stack (badge + question + card or answers, every question of the quiz),
-   puts its middle on the middle of the frame (540, 960) and shrinks the group to GROUP_SCALE, so it stays clear of
-   TikTok's top bar, its right column (x 940 and more) and its caption (see the guides). */
-.qz-group { position:absolute; left:0; top:0; width:1080px; height:1920px; transform-origin:495px 779px; transform:translate(45px, 181px) scale(.85) }
+   frame at x 72-918. placeGroup() (layout "C", chosen 2026-11-07) shrinks it to GROUP_SCALE, centres it across the frame
+   and puts its top (the badge) at GROUP_TOP, just under TikTok's top bar, so it stays clear of the bar, TikTok's right
+   column (x 940 and more) and its caption (see the guides). */
+.qz-group { position:absolute; left:0; top:0; width:1080px; height:1920px; transform-origin:495px 148px; transform:translate(45px, 52px) scale(.9) }
 .qz-ui { position:absolute; inset:0; display:none }
 .qz-col { position:absolute; left:72px; right:162px; top:330px; display:flex; flex-direction:column; align-items:stretch }
 .qz-bubble { position:relative; padding:44px 60px 50px; border-radius:46px; background:color-mix(in srgb, var(--main) 94%, transparent); text-align:center; font-size:58px; line-height:1.28; box-shadow:0 20px 50px rgba(0,0,0,.28); transform-origin:50% 100% }
@@ -543,21 +543,21 @@ snd.onclick = () => { soundOn = !soundOn; snd.textContent = soundOn ? 'Sound on'
 document.getElementById('guide').onclick = e => { const on = document.body.classList.toggle('guides'); e.currentTarget.setAttribute('aria-pressed', String(on)); };
 document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); playing ? pause() : play(); } });
 show();
-// The quiz group in the middle of the frame: the stack from the badge's top to the lowest question's bottom, measured
-// with the fonts loaded, is centred on (540, 960); the group is shrunk so its 846 px width ends 40 px left of TikTok's
-// right column (540 + 423 * 0.85 = 900). The follow card is not counted: it shows for the last two seconds only.
-const GROUP_SCALE = 0.85;
+// The quiz group (layout "C"): 90 % of its size, centred across the frame (its 846 px column, x 72-918, ends at
+// 540 + 423 * 0.9 = 921, 19 px left of TikTok's right column), and its top (the badge or, if higher, a question) at
+// y 200, 30 px under TikTok's top bar. Measured with the fonts loaded.
+const GROUP_SCALE = 0.9, GROUP_TOP = 200;
 function placeGroup() {
-  let top = bg.el.offsetTop, bottom = bg.el.offsetTop + bg.el.offsetHeight;
+  let top = bg.el.offsetTop;
   scenes.forEach(sc => {
     const el = sc.view.el, was = el.style.display, col = el.querySelector('.qz-col');
     el.style.display = 'block';
-    top = Math.min(top, col.offsetTop); bottom = Math.max(bottom, col.offsetTop + col.offsetHeight);
+    top = Math.min(top, col.offsetTop);
     el.style.display = was;
   });
-  const cx = 495, cy = (top + bottom) / 2; // 495: the middle of the column (x 72-918)
-  group.style.transformOrigin = cx + 'px ' + cy.toFixed(1) + 'px';
-  group.style.transform = 'translate(' + (540 - cx) + 'px, ' + (960 - cy).toFixed(1) + 'px) scale(' + GROUP_SCALE + ')';
+  const cx = 495; // the middle of the column (x 72-918)
+  group.style.transformOrigin = cx + 'px ' + top + 'px';
+  group.style.transform = 'translate(' + (540 - cx) + 'px, ' + (GROUP_TOP - top) + 'px) scale(' + GROUP_SCALE + ')';
 }
 placeGroup();
 window.QUIZ_READY = Promise.all([document.fonts ? document.fonts.ready : null, cat ? cat.ready : null, VOICE_READY, bd.ready])
