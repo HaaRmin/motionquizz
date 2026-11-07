@@ -57,6 +57,9 @@ Az `out/` mappába kerül a `.html`, a `.mp4` és egy `.json` (a kiválasztott s
   képernyőt, ezért felül és alul kb. 73 pixelt levág; a felső sáv kb. 170 pixelig ér, a jobb oldali oszlop
   (profilkép, like, komment, mentés, megosztás) 955 és 1820 között van, 940 pixeltől jobbra, a felirat kb.
   1720-nál kezdődik. A szaggatott keret az a rész, amit semmi nem takar. A videóba egyik sem kerül bele.
+- Válaszsávok (szöveges kvíz) és a „Follow me” doboz: a szöveg középen; a sáv színét a sablon a háttérből számolja
+  (`template.html` → `tuneBands`): a válaszok mögötti rész átlagszíne (a sötétítő réteggel együtt) adja az árnyalatot,
+  sötét háttéren világosabb, világos háttéren sötétebb sávval, mindig olvasható fehér szöveggel.
 - Alapértelmezett háttér: `config.json` → `background` (most `bg-4-cat-moon.jpg`); a weboldal ezzel indul,
   a `quiz_gen.py` is ezt használja. `--background auto` vagy az oldalon a „Chosen by the number” a sorszám
   szerint választ a mappából. A logó továbbra is a sorszámból adódik, ha nincs kiválasztva.
