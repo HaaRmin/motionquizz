@@ -12,6 +12,7 @@ html, body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 sy
 header { padding:20px 24px 4px; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap }
 h1 { margin:0; font-size:24px }
 header p { margin:0; color:var(--muted) }
+header .ver { font-size:12px; opacity:.7 }
 main { display:grid; grid-template-columns:minmax(300px, 440px) auto; gap:24px; padding:16px 24px 32px; align-items:start }
 @media (max-width: 860px) { main { grid-template-columns:1fr; padding:12px 16px 24px } }
 section { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px }
@@ -47,6 +48,7 @@ iframe { width:405px; height:784px; max-width:100%; border:1px solid var(--line)
 <header>
   <h1>HSK quiz video</h1>
   <p>Make a quiz, preview it, download the MP4 for TikTok.</p>
+  <p class="ver">version __BUILD__</p>
 </header>
 <main>
   <div>
@@ -98,6 +100,6 @@ iframe { width:405px; height:784px; max-width:100%; border:1px solid var(--line)
     <p class="hint">The same quiz number always gives the same quiz. This browser remembers the next unused number, so a new visit starts with new words; “Next ▸” jumps to the following quiz. The preview's “TikTok guides” button shows where TikTok draws its buttons and caption.</p>
   </div>
 </main>
-<script type="module" src="web/app.js"></script>
+<script type="module" src="web/app.js?v=__BUILD__"></script>
 </body>
 </html>

@@ -144,6 +144,8 @@ Pagesre (csak az oldalhoz kellő fájlokat: `index.html`, `web/`, `template.html
 GitHub Actions**. Az oldal címe: `https://haarmin.github.io/motionquizz/`. A Pages oldal mindig nyilvános.
 
 Új logó vagy háttér: tedd a mappába és pushold; a workflow frissíti a `web/index.json` listát.
+
+Verzió: a workflow minden közzétételkor a commit rövid azonosítóját írja a szkriptek címébe (`?v=__BUILD__`), és az oldal fejlécében is megjelenik („version …”). Így a böngésző egy új közzététel után mindig az új szkripteket tölti be, nem a tárolt régieket (a GitHub Pages 10 percig engedi tárolni a fájlokat).
 Helyben: `python3 tools/site_index.py`, majd `python3 -m http.server` a mappában, és
 `http://localhost:8000/`.
 

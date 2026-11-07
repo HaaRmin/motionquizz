@@ -1,7 +1,8 @@
 // The quiz video page: pick a quiz, preview it with sound, export the MP4 in the browser and download it.
 // Everything runs in the browser; the data files, voice clips and images are read from this site.
-import { parseCsv, buildQuiz, pickBySeed } from './quiz.js';
-import { exportMp4, canExport } from './export.js';
+// ?v=__BUILD__: the GitHub Pages workflow writes the commit there, so a new version never runs with old cached scripts
+import { parseCsv, buildQuiz, pickBySeed } from './quiz.js?v=__BUILD__';
+import { exportMp4, canExport } from './export.js?v=__BUILD__';
 
 const $ = id => document.getElementById(id);
 // the preview plays like a media player, so an iPhone's silent switch does not mute it (see template.html)

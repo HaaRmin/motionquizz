@@ -1,6 +1,6 @@
 // Word picking and quiz building, ported from quiz_gen.py. The same quiz number, level and data files give
 // the same words, answer order, logo and background as the Python generator (checked against it).
-import { sha256hex } from './sha256.js';
+import { sha256hex } from './sha256.js?v=__BUILD__';
 
 const ELIGIBLE_POS = new Set(['n', 'v', 'a', 'vn', 'an', 't', 's', 'f', 'nz']);
 // h(): the integer value of sha256("a|b|c"), exactly like quiz_gen.h()

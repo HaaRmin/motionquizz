@@ -34,6 +34,14 @@ jobs:
           cp -r index.html web template.html config.json data audio _site/
           cp -r assets/logos assets/backgrounds _site/assets/
 
+      # every script address carries the commit, so browsers load the new scripts after each deploy instead of
+      # running cached old ones with the new template (GitHub Pages lets browsers keep files for 10 minutes)
+      - name: Stamp the version on the page's scripts
+        run: |
+          v="${GITHUB_SHA::7}"
+          sed -i "s/__BUILD__/$v/g" _site/index.html _site/web/app.js _site/web/quiz.js
+          grep -c "$v" _site/index.html _site/web/app.js _site/web/quiz.js
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
