@@ -4,6 +4,8 @@ import { parseCsv, buildQuiz, pickBySeed } from './quiz.js';
 import { exportMp4, canExport } from './export.js';
 
 const $ = id => document.getElementById(id);
+// the preview plays like a media player, so an iPhone's silent switch does not mute it (see template.html)
+try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) { /* older browser */ }
 const store = {
   get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
   set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private mode: only the convenience is lost */ } },

@@ -118,7 +118,11 @@ Az MP4 készítéséhez WebCodecs (H.264 + AAC) kell: Chrome és Edge számító
 Ahol nincs, ott az előnézet működik, a letöltés nem; az oldal ezt ki is írja. A háttérfotót és a logót a
 videóba közvetlenül rajzolja (nem a képkocka-SVG-n belül), mert a Safari azokat késve tölti be, és a
 háttér villogott az iPhone-on készült videókban. Ha a videókódoló megáll (a Safari az iOS-szimulátorban
-a H.264 High profillal ezt teszi), az export a következő beállítással (Main, majd Baseline) kezdi újra. A betűk a gép saját kínai betűi (macOS: Kaiti / PingFang), ezért más
+a H.264 High profillal ezt teszi), az export a következő beállítással (Main, majd Baseline) kezdi újra.
+A Safari a hang (AAC) beállítását teljes MPEG-4 ES-leíróként adja át; az export ebből kiveszi a 2 bájtos
+AudioSpecificConfigot, különben a lejátszók nem látják a hangsávot, és az iPhone-on készült videó néma.
+Az előnézet médialejátszóként szól (`navigator.audioSession.type = 'playback'`), így az iPhone néma
+kapcsolója nem némítja el. A betűk a gép saját kínai betűi (macOS: Kaiti / PingFang), ezért más
 gépen kissé másképp nézhetnek ki.
 
 **Közzététel:** a `.github/workflows/pages.yml` minden `main`-re pusholáskor kiteszi az oldalt a GitHub

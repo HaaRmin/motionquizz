@@ -132,6 +132,46 @@ async function drain(venc) {
 
 const within = (p, ms) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Stalled('the video encoder did not finish')), ms))]);
 
+// Safari describes its AAC sound with a whole MPEG-4 ES descriptor (tag 3), where Chrome gives the 2-byte
+// AudioSpecificConfig the muxer expects. Put into the file as it is, players cannot read the sound track and
+// the video plays silent, so the AudioSpecificConfig (the DecoderSpecificInfo inside it, tag 5) is taken out.
+function aacMeta(meta) {
+  const d = meta && meta.decoderConfig && meta.decoderConfig.description;
+  if (!d) return meta;
+  const b = d instanceof ArrayBuffer ? new Uint8Array(d) : new Uint8Array(d.buffer, d.byteOffset, d.byteLength);
+  if (b[0] !== 0x03) return meta; // already an AudioSpecificConfig
+  const asc = specificInfo(b);
+  return asc ? { ...meta, decoderConfig: { ...meta.decoderConfig, description: asc } } : meta;
+}
+
+// the payload of the DecoderSpecificInfo inside an ES_Descriptor, or null
+function specificInfo(b) {
+  const read = at => { // a descriptor's tag, payload start and length (the length uses 7 bits per byte)
+    let len = 0, i = at + 1;
+    for (let k = 0; k < 4; k++) { const x = b[i++]; len = (len << 7) | (x & 0x7f); if (!(x & 0x80)) break; }
+    return { tag: b[at], start: i, end: i + len };
+  };
+  const es = read(0);
+  let i = es.start + 2; // ES_ID
+  const flags = b[i++];
+  if (flags & 0x80) i += 2; // depends on another stream
+  if (flags & 0x40) i += 1 + b[i]; // URL
+  if (flags & 0x20) i += 2; // OCR stream
+  while (i < es.end) {
+    const dc = read(i);
+    if (dc.tag === 0x04) { // DecoderConfigDescriptor: 13 bytes of settings, then its own descriptors
+      for (let j = dc.start + 13; j < dc.end;) {
+        const ds = read(j);
+        if (ds.tag === 0x05) return b.slice(ds.start, ds.end);
+        j = ds.end;
+      }
+      return null;
+    }
+    i = dc.end;
+  }
+  return null;
+}
+
 async function soundBuffer(win) {
   const b64 = await win.renderAudioWav();
   const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
@@ -172,7 +212,7 @@ async function encode(win, vcfg, buf, onProgress) {
     venc.configure(vcfg);
 
     // sound first: it is quick, and the file then has both tracks from the start
-    const aenc = new AudioEncoder({ output: (c, m) => muxer.addAudioChunk(c, m), error: e => { encError = e; } });
+    const aenc = new AudioEncoder({ output: (c, m) => muxer.addAudioChunk(c, aacMeta(m)), error: e => { encError = e; } });
     aenc.configure(AUDIO);
     for (let i = 0, step = 4410; i < buf.length; i += step) {
       const n = Math.min(step, buf.length - i), data = new Float32Array(n * 2);

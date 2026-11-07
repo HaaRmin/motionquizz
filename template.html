@@ -504,7 +504,10 @@ let T = 0, playing = false, t0 = 0, p0 = 0, ac = null, soundOn = true;
 const playBtn = document.getElementById('play'), seek = document.getElementById('seek'), time = document.getElementById('time'), snd = document.getElementById('snd');
 const show = () => { renderAt(T); seek.value = Math.round(T / DUR * 1000); time.textContent = T.toFixed(1) + ' / ' + DUR.toFixed(1); };
 const stopAudio = () => { if (ac) { ac.close(); ac = null; } };
-const startAudio = () => { stopAudio(); if (!soundOn) return; ac = new AudioContext(); synth(ac, T, ac.currentTime + 0.05); };
+// An iPhone mutes web-page sound while its ring/silent switch is on silent, unless the page plays like a media
+// player ("playback", Safari 17 and later). The downloaded video plays with sound either way.
+const asPlayer = () => { try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) { /* older browser */ } };
+const startAudio = () => { stopAudio(); if (!soundOn) return; asPlayer(); ac = new AudioContext(); synth(ac, T, ac.currentTime + 0.05); };
 function loop() { if (!playing) return; T = p0 + (performance.now() - t0) / 1000; if (T >= DUR) { T = DUR; playing = false; playBtn.textContent = 'Play'; stopAudio(); } show(); if (playing) requestAnimationFrame(loop); }
 function play() { if (T >= DUR - 0.01) T = 0; playing = true; p0 = T; t0 = performance.now() + 50; playBtn.textContent = 'Pause'; startAudio(); requestAnimationFrame(loop); }
 function pause() { playing = false; playBtn.textContent = 'Play'; stopAudio(); }
