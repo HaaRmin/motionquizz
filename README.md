@@ -49,8 +49,9 @@ Az `out/` mappába kerül a `.html`, a `.mp4` és egy `.json` (a kiválasztott s
   álló, legalább 1080×1920-as JPEG. Ha a mappa üres, a rajzolt színes lampionos utca marad (a színek a
   `template.html` `LANTERN_COLORS` listájában). A mappát a `config.json` → `backgrounds` adja meg.
 - TikTok-keret: a videó 1080×1920 (9:16). A kvíz elemei (visszaszámláló, kérdés, kártya vagy válaszok,
-  követő kártya a logóval) egy csoportban vannak, amely 90%-ra kicsinyítve a TikTok által szabadon hagyott
-  rész közepén áll (kb. x 114–876, y 377–1513; `template.html` → `.qz-group`). A lejátszó **TikTok guides**
+  követő kártya a logóval) egy csoportban vannak: a visszaszámlálótól a legmagasabb kérdés aljáig tartó rész
+  közepe a kép közepére (540, 960) kerül, a csoport 85%-ra kicsinyítve (x 180–900), így a TikTok felső sávja,
+  jobb oldali oszlopa és felirata nem takarja (`template.html` → `placeGroup`, `GROUP_SCALE`). A lejátszó **TikTok guides**
   gombja azt mutatja, amit egy iPhone-on mértünk (2026-11, egy TikTok-képernyőképből): a TikTok kitölti a
   képernyőt, ezért felül és alul kb. 73 pixelt levág; a felső sáv kb. 170 pixelig ér, a jobb oldali oszlop
   (profilkép, like, komment, mentés, megosztás) 955 és 1820 között van, 940 pixeltől jobbra, a felirat kb.

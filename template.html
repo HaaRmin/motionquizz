@@ -54,11 +54,11 @@ body.guides #guides { display:block } body.capture #guides { display:none !impor
 #stage.photo .qz-followtxt { background:color-mix(in srgb, var(--ground) 92%, transparent) }
 .qz-shade { position:absolute; inset:0; background:linear-gradient(180deg, rgba(12,2,4,.5) 0%, rgba(12,2,4,.3) 30%, rgba(12,2,4,.34) 70%, rgba(12,2,4,.62) 100%) }
 .qz-vignette { position:absolute; inset:0; background:radial-gradient(90% 70% at 50% 50%, transparent 55%, color-mix(in srgb, var(--ground) 70%, transparent)) }
-/* The quiz itself (badge, question, card or answers, follow card) is one group. Laid out below in the full 1080 x 1920
-   frame, it spans about x 72-918, y 148-1410; its middle (495, 779) is moved to the middle of the part TikTok leaves
-   uncovered (x 60-930, y 170-1720: the dashed box of the guides) and the group shrunk to 90 %, so it ends up at about
-   x 114-876, y 377-1513, clear of TikTok's top bar, its right column and its caption. */
-.qz-group { position:absolute; left:0; top:0; width:1080px; height:1920px; transform-origin:495px 779px; transform:translate(0, 166px) scale(.9) }
+/* The quiz itself (badge, question, card or answers, follow card) is one group, laid out below in the full 1080 x 1920
+   frame at x 72-918. placeGroup() measures the stack (badge + question + card or answers, every question of the quiz),
+   puts its middle on the middle of the frame (540, 960) and shrinks the group to GROUP_SCALE, so it stays clear of
+   TikTok's top bar, its right column (x 940 and more) and its caption (see the guides). */
+.qz-group { position:absolute; left:0; top:0; width:1080px; height:1920px; transform-origin:495px 779px; transform:translate(45px, 181px) scale(.85) }
 .qz-ui { position:absolute; inset:0; display:none }
 .qz-col { position:absolute; left:72px; right:162px; top:330px; display:flex; flex-direction:column; align-items:stretch }
 .qz-bubble { position:relative; padding:44px 60px 50px; border-radius:46px; background:color-mix(in srgb, var(--main) 94%, transparent); text-align:center; font-size:58px; line-height:1.28; box-shadow:0 20px 50px rgba(0,0,0,.28); transform-origin:50% 100% }
@@ -543,8 +543,25 @@ snd.onclick = () => { soundOn = !soundOn; snd.textContent = soundOn ? 'Sound on'
 document.getElementById('guide').onclick = e => { const on = document.body.classList.toggle('guides'); e.currentTarget.setAttribute('aria-pressed', String(on)); };
 document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); playing ? pause() : play(); } });
 show();
+// The quiz group in the middle of the frame: the stack from the badge's top to the lowest question's bottom, measured
+// with the fonts loaded, is centred on (540, 960); the group is shrunk so its 846 px width ends 40 px left of TikTok's
+// right column (540 + 423 * 0.85 = 900). The follow card is not counted: it shows for the last two seconds only.
+const GROUP_SCALE = 0.85;
+function placeGroup() {
+  let top = bg.el.offsetTop, bottom = bg.el.offsetTop + bg.el.offsetHeight;
+  scenes.forEach(sc => {
+    const el = sc.view.el, was = el.style.display, col = el.querySelector('.qz-col');
+    el.style.display = 'block';
+    top = Math.min(top, col.offsetTop); bottom = Math.max(bottom, col.offsetTop + col.offsetHeight);
+    el.style.display = was;
+  });
+  const cx = 495, cy = (top + bottom) / 2; // 495: the middle of the column (x 72-918)
+  group.style.transformOrigin = cx + 'px ' + cy.toFixed(1) + 'px';
+  group.style.transform = 'translate(' + (540 - cx) + 'px, ' + (960 - cy).toFixed(1) + 'px) scale(' + GROUP_SCALE + ')';
+}
+placeGroup();
 window.QUIZ_READY = Promise.all([document.fonts ? document.fonts.ready : null, cat ? cat.ready : null, VOICE_READY, bd.ready])
-  .then(() => { show(); return true; });
+  .then(() => { placeGroup(); show(); return true; });
 })();
 </script>
 </body>
