@@ -56,15 +56,29 @@ function drawLogo(ctx, p) {
   const t = el.style.transform || '', deg = num(/rotate\(([-\d.]+)deg\)/, t, 0), s = num(/scale\(([-\d.]+)\)/, t, 1);
   const img = p.logoImg, cover = Math.max(w / img.naturalWidth, h / img.naturalHeight);
   ctx.save();
+  // x, y are inside the card's group (the template's .qz-group), which is moved and shrunk as a whole
+  const group = card.offsetParent, gs = group && group !== p.stage ? groupTransform(ctx, group, view) : 1;
   ctx.globalAlpha = alpha;
   ctx.translate(x + w / 2, y + h / 2); ctx.rotate(deg * Math.PI / 180); ctx.scale(s, s);
   ctx.beginPath(); ctx.arc(0, 0, w / 2, 0, Math.PI * 2);
-  ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 36 * s; ctx.shadowOffsetY = 14 * s;
+  // a canvas shadow is not scaled with the drawing, so it is sized here like the CSS one
+  ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 36 * s * gs; ctx.shadowOffsetY = 14 * s * gs;
   ctx.fillStyle = '#000'; ctx.fill();
   ctx.shadowColor = 'transparent';
   ctx.clip();
   ctx.drawImage(img, -img.naturalWidth * cover / 2, -img.naturalHeight * cover / 2, img.naturalWidth * cover, img.naturalHeight * cover);
   ctx.restore();
+}
+
+// applies an element's CSS transform (around its transform-origin) to the canvas; returns its scale
+function groupTransform(ctx, el, view) {
+  const cs = view.getComputedStyle(el);
+  if (!cs.transform || cs.transform === 'none') return 1;
+  const m = new DOMMatrix(cs.transform), [ox, oy] = cs.transformOrigin.split(' ').map(parseFloat);
+  ctx.translate(el.offsetLeft + ox, el.offsetTop + oy);
+  ctx.transform(m.a, m.b, m.c, m.d, m.e, m.f);
+  ctx.translate(-ox, -oy);
+  return Math.hypot(m.a, m.b);
 }
 
 // one frame of the quiz page as an SVG image URL, without the pictures drawn separately

@@ -54,6 +54,11 @@ body.guides #guides { display:block } body.capture #guides { display:none !impor
 #stage.photo .qz-followtxt { background:color-mix(in srgb, var(--ground) 92%, transparent) }
 .qz-shade { position:absolute; inset:0; background:linear-gradient(180deg, rgba(12,2,4,.5) 0%, rgba(12,2,4,.3) 30%, rgba(12,2,4,.34) 70%, rgba(12,2,4,.62) 100%) }
 .qz-vignette { position:absolute; inset:0; background:radial-gradient(90% 70% at 50% 50%, transparent 55%, color-mix(in srgb, var(--ground) 70%, transparent)) }
+/* The quiz itself (badge, question, card or answers, follow card) is one group. Laid out below in the full 1080 x 1920
+   frame, it spans about x 72-918, y 148-1410; its middle (495, 779) is moved to the middle of the part TikTok leaves
+   uncovered (x 60-930, y 170-1720: the dashed box of the guides) and the group shrunk to 90 %, so it ends up at about
+   x 114-876, y 377-1513, clear of TikTok's top bar, its right column and its caption. */
+.qz-group { position:absolute; left:0; top:0; width:1080px; height:1920px; transform-origin:495px 779px; transform:translate(0, 166px) scale(.9) }
 .qz-ui { position:absolute; inset:0; display:none }
 .qz-col { position:absolute; left:72px; right:162px; top:330px; display:flex; flex-direction:column; align-items:stretch }
 .qz-bubble { position:relative; padding:44px 60px 50px; border-radius:46px; background:color-mix(in srgb, var(--main) 94%, transparent); text-align:center; font-size:58px; line-height:1.28; box-shadow:0 20px 50px rgba(0,0,0,.28); transform-origin:50% 100% }
@@ -375,10 +380,11 @@ function photoBackdrop() {
   } };
 }
 const bd = Q.background ? photoBackdrop() : backdrop(); stage.append(bd.el);
-scenes.forEach(sc => { sc.view = Q.kind === 'kepes' ? charQuiz(sc) : mcQuiz(sc); stage.append(sc.view.el); });
-const cat = catView(); if (cat) stage.append(cat.el);
-const bg = badge(); stage.append(bg.el);
-const fw = Q.follow ? follow() : null; if (fw) stage.append(fw.el);
+const group = h('<div class="qz-group"></div>'); stage.append(group); // the quiz, moved and shrunk as one (see .qz-group)
+scenes.forEach(sc => { sc.view = Q.kind === 'kepes' ? charQuiz(sc) : mcQuiz(sc); group.append(sc.view.el); });
+const cat = catView(); if (cat) group.append(cat.el);
+const bg = badge(); group.append(bg.el);
+const fw = Q.follow ? follow() : null; if (fw) group.append(fw.el);
 let current = null;
 
 function renderAt(T) {
