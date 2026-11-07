@@ -50,7 +50,8 @@ body.guides #guides { display:block } body.capture #guides { display:none !impor
 /* on a busy photo the boxes need more body and the red bubble an outline */
 #stage.photo .qz-ans { background:var(--band, color-mix(in srgb, var(--ground) 90%, transparent)) }
 #stage.photo .qz-card { background:color-mix(in srgb, var(--card) 95%, transparent) }
-#stage.photo .qz-bubble { box-shadow:0 0 0 4px rgba(255,240,230,.55), 0 20px 50px rgba(0,0,0,.5) }
+/* the light ring is an outline: Safari draws a spread box-shadow next to a blurred one with square corners in the video */
+#stage.photo .qz-bubble { box-shadow:0 20px 50px rgba(0,0,0,.5); outline:4px solid rgba(255,240,230,.55) }
 #stage.photo .qz-followtxt { background:var(--band, color-mix(in srgb, var(--ground) 92%, transparent)) }
 .qz-shade { position:absolute; inset:0; background:linear-gradient(180deg, rgba(12,2,4,.5) 0%, rgba(12,2,4,.3) 30%, rgba(12,2,4,.34) 70%, rgba(12,2,4,.62) 100%) }
 .qz-vignette { position:absolute; inset:0; background:radial-gradient(90% 70% at 50% 50%, transparent 55%, color-mix(in srgb, var(--ground) 70%, transparent)) }
@@ -75,7 +76,7 @@ body.guides #guides { display:block } body.capture #guides { display:none !impor
 .qz-under { width:380px; height:30px; display:block }
 .qz-answers { margin-top:80px; display:flex; flex-direction:column; gap:40px }
 /* --band, --bandline: set by tuneBands() from the background behind the answers */
-.qz-ans { position:relative; padding:42px 120px; border-radius:36px; text-align:center; background:var(--band, color-mix(in srgb, var(--ground) 70%, transparent)); font-size:52px; line-height:1.2; box-shadow:0 14px 40px rgba(0,0,0,.25), inset 0 0 0 2px var(--bandline, transparent) }
+.qz-ans { position:relative; padding:42px 120px; border-radius:36px; text-align:center; background:var(--band, color-mix(in srgb, var(--ground) 70%, transparent)); font-size:52px; line-height:1.2; box-shadow:0 14px 40px rgba(0,0,0,.25); outline:2px solid var(--bandline, transparent); outline-offset:-2px }
 .qz-fill { position:absolute; inset:0; border-radius:36px; background:var(--accent); opacity:0 }
 .qz-anstxt { position:relative }
 .qz-check { position:absolute; right:44px; top:50%; width:64px; height:64px; margin-top:-32px }
@@ -83,7 +84,7 @@ body.guides #guides { display:block } body.capture #guides { display:none !impor
 .qz-badge svg { position:absolute; inset:0; width:100%; height:100%; filter:drop-shadow(0 8px 18px rgba(0,0,0,.3)) }
 .qz-num { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:88px; color:var(--ink) }
 .qz-follow { position:absolute; left:72px; right:162px; bottom:510px; display:flex; align-items:center; gap:28px; opacity:0 }
-.qz-followtxt { flex:1; padding:36px 46px; border-radius:32px; background:var(--band, color-mix(in srgb, var(--ground) 86%, transparent)); box-shadow:inset 0 0 0 2px var(--bandline, transparent); font-size:50px; line-height:1.25 }
+.qz-followtxt { flex:1; padding:36px 46px; border-radius:32px; background:var(--band, color-mix(in srgb, var(--ground) 86%, transparent)); outline:2px solid var(--bandline, transparent); outline-offset:-2px; font-size:50px; line-height:1.25 }
 .qz-logo { width:240px; height:240px; border-radius:50%; flex:none; object-fit:cover; box-shadow:0 14px 36px rgba(0,0,0,.45) }
 .qz-cat { pointer-events:none }
 .qz-catimg { position:absolute; display:block; height:auto; opacity:0; transform-origin:50% 100%; filter:drop-shadow(0 12px 22px rgba(0,0,0,.4)) }
@@ -589,13 +590,15 @@ function tuneBands() {
 // y 200, 30 px under TikTok's top bar. Measured with the fonts loaded.
 const GROUP_SCALE = 0.9, GROUP_TOP = 200;
 function placeGroup() {
-  let top = bg.el.offsetTop;
+  let top = bg.el.offsetTop, bottom = 0;
   scenes.forEach(sc => {
     const el = sc.view.el, was = el.style.display, col = el.querySelector('.qz-col');
     el.style.display = 'block';
-    top = Math.min(top, col.offsetTop);
+    top = Math.min(top, col.offsetTop); bottom = Math.max(bottom, col.offsetTop + col.offsetHeight);
     el.style.display = was;
   });
+  // the follow card goes under the lowest question, so it covers no answer and no card
+  if (fw) { fw.el.style.top = (bottom + 40) + 'px'; fw.el.style.bottom = 'auto'; }
   const cx = 495; // the middle of the column (x 72-918)
   group.style.transformOrigin = cx + 'px ' + top + 'px';
   group.style.transform = 'translate(' + (540 - cx) + 'px, ' + (GROUP_TOP - top) + 'px) scale(' + GROUP_SCALE + ')';

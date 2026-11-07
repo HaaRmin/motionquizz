@@ -31,7 +31,7 @@ async function pictures(doc) {
   const stage = doc.getElementById('stage');
   const photo = stage.querySelector('.qz-photo'), logo = stage.querySelector('.qz-logo');
   const load = el => (el && el.getAttribute('src') ? loadImage(el.getAttribute('src')) : null);
-  return { stage, photo, logo, photoImg: await load(photo), logoImg: await load(logo) };
+  return { stage, group: stage.querySelector('.qz-group'), photo, logo, photoImg: await load(photo), logoImg: await load(logo) };
 }
 const num = (re, s, d) => { const m = re.exec(s || ''); return m ? parseFloat(m[1]) : d; };
 
@@ -92,15 +92,34 @@ function frameSource(doc, p) {
     '<style><![CDATA[' + css + ']]></style>';
   const tail = '</div></foreignObject></svg>';
   const ser = new XMLSerializer(), hide = [p.photoImg && p.photo, p.logoImg && p.logo].filter(Boolean);
+  const url = body => 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(head + body + tail);
+  // the stage's own tag, unscaled (the player scales the stage to fit its window; the video is 1:1)
+  const shell = transparent => {
+    const el = p.stage.cloneNode(false);
+    el.style.transform = 'none';
+    if (transparent) el.style.background = 'transparent';
+    const html = ser.serializeToString(el), end = html.lastIndexOf('</div>');
+    return [html.slice(0, end), html.slice(end)];
+  };
+  // Two images per frame: "back" is the stage without the quiz group, "front" the quiz group alone, unscaled. Safari
+  // draws rounded shadows with square corners when an SVG image is scaled while it is drawn (dark boxes beside the
+  // cards, a square light ring behind the bubble), whether by CSS or by the canvas; so the front is drawn 1:1 onto a
+  // canvas of its own, and only that finished bitmap is moved and shrunk like the page does.
   return () => {
-    const keep = [stage.style.transform, stage.style.background];
-    stage.style.transform = 'none'; // the player scales the stage to fit its window; the video is 1:1
-    if (p.photoImg) stage.style.background = 'transparent'; // the photo under the frame shows through
     hide.forEach(el => { el.style.visibility = 'hidden'; });
-    const body = ser.serializeToString(stage);
+    const [bo, bc] = shell(Boolean(p.photoImg)); // the photo under the frame shows through
+    let back = bo;
+    for (const child of stage.children) if (child !== p.group) back += ser.serializeToString(child);
+    let front = null;
+    if (p.group) {
+      const keep = p.group.style.transform;
+      p.group.style.transform = 'none';
+      const [fo, fc] = shell(true);
+      front = url(fo + ser.serializeToString(p.group) + fc);
+      p.group.style.transform = keep;
+    }
     hide.forEach(el => { el.style.visibility = ''; });
-    [stage.style.transform, stage.style.background] = keep;
-    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(head + body + tail);
+    return { back: url(back + bc), front };
   };
 }
 
@@ -109,16 +128,30 @@ export async function frameRenderer(win) {
   const canvas = document.createElement('canvas');
   canvas.width = W; canvas.height = H;
   const ctx = canvas.getContext('2d');
+  const layer = document.createElement('canvas'); // the quiz group, drawn 1:1 (see frameSource)
+  layer.width = W; layer.height = H;
+  const lctx = layer.getContext('2d');
+  ctx.imageSmoothingQuality = 'high';
   const pics = await pictures(win.document);
   const src = frameSource(win.document, pics);
   return {
     canvas,
+    layer, // the quiz group's own 1:1 picture of the last frame (for checking)
     async draw(t) {
       win.renderAt(t);
-      const frame = await loadImage(src());
+      const s = src();
+      const [back, front] = await Promise.all([loadImage(s.back), s.front && loadImage(s.front)]);
       ctx.clearRect(0, 0, W, H);
       if (pics.photoImg) drawPhoto(ctx, pics);
-      ctx.drawImage(frame, 0, 0, W, H);
+      ctx.drawImage(back, 0, 0, W, H);
+      if (front) {
+        lctx.clearRect(0, 0, W, H);
+        lctx.drawImage(front, 0, 0);
+        ctx.save();
+        groupTransform(ctx, pics.group, win);
+        ctx.drawImage(layer, 0, 0);
+        ctx.restore();
+      }
       if (pics.logoImg) drawLogo(ctx, pics);
       return canvas;
     },

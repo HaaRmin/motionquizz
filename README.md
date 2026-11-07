@@ -57,6 +57,7 @@ Az `out/` mappába kerül a `.html`, a `.mp4` és egy `.json` (a kiválasztott s
   képernyőt, ezért felül és alul kb. 73 pixelt levág; a felső sáv kb. 170 pixelig ér, a jobb oldali oszlop
   (profilkép, like, komment, mentés, megosztás) 955 és 1820 között van, 940 pixeltől jobbra, a felirat kb.
   1720-nál kezdődik. A szaggatott keret az a rész, amit semmi nem takar. A videóba egyik sem kerül bele.
+- A záró „Follow me” kártya a legalsó kérdés alá kerül, így nem takar el választ vagy kártyát.
 - Válaszsávok (szöveges kvíz) és a „Follow me” doboz: a szöveg középen; a sáv színét a sablon a háttérből számolja
   (`template.html` → `tuneBands`): a válaszok mögötti rész átlagszíne (a sötétítő réteggel együtt) adja az árnyalatot,
   sötét háttéren világosabb, világos háttéren sötétebb sávval, mindig olvasható fehér szöveggel.
@@ -129,7 +130,7 @@ e-mail nincs.
 Az MP4 készítéséhez WebCodecs (H.264 + AAC) kell: Chrome és Edge számítógépen, Safari iPhone-on (Safari 26).
 Ahol nincs, ott az előnézet működik, a letöltés nem; az oldal ezt ki is írja. A háttérfotót és a logót a
 videóba közvetlenül rajzolja (nem a képkocka-SVG-n belül), mert a Safari azokat késve tölti be, és a
-háttér villogott az iPhone-on készült videókban. Ha a videókódoló megáll (a Safari az iOS-szimulátorban
+háttér villogott az iPhone-on készült videókban. A kvíz csoportját külön, 1:1-es képként rajzolja, és csak a kész képet kicsinyíti; a buborék világos kerete körvonal (outline), nem árnyék, mert a Safari a videóban szögletes dobozokat rajzolt belőle. Ha a videókódoló megáll (a Safari az iOS-szimulátorban
 a H.264 High profillal ezt teszi), az export a következő beállítással (Main, majd Baseline) kezdi újra.
 A Safari a hang (AAC) beállítását teljes MPEG-4 ES-leíróként adja át; az export ebből kiveszi a 2 bájtos
 AudioSpecificConfigot, különben a lejátszók nem látják a hangsávot, és az iPhone-on készült videó néma.
