@@ -49,8 +49,14 @@ Az `out/` mappába kerül a `.html`, a `.mp4` és egy `.json` (a kiválasztott s
   álló, legalább 1080×1920-as JPEG. Ha a mappa üres, a rajzolt színes lampionos utca marad (a színek a
   `template.html` `LANTERN_COLORS` listájában). A mappát a `config.json` → `backgrounds` adja meg.
 - TikTok-keret: a videó 1080×1920 (9:16), és minden tartalom a TikTok saját felülete alatti biztonságos
-  részben marad: felül 130, alul 480, jobbra 150, balra 60 pixel szabadon (a TikTok-fül, a gombsor és a
-  felirat helye). A lejátszó **TikTok guides** gombja mutatja ezeket a sávokat; a videóba nem kerülnek bele.
+  részben marad (felül 130, alul 480, jobbra 150, balra 60 pixel szabadon). A lejátszó **TikTok guides**
+  gombja azt mutatja, amit egy iPhone-on mértünk (2026-11, egy TikTok-képernyőképből): a TikTok kitölti a
+  képernyőt, ezért felül és alul kb. 73 pixelt levág; a felső sáv kb. 170 pixelig ér, a jobb oldali oszlop
+  (profilkép, like, komment, mentés, megosztás) 955 és 1820 között van, 940 pixeltől jobbra, a felirat kb.
+  1720-nál kezdődik. A szaggatott keret az a rész, amit semmi nem takar. A videóba egyik sem kerül bele.
+- Alapértelmezett háttér: `config.json` → `background` (most `bg-4-cat-moon.jpg`); a weboldal ezzel indul,
+  a `quiz_gen.py` is ezt használja. `--background auto` vagy az oldalon a „Chosen by the number” a sorszám
+  szerint választ a mappából. A logó továbbra is a sorszámból adódik, ha nincs kiválasztva.
 - `data/overrides.csv`: angol jelentés javítása (`han,en,`), szó kizárása (`han,,exclude`) vagy
   felvétele a gyakori kifejezések közé (`han,en,include`).
 - `fonts/`: opcionális betűtípusok beágyazása (lásd ott). Nélkülük a rendszer betűi szólnak.

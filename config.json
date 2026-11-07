@@ -30,5 +30,6 @@
     "voice": "cmn-CN-Chirp3-HD-Despina",
     "language": "cmn-CN"
   },
-  "logos": "assets/logos"
+  "logos": "assets/logos",
+  "background": "assets/backgrounds/bg-4-cat-moon.jpg"
 }

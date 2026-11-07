@@ -116,9 +116,12 @@ IMAGE_TYPES = (".png", ".webp", ".jpg", ".jpeg", ".avif")
 
 
 def pick_background(cfg, seed, forced=None):
-    """The background photo: --background if given, else one from the folder in config.json "backgrounds",
-    chosen by the seed (same seed, same background). None = the drawn lantern street."""
-    if forced:
+    """The background photo: --background if given, else config.json "background" (the default photo), else
+    (or with --background auto) one from the folder in config.json "backgrounds", chosen by the seed
+    (same seed, same background). None = the drawn lantern street."""
+    if forced != "auto":
+        forced = forced or cfg.get("background")
+    if forced and forced != "auto":
         p = Path(forced)
         p = p if p.is_absolute() or p.exists() else HERE / forced
         if not p.exists():
@@ -240,7 +243,7 @@ def main():
     ap.add_argument("--ui-font", help="font file for the other text (default: fonts/ui.*, else system font)")
     ap.add_argument("--dry-run", action="store_true", help="print the pick, write nothing")
     ap.add_argument("--no-history", action="store_true", help="do not read or update history.json")
-    ap.add_argument("--background", help="background image to use (default: one from assets/backgrounds/, by the seed)")
+    ap.add_argument("--background", help="background image to use (default: config.json \"background\"; 'auto': one from assets/backgrounds/, by the seed)")
     a = ap.parse_args()
 
     levels = [x.strip() for x in a.level.split(",") if x.strip()]

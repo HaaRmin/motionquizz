@@ -33,6 +33,8 @@ async function loadData() {
   ]);
   D = { cfg, index, lists: { 1: l1, 2: l2 }, overrides: parseCsv(ov), manifest, tpl };
   for (const f of index.backgrounds) $('bg').add(new Option(label(f), f));
+  // config.json "background": the photo the page starts with (the logo stays chosen by the number)
+  if (cfg.background && index.backgrounds.includes(cfg.background)) $('bg').value = cfg.background;
   for (const f of index.logos) $('logo').add(new Option(label(f), f));
 }
 
