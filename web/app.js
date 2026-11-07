@@ -154,7 +154,9 @@ async function exportVideo() {
     videoUrl = URL.createObjectURL(blob);
     const a = $('download');
     a.href = videoUrl; a.download = q.name + '.mp4'; a.hidden = false;
-    a.textContent = 'Download ' + q.name + '.mp4 (' + (blob.size / 1048576).toFixed(1) + ' MB)';
+    // a short label: the whole file name did not fit the button on a phone (the file keeps its full name)
+    a.textContent = 'Download MP4 · ' + (blob.size / 1048576).toFixed(1) + ' MB';
+    a.title = q.name + '.mp4';
     a.click();
     say('Video ready in ' + ((performance.now() - t0) / 1000).toFixed(0) + ' s.', 'ok');
   } catch (e) {
