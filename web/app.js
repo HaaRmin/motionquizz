@@ -111,7 +111,7 @@ function showWords(q) {
     }
     return li;
   }));
-  $('caption').value = 'HSK ' + q.levels.join('+') + ' Chinese quiz: ' +
+  $('caption').value = 'HSK ' + q.levels.join('+') + ' Chinese quiz' + (q.group ? ' · ' + q.group : '') + ': ' +
     q.items.map(it => it.han + ' ' + it.pinyin + ' = ' + it.en).join(' · ') +
     '\n#learnchinese #chinese #hsk #mandarin #chineselanguage';
 }
@@ -130,7 +130,7 @@ async function preview() {
     sizeFrame();
     current = { c, q };
     showWords(q);
-    $('picked').textContent = (bg ? bgName(bg) : 'Drawn lanterns') + ' · ' + (logo ? label(logo) : 'no logo') + ' · ' + Math.round(frame.contentWindow.DURATION) + ' s';
+    $('picked').textContent = (q.group ? 'Group: ' + q.group + ' · ' : '') + (bg ? bgName(bg) : 'Drawn lanterns') + ' · ' + (logo ? label(logo) : 'no logo') + ' · ' + Math.round(frame.contentWindow.DURATION) + ' s';
     say('Your quiz is ready. Press Play in the preview, or export the video.', 'ok');
     $('export').disabled = !(await canExport());
   } catch (e) {

@@ -61,14 +61,41 @@ def load_words(levels):
     return words
 
 
-def pick(kind, levels, words, n, seed, used, forced):
+def group_questions(pool, n, seed, used, groups):
+    """n questions from one set or topic of data/groups.csv: the groups are tried in the seed's order and the
+    first with n unused words is taken; in it the words go in the seed's order, never two with the same English
+    meaning or of one "same" group. Returns (words, group row), or (None, None) when no group has n words."""
+    by_han = {w["han"]: w for w in pool}
+    rows = sorted((r for r in groups["rows"] if r["kind"] in ("set", "topic")), key=lambda r: h(seed, "group", r["group"]))
+    for row in rows:
+        cands = sorted((by_han[x] for x in row["words"] if x in by_han and x not in used), key=lambda w: h(seed, w["han"]))
+        chosen, glosses = [], set()
+        for w in cands:
+            if w["en"].lower() in glosses or any(w["han"] in groups["same"].get(c["han"], ()) for c in chosen):
+                continue
+            chosen.append(w)
+            glosses.add(w["en"].lower())
+            if len(chosen) == n:
+                return chosen, row
+    return None, None
+
+
+def pick(kind, levels, words, n, seed, used, forced, groups=None):
+    """The quiz's words and the group they come from (None for --words or when no group has enough words)."""
     by_han = {w["han"]: w for w in words}
     if forced:
         missing = [x for x in forced if x not in by_han]
         if missing:
             sys.exit(f"Not in the selected HSK level(s): {', '.join(missing)}")
-        return [by_han[x] for x in forced]
+        return [by_han[x] for x in forced], None
     pool = [w for w in words if w["eligible"] and (kind != "kepes" or 1 <= len(w["han"]) <= 4)]
+    if groups and groups["rows"]:  # the three questions always share a group
+        chosen, row = group_questions(pool, n, seed, used, groups)
+        if not chosen and used:  # every group used up: start a new cycle
+            used.clear()
+            chosen, row = group_questions(pool, n, seed, used, groups)
+        if chosen:
+            return chosen, row
     order = sorted(pool, key=lambda w: h(seed, w["han"]))
     fresh = [w for w in order if w["han"] not in used]
     if len(fresh) < n:  # list used up: start a new cycle
@@ -82,7 +109,7 @@ def pick(kind, levels, words, n, seed, used, forced):
         glosses.add(w["en"].lower())
         if len(chosen) == n:
             break
-    return chosen
+    return chosen, None
 
 
 def load_groups():
@@ -97,7 +124,8 @@ def load_groups():
         for row in csv.DictReader(f):
             kind = (row.get("kind") or "").strip()
             words = [x.strip() for x in (row.get("words") or "").split(";") if x.strip()]
-            groups["rows"].append({"group": (row.get("group") or "").strip(), "kind": kind, "words": words})
+            groups["rows"].append({"group": (row.get("group") or "").strip(), "kind": kind,
+                                   "label": (row.get("label") or "").strip(), "words": words})
             if kind in ("set", "topic", "same"):
                 for x in words:
                     groups[kind].setdefault(x, set()).update(y for y in words if y != x)
@@ -299,7 +327,7 @@ def main():
     words = load_words(levels)
     pool, groups = load_words(distractor_levels(levels)), load_groups()  # wrong answers: these levels and the ones below
     forced = [x.strip() for x in a.words.split(",")] if a.words else None
-    chosen = pick(a.kind, levels, words, n, seed, used, forced)
+    chosen, group = pick(a.kind, levels, words, n, seed, used, forced, groups)
 
     items = []
     for w in chosen:
@@ -316,7 +344,8 @@ def main():
     name = f"{a.kind}_hsk{'-'.join(levels)}_{run_no:03d}" if not a.seed else f"{a.kind}_hsk{'-'.join(levels)}_{a.seed}"
     logo = pick_logo(cfg, seed)
     bg = pick_background(cfg, seed, a.background)
-    manifest = {"name": name, "kind": a.kind, "levels": levels, "seed": seed, "logo": logo.name if logo else None,
+    manifest = {"name": name, "kind": a.kind, "levels": levels, "seed": seed, "group": group["label"] if group else None,
+                "logo": logo.name if logo else None,
                 "background": bg.name if bg else None, "items": items}
     print(json.dumps(manifest, ensure_ascii=False, indent=1))
     if a.dry_run:

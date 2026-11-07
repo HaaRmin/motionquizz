@@ -36,6 +36,9 @@ Az `out/` mappába kerül a `.html`, a `.mp4` és egy `.json` (a kiválasztott s
   ismétlés nélkül haladnak végig a listán, és ha elfogyott, új kört kezdenek. `--no-history` kikapcsolja.
 - Alapból főnevek, igék, melléknevek és időszavak kerülnek be, a többféle kiejtésű szavak nem, hacsak az
   `overrides.csv` meg nem adja a helyes kiejtést (`pinyin` oszlop) és be nem veszi őket (`include`).
+- A kvíz három kérdése mindig egy csoportból jön (`data/groups.csv` egy halmaza vagy témája, pl. évszakok,
+  család, színek): a seed választ egy csoportot, amelyben a választott szinten van legalább három használható
+  szó, és abból veszi a kérdéseket. A csoport neve a kimeneti `.json`-ban (`group`) és a TikTok-leírásban is szerepel.
 - A szöveges kvíz két rossz válasza csoportokból jön (`data/groups.csv`), ebben a sorrendben, amíg kettő nincs:
   1. ugyanabból a **halmazból** (set: természetes alternatívák, pl. ma / holnap / tegnap, fent / lent / mellett);
   2. ugyanabból a **témából** (topic: pl. Étel és ital, Iskola);
@@ -132,7 +135,7 @@ e-mail nincs.
 
 1. Koppints a típusra (Picture quiz / Text quiz) és a HSK-szintre, válassz hátteret és logót a képek közül
    (🎲 = minden kvíznél véletlen; a háttér alapból a `config.json` → `background`, a logó alapból 🎲), majd
-   **New quiz**. Minden New quiz új, véletlen kvízt készít (3 kérdés); sorszám és előzmény nincs. A szavakat
+   **New quiz**. Minden New quiz új, véletlen kvízt készít (3 kérdés egy csoportból); sorszám és előzmény nincs. A szavakat
    és a rossz válaszokat ugyanúgy választja, mint a `quiz_gen.py` (ugyanaz a seed = ugyanaz a kvíz), csak
    minden kvízhez új véletlen seedet ad.
 2. Az előnézetben Play gombbal meghallgatható, a **TikTok guides** gomb a TikTok gombjait és feliratát mutatja.
