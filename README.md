@@ -63,16 +63,25 @@ Az `out/` mappába kerül a `.html`, a `.mp4` és egy `.json` (a kiválasztott s
   olvasható maradjon. Egy adott kép kényszerítése: `--background assets/backgrounds/<fájl>`. Ajánlott:
   álló, legalább 1080×1920-as JPEG. Ha a mappa üres, a rajzolt színes lampionos utca marad (a színek a
   `template.html` `LANTERN_COLORS` listájában). A mappát a `config.json` → `backgrounds` adja meg.
+- Mit csinál a TikTok egy iPhone-on (mérve az első feltöltött videó képernyőképéből, 2026-11-07): a videóval
+  kitölti a képernyő magasságát, ezért **oldalt** vág le kb. 50-50 pixelt (fent és lent semmit), és kb. 10%-kal
+  nagyobbra rajzolja, mint ha a szélességhez igazítaná. Az állapotsor és a fülek (LIVE, Following, For You)
+  y 0–250 között takarnak, a gombok (profilkép, like, komment, mentés, megosztás, hang) x 900–1010 között vannak,
+  y 865-től lefelé, a felirat kb. y 1515-nél kezdődik (hosszabb leírásnál feljebb), legalul keresősáv lehet.
+  Rövid, 16:9-es telefonokon (iPhone SE) fent és lent vág, a fülek és a felirat ott is nagyjából ugyanide esnek.
+  A lejátszó **TikTok guides** gombja ezt rajzolja a képre; a szaggatott vonalon belül semmi nem takar. A videóba
+  nem kerül bele.
 - TikTok-keret: a videó 1080×1920 (9:16). A kvíz elemei (visszaszámláló, kérdés, kártya vagy válaszok,
-  követő kártya a logóval) egy csoportban vannak („C” elrendezés, 2026-11-07): 90%-ra kicsinyítve, vízszintesen
-  középen (x 159–921), a teteje (a visszaszámláló) y 200-nál, 30 pixellel a TikTok felső sávja alatt, így a TikTok
-  felső sávja, jobb oldali oszlopa és felirata nem takarja (`template.html` → `placeGroup`, `GROUP_SCALE`,
-  `GROUP_TOP`). A választható elrendezések mockupja: `../mockups/elrendezesek.html` (a repón kívül). A lejátszó **TikTok guides**
-  gombja azt mutatja, amit egy iPhone-on mértünk (2026-11, egy TikTok-képernyőképből): a TikTok kitölti a
-  képernyőt, ezért felül és alul kb. 73 pixelt levág; a felső sáv kb. 170 pixelig ér, a jobb oldali oszlop
-  (profilkép, like, komment, mentés, megosztás) 955 és 1820 között van, 940 pixeltől jobbra, a felirat kb.
-  1720-nál kezdődik. A szaggatott keret az a rész, amit semmi nem takar. A videóba egyik sem kerül bele.
-- A záró „Follow me” kártya a legalsó kérdés alá kerül, így nem takar el választ vagy kártyát.
+  követő kártya a logóval) egy csoportban vannak („B” elrendezés, 2026-11-07, az első feltöltés után): 86%-ra
+  kicsinyítve, vízszintesen középen, a teteje (a visszaszámláló) y 264-nél, a fülek alatt. A buborék x 176–904
+  között van (a gombok felett), a kártya, a válaszok és a „Follow me” kártya 28 pixellel keskenyebb mindkét oldalon,
+  így x 200–880 között vannak, a gombok mellett. A kártya 560 pixel magas (korábban 640), a válaszok kicsit
+  vékonyabbak, a „Follow me” szöveg kicsit kisebb, hogy a végén minden a felirat fölött legyen
+  (`template.html` → `placeGroup`, `GROUP_SCALE`, `GROUP_TOP`, `GROUP_BOTTOM`). Ha hosszú szavak miatt egy kvíz
+  magasabb (több soros kérdés vagy válasz), a csoport éppen annyira kisebb lesz, hogy y 1505-nél véget érjen.
+  A választható elrendezések mockupja: `../mockups/tiktok-fit.html` (a repón kívül; a korábbiak: `elrendezesek.html`).
+- A záró „Follow me” kártya az utolsó kérdés alá kerül (a végén azzal együtt látszik), így nem takar el választ
+  vagy kártyát.
 - A szöveges kvíz válaszai kicsit lejjebb, a buborék alatt 190 pixellel kezdődnek („A” elrendezés, 2026-11-07).
 - Válaszsávok (szöveges kvíz) és a „Follow me” doboz: a szöveg középen; a sáv színét a sablon a háttérből számolja
   (`template.html` → `tuneBands`): a válaszok mögötti rész átlagszíne (a sötétítő réteggel együtt) adja az árnyalatot,

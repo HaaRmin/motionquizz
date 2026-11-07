@@ -23,21 +23,17 @@ body.capture #bar { display:none }
 /* TikTok guides: where TikTok draws its own interface (preview only, never in the video) */
 #guides { position:absolute; left:0; top:0; width:1080px; height:1920px; pointer-events:none; display:none; transform-origin:0 0; font:600 30px system-ui, sans-serif; color:#fff }
 body.guides #guides { display:block } body.capture #guides { display:none !important }
-/* Measured on an iPhone (2026-11): TikTok shows the video zoomed to fill its screen and cuts about 73 px off the top and
-   the bottom; its top bar ends near y 170, the right column (profile, like, comment, save, share) runs from y 955 to
-   1820 at x 940 and more, and the caption starts near y 1720. The dashed box is the part nothing covers. */
-.tg { position:absolute; box-sizing:border-box }
-.tg-cut { left:0; right:0; height:73px; display:flex; align-items:center; justify-content:center; font-size:24px; color:#ddd;
-  background:repeating-linear-gradient(135deg, rgba(0,0,0,.85) 0 16px, rgba(0,0,0,.65) 16px 32px) }
-.tg-bar { left:0; right:0; top:73px; height:97px; display:flex; align-items:center; justify-content:center; font-size:34px; background:rgba(0,0,0,.45) }
-.tg-col { left:940px; width:120px; top:945px; height:885px; background:rgba(0,0,0,.28); border-radius:60px }
-.tg-ava { left:944px; top:955px; width:112px; height:112px; border-radius:50%; background:#d9d9d9; border:4px solid #fff }
-.tg-plus { left:980px; top:1052px; width:40px; height:40px; border-radius:50%; background:#fe2c55; font:700 32px/40px system-ui, sans-serif; text-align:center }
-.tg-ico { left:940px; width:120px; text-align:center; font:700 64px/64px system-ui, sans-serif; text-shadow:0 2px 6px rgba(0,0,0,.6) }
-.tg-n { left:940px; width:120px; text-align:center; font:600 26px/26px system-ui, sans-serif }
-.tg-cap { left:0; width:830px; top:1720px; height:127px; padding:14px 36px 0; font:600 30px/42px system-ui, sans-serif; overflow:hidden;
-  background:linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.6)) }
-.tg-safe { position:absolute; left:60px; right:150px; top:170px; bottom:200px; border:4px dashed #66CCFF }
+/* Measured on an iPhone from the screenshot of the first upload (2026-11-07): TikTok fills the height of its screen
+   with the video and cuts about 50 px off each side (the dark strips). The status bar and the tabs cover y 0-250, the
+   buttons (profile, like, comment, save, share, sound) sit at x 900-1010 from y 865 down, the caption starts near y 1515
+   (higher with a longer caption) and a search bar can cover the bottom 85 px. Short 16:9 phones (iPhone SE) cut the top
+   and the bottom instead, with their tabs and caption in about the same place. The dashed line is the part nothing
+   covers. */
+#guides svg { position:absolute; left:0; top:0; width:1080px; height:1920px; overflow:visible }
+.gt { fill:#fff; font:400 38px system-ui, -apple-system, sans-serif; text-anchor:middle }
+.gt.b { font-weight:700 } .gt.m { fill:rgba(255,255,255,.72); font-size:42px; font-weight:600 } .gt.s { font-size:32px }
+.gt.n { font-size:30px; font-weight:600 } .gt.l { text-anchor:start } .gt.r { text-anchor:end; font-weight:600 }
+.gt.sh { paint-order:stroke; stroke:rgba(0,0,0,.45); stroke-width:6px }
 #bar button { background:#3b0a0d; color:#fff; border:0; border-radius:8px; padding:9px 14px; font:inherit; cursor:pointer }
 #bar button:focus-visible, #bar input:focus-visible { outline:2px solid #32B15D; outline-offset:2px }
 #bar input[type=range] { flex:1 1 120px; min-width:0; accent-color:#D95050 }
@@ -56,16 +52,17 @@ body.guides #guides { display:block } body.capture #guides { display:none !impor
 .qz-shade { position:absolute; inset:0; background:linear-gradient(180deg, rgba(12,2,4,.5) 0%, rgba(12,2,4,.3) 30%, rgba(12,2,4,.34) 70%, rgba(12,2,4,.62) 100%) }
 .qz-vignette { position:absolute; inset:0; background:radial-gradient(90% 70% at 50% 50%, transparent 55%, color-mix(in srgb, var(--ground) 70%, transparent)) }
 /* The quiz itself (badge, question, card or answers, follow card) is one group, laid out below in the full 1080 x 1920
-   frame at x 72-918. placeGroup() (layout "C", chosen 2026-11-07) shrinks it to GROUP_SCALE, centres it across the frame
-   and puts its top (the badge) at GROUP_TOP, just under TikTok's top bar, so it stays clear of the bar, TikTok's right
-   column (x 940 and more) and its caption (see the guides). */
-.qz-group { position:absolute; left:0; top:0; width:1080px; height:1920px; transform-origin:495px 148px; transform:translate(45px, 52px) scale(.9) }
+   frame at x 72-918; the card, the answers and the follow card are 28 px narrower on each side (x 100-890).
+   placeGroup() (layout "B", chosen 2026-11-07 after the first upload) shrinks it to GROUP_SCALE, centres it across the
+   frame and puts its top (the badge) at GROUP_TOP, just under TikTok's tabs, so it stays clear of the tabs, TikTok's
+   buttons (x 900 and more from y 865) and its caption (from about y 1515; see the guides). */
+.qz-group { position:absolute; left:0; top:0; width:1080px; height:1920px; transform-origin:495px 148px; transform:translate(45px, 116px) scale(.86) }
 .qz-ui { position:absolute; inset:0; display:none }
 .qz-col { position:absolute; left:72px; right:162px; top:330px; display:flex; flex-direction:column; align-items:stretch }
 .qz-bubble { position:relative; padding:44px 60px 50px; border-radius:46px; background:color-mix(in srgb, var(--main) 94%, transparent); text-align:center; font-size:58px; line-height:1.28; box-shadow:0 20px 50px rgba(0,0,0,.28); transform-origin:50% 100% }
 .qz-bubble::after { content:''; position:absolute; left:50%; bottom:-30px; margin-left:-34px; border-left:34px solid transparent; border-right:34px solid transparent; border-top:32px solid color-mix(in srgb, var(--main) 94%, transparent) }
 .qz-word { margin-top:52px; text-align:center; font-size:58px; text-shadow:0 2px 12px rgba(0,0,0,.4) }
-.qz-card { position:relative; margin-top:30px; height:640px; border-radius:46px; background:color-mix(in srgb, var(--card) 86%, transparent); box-shadow:0 24px 60px rgba(0,0,0,.3); display:flex; align-items:center; justify-content:center }
+.qz-card { position:relative; margin:30px 28px 0; height:560px; border-radius:46px; background:color-mix(in srgb, var(--card) 86%, transparent); box-shadow:0 24px 60px rgba(0,0,0,.3); display:flex; align-items:center; justify-content:center }
 .qz-grid { display:flex }
 .qz-cell { position:relative }
 .qz-cell svg { position:absolute; inset:0; width:100%; height:100% }
@@ -74,17 +71,17 @@ body.guides #guides { display:block } body.capture #guides { display:none !impor
 .qz-pop { padding:40px 70px 30px; border-radius:40px; background:color-mix(in srgb, var(--ink) 58%, transparent); box-shadow:0 30px 70px rgba(0,0,0,.4); text-align:center; display:flex; flex-direction:column; align-items:center; gap:6px; max-width:740px }
 .qz-pophan { font-size:96px; line-height:1.1 } .qz-poppin { font-size:76px; line-height:1.15 }
 .qz-under { width:380px; height:30px; display:block }
-.qz-answers { margin-top:190px; display:flex; flex-direction:column; gap:40px } /* layout "A": a bit lower under the bubble */
+.qz-answers { margin:190px 28px 0; display:flex; flex-direction:column; gap:40px } /* layout "A": a bit lower under the bubble */
 /* --band, --bandline: set by tuneBands() from the background behind the answers */
-.qz-ans { position:relative; padding:42px 120px; border-radius:36px; text-align:center; background:var(--band, color-mix(in srgb, var(--ground) 70%, transparent)); font-size:52px; line-height:1.2; box-shadow:0 14px 40px rgba(0,0,0,.25); outline:2px solid var(--bandline, transparent); outline-offset:-2px }
+.qz-ans { position:relative; padding:34px 110px; border-radius:36px; text-align:center; background:var(--band, color-mix(in srgb, var(--ground) 70%, transparent)); font-size:52px; line-height:1.2; box-shadow:0 14px 40px rgba(0,0,0,.25); outline:2px solid var(--bandline, transparent); outline-offset:-2px }
 .qz-fill { position:absolute; inset:0; border-radius:36px; background:var(--accent); opacity:0 }
 .qz-anstxt { position:relative }
 .qz-check { position:absolute; right:44px; top:50%; width:64px; height:64px; margin-top:-32px }
 .qz-badge { position:absolute; right:162px; top:148px; width:170px; height:170px }
 .qz-badge svg { position:absolute; inset:0; width:100%; height:100%; filter:drop-shadow(0 8px 18px rgba(0,0,0,.3)) }
 .qz-num { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:88px; color:var(--ink) }
-.qz-follow { position:absolute; left:72px; right:162px; bottom:510px; display:flex; align-items:center; gap:28px; opacity:0 }
-.qz-followtxt { flex:1; padding:36px 46px; border-radius:32px; background:var(--band, color-mix(in srgb, var(--ground) 86%, transparent)); outline:2px solid var(--bandline, transparent); outline-offset:-2px; font-size:50px; line-height:1.25 }
+.qz-follow { position:absolute; left:100px; right:190px; bottom:510px; display:flex; align-items:center; gap:28px; opacity:0 }
+.qz-followtxt { flex:1; padding:30px 38px; border-radius:32px; background:var(--band, color-mix(in srgb, var(--ground) 86%, transparent)); outline:2px solid var(--bandline, transparent); outline-offset:-2px; font-size:44px; line-height:1.25 }
 .qz-logo { width:240px; height:240px; border-radius:50%; flex:none; object-fit:cover; box-shadow:0 14px 36px rgba(0,0,0,.45) }
 .qz-cat { pointer-events:none }
 .qz-catimg { position:absolute; display:block; height:auto; opacity:0; transform-origin:50% 100%; filter:drop-shadow(0 12px 22px rgba(0,0,0,.4)) }
@@ -95,19 +92,35 @@ body.guides #guides { display:block } body.capture #guides { display:none !impor
 </head>
 <body>
 <div id="wrap"><div id="frame"><div id="stage"></div>
-  <div id="guides" aria-hidden="true">
-    <div class="tg tg-cut" style="top:0">cut off by TikTok</div>
-    <div class="tg tg-bar">Following &nbsp;|&nbsp; For You &nbsp;&nbsp;🔍</div>
-    <div class="tg tg-col"></div>
-    <div class="tg tg-ava"></div><div class="tg tg-plus">+</div>
-    <div class="tg tg-ico" style="top:1170px;color:#fe2c55">♥</div><div class="tg tg-n" style="top:1256px">408</div>
-    <div class="tg tg-ico" style="top:1349px">💬</div><div class="tg tg-n" style="top:1434px">12</div>
-    <div class="tg tg-ico" style="top:1525px">🔖</div><div class="tg tg-n" style="top:1610px">67</div>
-    <div class="tg tg-ico" style="top:1705px">↗</div><div class="tg tg-n" style="top:1789px">6</div>
-    <div class="tg tg-cap">@username · 11-07<br>caption and hashtags… more<br>♫ music</div>
-    <div class="tg tg-cut" style="bottom:0">cut off by TikTok</div>
-    <div class="tg-safe"></div>
-  </div>
+  <div id="guides" aria-hidden="true"><svg viewBox="0 0 1080 1920">
+    <defs><pattern id="tg-hatch" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="11" height="22" fill="rgba(255,255,255,.10)"/></pattern></defs>
+    <!-- status bar and tabs -->
+    <rect x="0" y="0" width="1080" height="250" fill="rgba(0,0,0,.22)"/>
+    <text x="150" y="82" class="gt b">13:26</text>
+    <g fill="#fff"><rect x="792" y="64" width="9" height="16" rx="2"/><rect x="806" y="58" width="9" height="22" rx="2"/><rect x="820" y="52" width="9" height="28" rx="2"/><rect x="834" y="46" width="9" height="34" rx="2" opacity=".4"/></g>
+    <rect x="878" y="50" width="62" height="30" rx="9" fill="none" stroke="#fff" stroke-width="3"/><rect x="883" y="55" width="44" height="20" rx="5" fill="#fff"/>
+    <text x="116" y="214" class="gt s b">LIVE</text><text x="327" y="216" class="gt m">Community</text><text x="578" y="216" class="gt m">Following</text>
+    <text x="789" y="216" class="gt b">For You</text><rect x="758" y="236" width="62" height="6" rx="3" fill="#fff"/>
+    <circle cx="950" cy="196" r="19" fill="none" stroke="#fff" stroke-width="5"/><path d="M964 210l16 16" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+    <!-- buttons: profile, like, comment, save, share, sound -->
+    <circle cx="953" cy="918" r="50" fill="#d9d9d9" stroke="#fff" stroke-width="4"/>
+    <circle cx="953" cy="970" r="21" fill="#fe2c55"/><path d="M953 959v22M942 970h22" stroke="#fff" stroke-width="5"/>
+    <circle cx="953" cy="1093" r="33" fill="#fe2c55"/><text x="953" y="1165" class="gt n">408</text>
+    <circle cx="953" cy="1253" r="33" fill="#fff"/><text x="953" y="1325" class="gt n">12</text>
+    <circle cx="953" cy="1413" r="33" fill="#FFC21A"/><text x="953" y="1485" class="gt n">67</text>
+    <circle cx="953" cy="1576" r="33" fill="#fff"/><text x="953" y="1648" class="gt n">6</text>
+    <circle cx="953" cy="1751" r="44" fill="#3a3a3a" stroke="#999" stroke-width="10"/>
+    <!-- caption and search bar -->
+    <text x="77" y="1550" class="gt l b sh">@username</text>
+    <text x="77" y="1606" class="gt l sh">Can you get 3/3? Comment your score</text>
+    <text x="77" y="1656" class="gt l sh">#learnchinese #hsk #mandarin … more</text>
+    <rect x="0" y="1837" width="1080" height="83" fill="rgba(20,20,20,.72)"/>
+    <text x="77" y="1892" class="gt l">Search · study quiz</text><text x="1000" y="1892" class="gt r">See more ›</text>
+    <!-- the sides TikTok cuts off, and the part nothing covers -->
+    <rect x="0" y="0" width="47" height="1920" fill="rgba(0,0,0,.72)"/><rect x="0" y="0" width="47" height="1920" fill="url(#tg-hatch)"/>
+    <rect x="1027" y="0" width="53" height="1920" fill="rgba(0,0,0,.72)"/><rect x="1027" y="0" width="53" height="1920" fill="url(#tg-hatch)"/>
+    <path d="M100 255H1000V850H880V1505H100Z" fill="none" stroke="#66CCFF" stroke-width="6" stroke-dasharray="20 14"/>
+  </svg></div>
 </div></div>
 <div id="bar">
   <button id="play" type="button">Play</button>
@@ -585,23 +598,33 @@ function tuneBands() {
   window.BANDS = { behind: bg, behindL: Math.round(L), band, bandL: Math.round(lstar(band)) }; // for checking
 }
 
-// The quiz group (layout "C"): 90 % of its size, centred across the frame (its 846 px column, x 72-918, ends at
-// 540 + 423 * 0.9 = 921, 19 px left of TikTok's right column), and its top (the badge or, if higher, a question) at
-// y 200, 30 px under TikTok's top bar. Measured with the fonts loaded.
-const GROUP_SCALE = 0.9, GROUP_TOP = 200;
+// The quiz group (layout "B"): 86 % of its size, centred across the frame, its top (the badge or, if higher, a
+// question) at y 264, 18 px under TikTok's tabs. The bubble (x 72-918) spans x 176-904, above TikTok's buttons; the
+// card, the answers and the follow card (x 100-890) span x 200-880, 20 px left of the buttons; the follow card ends
+// near y 1500, above the caption; a taller quiz is made smaller to end at GROUP_BOTTOM. Measured with the fonts loaded.
+const GROUP_SCALE = 0.86, GROUP_TOP = 264, GROUP_BOTTOM = 1505;
 function placeGroup() {
-  let top = bg.el.offsetTop, bottom = 0;
-  scenes.forEach(sc => {
+  let top = bg.el.offsetTop, bottom = 0, lastBottom = 0;
+  scenes.forEach((sc, i) => {
     const el = sc.view.el, was = el.style.display, col = el.querySelector('.qz-col');
     el.style.display = 'block';
-    top = Math.min(top, col.offsetTop); bottom = Math.max(bottom, col.offsetTop + col.offsetHeight);
+    const b = col.offsetTop + col.offsetHeight;
+    top = Math.min(top, col.offsetTop); bottom = Math.max(bottom, b);
+    if (i === scenes.length - 1) lastBottom = b;
     el.style.display = was;
   });
-  // the follow card goes under the lowest question, so it covers no answer and no card
-  if (fw) { fw.el.style.top = (bottom + 40) + 'px'; fw.el.style.bottom = 'auto'; }
+  // the follow card shows at the end, together with the last question: it goes under that question, so it covers
+  // no answer and no card
+  if (fw) {
+    fw.el.style.top = (lastBottom + 34) + 'px'; fw.el.style.bottom = 'auto';
+    bottom = Math.max(bottom, lastBottom + 34 + fw.el.offsetHeight);
+  }
+  // long words make a quiz taller (a question or an answer on more lines): then the group gets just small enough to
+  // end at GROUP_BOTTOM, above TikTok's caption
+  const scale = Math.min(GROUP_SCALE, (GROUP_BOTTOM - GROUP_TOP) / (bottom - top));
   const cx = 495; // the middle of the column (x 72-918)
   group.style.transformOrigin = cx + 'px ' + top + 'px';
-  group.style.transform = 'translate(' + (540 - cx) + 'px, ' + (GROUP_TOP - top) + 'px) scale(' + GROUP_SCALE + ')';
+  group.style.transform = 'translate(' + (540 - cx) + 'px, ' + (GROUP_TOP - top) + 'px) scale(' + scale + ')';
 }
 placeGroup();
 window.QUIZ_READY = Promise.all([document.fonts ? document.fonts.ready : null, cat ? cat.ready : null, VOICE_READY, bd.ready])
