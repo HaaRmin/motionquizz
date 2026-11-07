@@ -107,14 +107,18 @@ e-mail nincs.
 1. Válaszd ki a típust (képes / szöveges), a HSK-szintet és a **kvíz sorszámát**, majd **Make quiz**.
    Ugyanaz a sorszám mindig ugyanazt a kvízt adja; a szavakat a `quiz_gen.py`-jal azonos módon választja
    (a korábbi sorszámok szavait kihagyja, és ha a lista elfogyott, új kört kezd). A háttér és a logó a
-   sorszámból adódik, vagy kézzel választható.
+   sorszámból adódik, vagy kézzel választható. A böngésző megjegyzi a következő még nem használt sorszámot
+   (már a Make quiznél), így egy új látogatás új szavakkal indul; a **Next ▸** gomb a következő kvízt készíti el.
 2. Az előnézetben Play gombbal meghallgatható, a **TikTok guides** gomb a TikTok gombjait és feliratát mutatja.
 3. **Export MP4**: a böngésző elkészíti a videót (1080×1920, 30 fps, hanggal; egy szöveges kvíz kb. fél perc),
-   és letölti (`kepes_hsk1_001.mp4` stb.). Utána a sorszám ebben a böngészőben eggyel továbblép.
+   és letölti (`kepes_hsk1_001.mp4` stb.).
 4. A „TikTok caption” mezőben kész leírás van a kvíz szavaival; **Copy caption** a vágólapra teszi.
 
-Az MP4 készítéséhez **Chrome vagy Edge kell számítógépen** (WebCodecs H.264 + AAC). Más böngészőben az
-előnézet működik, a letöltés nem. A betűk a gép saját kínai betűi (macOS: Kaiti / PingFang), ezért más
+Az MP4 készítéséhez WebCodecs (H.264 + AAC) kell: Chrome és Edge számítógépen, Safari iPhone-on (Safari 26).
+Ahol nincs, ott az előnézet működik, a letöltés nem; az oldal ezt ki is írja. A háttérfotót és a logót a
+videóba közvetlenül rajzolja (nem a képkocka-SVG-n belül), mert a Safari azokat késve tölti be, és a
+háttér villogott az iPhone-on készült videókban. Ha a videókódoló megáll (a Safari az iOS-szimulátorban
+a H.264 High profillal ezt teszi), az export a következő beállítással (Main, majd Baseline) kezdi újra. A betűk a gép saját kínai betűi (macOS: Kaiti / PingFang), ezért más
 gépen kissé másképp nézhetnek ki.
 
 **Közzététel:** a `.github/workflows/pages.yml` minden `main`-re pusholáskor kiteszi az oldalt a GitHub

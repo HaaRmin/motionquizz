@@ -9,7 +9,7 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private mode: only the convenience is lost */ } },
 };
 const path = p => p.split('/').map(encodeURIComponent).join('/');
-const get = async url => { const r = await fetch(url); if (!r.ok) throw new Error(url + ' (' + r.status + ')'); return r; };
+const get = async (url, opts) => { const r = await fetch(url, opts); if (!r.ok) throw new Error(url + ' (' + r.status + ')'); return r; };
 const dataUri = async url => {
   const blob = await (await get(url)).blob();
   return new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = rej; fr.readAsDataURL(blob); });
@@ -19,12 +19,15 @@ const say = (text, kind = '') => { const s = $('status'); s.textContent = text; 
 
 let D = null, current = null, videoUrl = null;
 
+// the page's data files are checked with the site on every visit, so a new version never meets an old cached one
+const fresh = url => get(url, { cache: 'no-cache' });
+
 async function loadData() {
   const [cfg, index, l1, l2, ov, manifest, tpl] = await Promise.all([
-    get('config.json').then(r => r.json()), get('web/index.json').then(r => r.json()),
-    get('data/hsk1.json').then(r => r.json()), get('data/hsk2.json').then(r => r.json()),
-    get('data/overrides.csv').then(r => r.text()), get('audio/manifest.json').then(r => r.json()).catch(() => null),
-    get('template.html').then(r => r.text()),
+    fresh('config.json').then(r => r.json()), fresh('web/index.json').then(r => r.json()),
+    fresh('data/hsk1.json').then(r => r.json()), fresh('data/hsk2.json').then(r => r.json()),
+    fresh('data/overrides.csv').then(r => r.text()), fresh('audio/manifest.json').then(r => r.json()).catch(() => null),
+    fresh('template.html').then(r => r.text()),
   ]);
   D = { cfg, index, lists: { 1: l1, 2: l2 }, overrides: parseCsv(ov), manifest, tpl };
   for (const f of index.backgrounds) $('bg').add(new Option(label(f), f));
@@ -34,6 +37,15 @@ async function loadData() {
 const choice = () => ({ kind: $('kind').value, levels: $('level').value.split(','), number: Math.max(1, parseInt($('number').value, 10) || 1) });
 const nextKey = c => 'hsk-next:' + c.kind + ':' + c.levels.join('+');
 function suggestNumber() { $('number').value = store.get(nextKey(choice())) || '1'; }
+// remember the next unused number as soon as a quiz is made, so a new visit or Next gives new words
+function remember(c) { const k = nextKey(c), n = parseInt(store.get(k), 10) || 1; if (c.number + 1 > n) store.set(k, String(c.number + 1)); }
+// the preview frame keeps the video's proportions at any width, plus the player's bar (one row, or two when narrow)
+function sizeFrame() {
+  const f = $('frame'), bar = f.contentDocument && f.contentDocument.getElementById('bar');
+  f.style.height = Math.round(f.clientWidth * 1920 / 1080 + (bar ? bar.offsetHeight : 64) + 2) + 'px';
+  void f.offsetHeight; // lay the new size out now, so the preview fits itself to it straight away
+  if (f.contentWindow && typeof f.contentWindow.fit === 'function') f.contentWindow.fit();
+}
 
 // quiz_gen.py main(): the quiz data the template expects, with the clips and images inlined as data URIs
 async function quizData(c) {
@@ -81,7 +93,8 @@ function showWords(q) {
 
 async function preview() {
   const c = choice();
-  $('make').disabled = true; $('export').disabled = true; $('download').hidden = true;
+  $('make').disabled = true; $('next').disabled = true; $('export').disabled = true; $('download').hidden = true;
+  sizeFrame();
   say('Making quiz #' + c.number + '…');
   try {
     const { q, quiz, logo, bg } = await quizData(c);
@@ -89,7 +102,9 @@ async function preview() {
     const frame = $('frame');
     await new Promise(res => { frame.onload = res; frame.srcdoc = html; });
     await frame.contentWindow.QUIZ_READY;
+    sizeFrame();
     current = { c, q };
+    remember(c);
     showWords(q);
     $('picked').textContent = (bg ? label(bg) : 'drawn lanterns') + ' · ' + (logo ? label(logo) : 'no logo') + ' · ' + Math.round(frame.contentWindow.DURATION) + ' s';
     say('Quiz #' + c.number + ' is ready. Press Play in the preview, or export the video.', 'ok');
@@ -97,14 +112,14 @@ async function preview() {
   } catch (e) {
     say('Could not make the quiz: ' + e.message, 'error');
   } finally {
-    $('make').disabled = false;
+    $('make').disabled = false; $('next').disabled = false;
   }
 }
 
 async function exportVideo() {
   if (!current) return;
   const { c, q } = current;
-  $('export').disabled = true; $('make').disabled = true;
+  $('export').disabled = true; $('make').disabled = true; $('next').disabled = true;
   const t0 = performance.now();
   try {
     const blob = await exportMp4($('frame').contentWindow, (done, total) => {
@@ -117,16 +132,17 @@ async function exportVideo() {
     a.href = videoUrl; a.download = q.name + '.mp4'; a.hidden = false;
     a.textContent = 'Download ' + q.name + '.mp4 (' + (blob.size / 1048576).toFixed(1) + ' MB)';
     a.click();
-    store.set(nextKey(c), String(c.number + 1));
-    say('Video ready in ' + ((performance.now() - t0) / 1000).toFixed(0) + ' s. Next time the number moves on to #' + (c.number + 1) + '.', 'ok');
+    say('Video ready in ' + ((performance.now() - t0) / 1000).toFixed(0) + ' s. Press Next ▸ for quiz #' + (c.number + 1) + '.', 'ok');
   } catch (e) {
     say('Export failed: ' + e.message, 'error');
   } finally {
-    $('bar').value = 0; $('export').disabled = false; $('make').disabled = false;
+    $('bar').value = 0; $('export').disabled = false; $('make').disabled = false; $('next').disabled = false;
   }
 }
 
 $('make').onclick = preview;
+$('next').onclick = () => { $('number').value = String(choice().number + 1); preview(); };
+window.addEventListener('resize', sizeFrame);
 $('export').onclick = exportVideo;
 $('kind').onchange = $('level').onchange = suggestNumber;
 $('copy').onclick = async () => {
@@ -141,7 +157,8 @@ $('copy').onclick = async () => {
     suggestNumber();
     if (!(await canExport())) $('browser').hidden = false;
     say('Ready. Choose a quiz and press Make quiz.');
-    $('make').disabled = false;
+    $('make').disabled = false; $('next').disabled = false;
+    sizeFrame();
   } catch (e) {
     say('Could not load the quiz data: ' + e.message, 'error');
   }

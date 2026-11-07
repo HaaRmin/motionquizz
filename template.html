@@ -18,7 +18,7 @@ html, body { margin:0; height:100%; background:#140103; overflow:hidden; font-fa
 body.capture #wrap { inset:0 }
 #frame { position:relative; width:1080px; height:1920px; flex:none }
 #stage { position:absolute; left:0; top:0; width:1080px; height:1920px; overflow:hidden; background:var(--ground); color:var(--second); font-family:var(--ui-font); font-weight:700; font-feature-settings:"palt" }
-#bar { position:absolute; left:0; right:0; bottom:0; height:64px; display:flex; align-items:center; gap:14px; padding:0 18px; box-sizing:border-box; color:#f5e3e5; font:500 15px system-ui, sans-serif; background:#1e0204 }
+#bar { position:absolute; left:0; right:0; bottom:0; min-height:64px; display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; padding:12px 18px; box-sizing:border-box; color:#f5e3e5; font:500 15px system-ui, sans-serif; background:#1e0204 }
 body.capture #bar { display:none }
 /* TikTok guides: where TikTok draws its own interface (preview only, never in the video) */
 #guides { position:absolute; left:0; top:0; width:1080px; height:1920px; pointer-events:none; display:none; transform-origin:0 0; font:600 30px system-ui, sans-serif; color:#fff }
@@ -27,7 +27,7 @@ body.guides #guides { display:block } body.capture #guides { display:none !impor
 .tg-safe { position:absolute; left:60px; right:150px; top:130px; bottom:480px; border:4px dashed #66CCFF }
 #bar button { background:#3b0a0d; color:#fff; border:0; border-radius:8px; padding:9px 14px; font:inherit; cursor:pointer }
 #bar button:focus-visible, #bar input:focus-visible { outline:2px solid #32B15D; outline-offset:2px }
-#bar input[type=range] { flex:1; accent-color:#D95050 }
+#bar input[type=range] { flex:1 1 120px; min-width:0; accent-color:#D95050 }
 #time { font-variant-numeric:tabular-nums; min-width:92px; text-align:right }
 
 .layer { position:absolute; inset:0 }
@@ -491,12 +491,15 @@ const capture = new URLSearchParams(location.search).has('capture');
 if (capture) document.body.classList.add('capture');
 const frame = document.getElementById('frame'), wrap = document.getElementById('wrap');
 function fit() {
+  // a narrow player puts its buttons on a second row; the picture area ends where the bar starts
+  wrap.style.bottom = (capture ? 0 : document.getElementById('bar').offsetHeight) + 'px';
   const s = capture ? 1 : Math.min(wrap.clientWidth / W, wrap.clientHeight / H);
   frame.style.width = W * s + 'px'; frame.style.height = H * s + 'px';
   stage.style.transformOrigin = '0 0'; stage.style.transform = 'scale(' + s + ')';
   document.getElementById('guides').style.transform = 'scale(' + s + ')';
 }
 window.addEventListener('resize', fit); fit();
+window.fit = fit; // the quiz page calls it after resizing the preview
 let T = 0, playing = false, t0 = 0, p0 = 0, ac = null, soundOn = true;
 const playBtn = document.getElementById('play'), seek = document.getElementById('seek'), time = document.getElementById('time'), snd = document.getElementById('snd');
 const show = () => { renderAt(T); seek.value = Math.round(T / DUR * 1000); time.textContent = T.toFixed(1) + ' / ' + DUR.toFixed(1); };
